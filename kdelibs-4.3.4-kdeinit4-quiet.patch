@@ -1,0 +1,15 @@
+diff -up kdelibs-4.3.4/kdecore/io/kdebug.cpp.me kdelibs-4.3.4/kdecore/io/kdebug.cpp
+diff -up kdelibs-4.3.4/kinit/kinit.cpp.me kdelibs-4.3.4/kinit/kinit.cpp
+--- kdelibs-4.3.4/kinit/kinit.cpp.me	2010-05-01 21:06:16.000000000 +0200
++++ kdelibs-4.3.4/kinit/kinit.cpp	2010-05-01 21:22:41.000000000 +0200
+@@ -466,8 +466,10 @@ static pid_t launch(int argc, const char
+             execpath = exec;
+         }
+     }
++#ifndef NDEBUG
+     fprintf(stderr,"kdeinit4: preparing to launch %s\n", libpath.isEmpty()
+         ? execpath.constData() : libpath.toUtf8().constData());
++#endif
+     if (!args) {
+         argc = 1;
+     }

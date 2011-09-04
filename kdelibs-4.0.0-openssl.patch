@@ -1,0 +1,25 @@
+diff -up kdelibs-4.0.0/kio/kssl/kopenssl.cpp.openssl kdelibs-4.0.0/kio/kssl/kopenssl.cpp
+--- kdelibs-4.0.0/kio/kssl/kopenssl.cpp.openssl	2008-01-04 18:00:20.000000000 -0600
++++ kdelibs-4.0.0/kio/kssl/kopenssl.cpp	2008-01-23 06:58:32.000000000 -0600
+@@ -357,6 +357,10 @@ KOpenSSLProxy::KOpenSSLProxy()
+              #ifdef SHLIB_VERSION_NUMBER
+              << "libssl.so." SHLIB_VERSION_NUMBER
+              #endif
++             << "libssl.so.0.9.8g"
++             << "libssl.so.7"
++             << "libssl.so.0.9.8b"
++             << "libssl.so.6"
+              << "libssl.so"
+ 	     << "libssl.so.0"
+              #endif
+@@ -374,6 +378,10 @@ KOpenSSLProxy::KOpenSSLProxy()
+              #ifdef SHLIB_VERSION_NUMBER
+              << "libcrypto.so." SHLIB_VERSION_NUMBER
+              #endif
++             << "libcrypto.so.0.9.8g"
++             << "libcrypto.so.7"
++             << "libcrypto.so.0.9.8b"
++             << "libcrypto.so.6"
+              << "libcrypto.so"
+ 	     << "libcrypto.so.0"
+              #endif

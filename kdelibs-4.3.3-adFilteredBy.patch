@@ -1,0 +1,156 @@
+Index: khtml/khtml_settings.h
+===================================================================
+--- khtml/khtml_settings.h	(revision 1027233)
++++ khtml/khtml_settings.h	(revision 1027234)
+@@ -186,7 +186,23 @@
+     bool isPluginsEnabled( const QString& hostname = QString() ) const;
+ 
+     // AdBlocK Filtering
++
++    /** tests whether @p url is filtered.
++     * @param url the URL to test.
++     * @return @c true if the URL is blacklisted and is not whitelisted.
++     */
+     bool isAdFiltered( const QString &url ) const;
++
++    /** identify the filter which matches @p url.
++     * @param url the URL to test.
++     * @param isWhiteListed if not @c NULL, set to @c true if the URL matched
++     * a whitelist filter; set to @c false if it matched a blacklist filter.
++     * @return the filter string that matched,
++     * or @c QString() if no filter matched.
++     * @since 4.4
++    */
++    QString adFilteredBy( const QString &url, bool *isWhiteListed = 0 ) const;
++
+     bool isAdFilterEnabled() const;
+     bool isHideAdsEnabled() const;
+     void addAdFilter( const QString &url );
+Index: khtml/khtml_filter_p.h
+===================================================================
+--- khtml/khtml_filter_p.h	(revision 1027233)
++++ khtml/khtml_filter_p.h	(revision 1027234)
+@@ -35,8 +35,9 @@
+     // add filter to matching set
+     void addString(const QString& pattern);
+ 
+-    // check if string match at least one string from matching set
+-    bool isMatched(const QString& str) const;
++    // check if string matches at least one string from matching set,
++    // optionally return the matching string or filter
++    bool isMatched(const QString& str, QString *by = 0) const;
+ 
+     // add filter to matching set with wildcards (*,?) in it
+     void addWildedString(const QString& prefix, const QRegExp& rx);
+@@ -60,9 +61,10 @@
+     // Parses and registers a filter. This will also strip @@ for exclusion rules, skip comments, etc.
+     // The user does have to split black and white lists into separate sets, however
+     void addFilter(const QString& filter);
+-    
++
+     bool isUrlMatched(const QString& url);
+-    
++    QString urlMatchedBy(const QString& url);
++
+     void clear();
+ 
+ private:
+Index: khtml/khtml_settings.cpp
+===================================================================
+--- khtml/khtml_settings.cpp	(revision 1027233)
++++ khtml/khtml_settings.cpp	(revision 1027234)
+@@ -743,6 +743,27 @@
+     return false;
+ }
+ 
++QString KHTMLSettings::adFilteredBy( const QString &url, bool *isWhiteListed ) const
++{
++    QString m = d->adWhiteList.urlMatchedBy(url);
++    if (!m.isEmpty())
++    {
++        if (isWhiteListed != 0)
++            *isWhiteListed = true;
++        return (m);
++    }
++
++    m = d->adBlackList.urlMatchedBy(url);
++    if (!m.isEmpty())
++    {
++        if (isWhiteListed != 0)
++            *isWhiteListed = false;
++        return (m);
++    }
++
++    return (QString());
++}
++
+ void KHTMLSettings::addAdFilter( const QString &url )
+ {
+     KConfigGroup config = KSharedConfig::openConfig( "khtmlrc", KConfig::NoGlobals )->group( "Filter Settings" );
+Index: khtml/khtml_filter.cpp
+===================================================================
+--- khtml/khtml_filter.cpp	(revision 1027233)
++++ khtml/khtml_filter.cpp	(revision 1027234)
+@@ -133,6 +133,25 @@
+     return false;
+ }
+ 
++QString FilterSet::urlMatchedBy(const QString& url)
++{
++    QString by;
++
++    if (stringFiltersMatcher.isMatched(url, &by))
++        return by;
++
++    for (int c = 0; c < reFilters.size(); ++c)
++    {
++        if (url.contains(reFilters[c]))
++        {
++            by = reFilters[c].pattern();
++            break;
++        }
++    }
++
++    return by;
++}
++
+ void FilterSet::clear()
+ {
+     reFilters.clear();
+@@ -196,12 +215,15 @@
+     }
+ }
+ 
+-bool StringsMatcher::isMatched(const QString& str) const
++bool StringsMatcher::isMatched(const QString& str, QString *by) const
+ {
+     // check short strings first
+     for (int i = 0; i < shortStringFilters.size(); ++i) {
+         if (str.contains(shortStringFilters[i]))
++        {
++            if (by != 0) *by = shortStringFilters[i];
+             return true;
++        }
+     }
+ 
+     int len = str.length();
+@@ -235,13 +257,19 @@
+                 if (index >= 0) {
+                     int flen = stringFilters[index].length();
+                     if (k - flen + 1 >= 0 && stringFilters[index] == str.midRef(k - flen + 1 , flen))
++                    {
++                        if (by != 0) *by = stringFilters[index];
+                         return true;
++                    }
+                 } else {
+                     index = -index - 1;
+                     int flen = rePrefixes[index].length();
+                     if (k - 8 + flen < len && rePrefixes[index] == str.midRef(k - 7, flen) &&
+                             str.indexOf(reFilters[index], k - 7 + flen) == k - 7 + flen)
++                    {
++                        if (by != 0) *by = rePrefixes[index]+reFilters[index].pattern();
+                         return true;
++                    }
+                 }
+             }
+         }

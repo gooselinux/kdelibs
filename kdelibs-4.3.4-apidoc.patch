@@ -1,0 +1,12 @@
+diff -up kdelibs-4.3.4/doc/common/Doxyfile.global.disable-dot kdelibs-4.3.4/doc/common/Doxyfile.global
+--- kdelibs-4.3.4/doc/common/Doxyfile.global.disable-dot	2009-08-27 10:19:02.000000000 +0200
++++ kdelibs-4.3.4/doc/common/Doxyfile.global	2010-05-10 11:04:16.000000000 +0200
+@@ -139,7 +139,7 @@ EXTERNAL_GROUPS        = NO
+ PERL_PATH              = 
+ CLASS_DIAGRAMS         = YES
+ HIDE_UNDOC_RELATIONS   = NO
+-HAVE_DOT               = YES
++HAVE_DOT               = NO
+ UML_LOOK               = NO
+ TEMPLATE_RELATIONS     = YES
+ INCLUDE_GRAPH          = YES
