@@ -1,0 +1,4239 @@
+diff -Nur kdelibs-4.3.4/CMakeLists.txt kdelibs-4.3.5/CMakeLists.txt
+--- kdelibs-4.3.4/CMakeLists.txt	2009-11-27 14:00:29.000000000 +0100
++++ kdelibs-4.3.5/CMakeLists.txt	2010-01-21 21:49:15.000000000 +0100
+@@ -80,7 +80,7 @@
+ macro_optional_find_package(OpenGL)
+ macro_log_feature(OPENGL_FOUND "OpenGL" "API for developing portable, interactive 2D and 3D graphics applications" "http://mesa3d.sourceforge.net" FALSE "" "STRONGLY RECOMMENDED: The 3D hardware acceleration available through the OpenGL API is used in applications ranging from graphics and modellers to screensavers and video players.")
+ 
+-set(SOPRANO_MIN_VERSION "2.2.67")
++set(SOPRANO_MIN_VERSION "2.3.0")
+ macro_optional_find_package(Soprano)
+ macro_log_feature(Soprano_FOUND "Soprano" "Semantic Desktop Storing" "http://soprano.sourceforge.net" FALSE "${SOPRANO_MIN_VERSION}" "Provide metadata support (for semantic desktop).")
+ 
+Binärdateien kdelibs-4.3.4/doc/sonnet/index.cache.bz2 and kdelibs-4.3.5/doc/sonnet/index.cache.bz2 sind verschieden.
+diff -Nur kdelibs-4.3.4/includes/CMakeLists.txt kdelibs-4.3.5/includes/CMakeLists.txt
+--- kdelibs-4.3.4/includes/CMakeLists.txt	2009-06-17 22:08:15.000000000 +0200
++++ kdelibs-4.3.5/includes/CMakeLists.txt	2010-01-21 21:49:08.000000000 +0100
+@@ -80,6 +80,7 @@
+   KBookmarkAction
+   KBookmarkActionInterface
+   KBookmarkActionMenu
++  KBookmarkDialog
+   KBookmarkDomBuilder
+   KBookmarkExporterBase
+   KBookmarkGroup
+diff -Nur kdelibs-4.3.4/includes/KBookmarkDialog kdelibs-4.3.5/includes/KBookmarkDialog
+--- kdelibs-4.3.4/includes/KBookmarkDialog	1970-01-01 01:00:00.000000000 +0100
++++ kdelibs-4.3.5/includes/KBookmarkDialog	2010-01-21 21:49:08.000000000 +0100
+@@ -0,0 +1 @@
++#include "../kbookmarkdialog.h"
+diff -Nur kdelibs-4.3.4/interfaces/kimproxy/interface/kcm_instantmessenger.desktop kdelibs-4.3.5/interfaces/kimproxy/interface/kcm_instantmessenger.desktop
+--- kdelibs-4.3.4/interfaces/kimproxy/interface/kcm_instantmessenger.desktop	2009-10-02 10:18:05.000000000 +0200
++++ kdelibs-4.3.5/interfaces/kimproxy/interface/kcm_instantmessenger.desktop	2010-01-21 21:49:07.000000000 +0100
+@@ -4,6 +4,7 @@
+ Name[be@latin]=Kamunikatar
+ Name[bg]=Моментни съобщения
+ Name[ca]=Missatgeria instantània
++Name[ca@valencia]=Missatgeria instantània
+ Name[cs]=Komunikátor
+ Name[da]=Instant Messenger
+ Name[de]=Instant Messenger
+diff -Nur kdelibs-4.3.4/interfaces/kspeech/dbustexttospeech.desktop kdelibs-4.3.5/interfaces/kspeech/dbustexttospeech.desktop
+--- kdelibs-4.3.4/interfaces/kspeech/dbustexttospeech.desktop	2009-10-02 10:18:05.000000000 +0200
++++ kdelibs-4.3.5/interfaces/kspeech/dbustexttospeech.desktop	2010-01-21 21:49:07.000000000 +0100
+@@ -10,7 +10,7 @@
+ Comment[bn]=ডি-বাস (DBUS) ইন্টারফেস সহ টেক্সট-টু-স্পীচ সার্ভিস
+ Comment[bn_IN]=D-Bus ইন্টারফেসের সাহায্যে উপলব্ধ টেক্সট-থেকে-শব্দ পরিসেবা
+ Comment[ca]=Servei de síntesi de veu amb una interfície D-Bus
+-Comment[ca@valencia]=Servici de síntesi de veu amb una interfície D-Bus
++Comment[ca@valencia]=Servei de síntesi de veu amb una interfície D-Bus
+ Comment[cs]=Služba text-na-řeč s DBUS rozhraním
+ Comment[csb]=Ùsłëżnota czëtaniô tekstu z interfejsã DCOP
+ Comment[da]=Tekst-til-tale-tjeneste med B-BUS-grænseflade
+diff -Nur kdelibs-4.3.4/interfaces/ktexteditor/kcm_ktexteditor.desktop kdelibs-4.3.5/interfaces/ktexteditor/kcm_ktexteditor.desktop
+--- kdelibs-4.3.4/interfaces/ktexteditor/kcm_ktexteditor.desktop	2009-10-02 10:18:05.000000000 +0200
++++ kdelibs-4.3.5/interfaces/ktexteditor/kcm_ktexteditor.desktop	2010-01-21 21:49:08.000000000 +0100
+@@ -4,6 +4,7 @@
+ Name[be@latin]=Unutrany tekstavy redaktar
+ Name[bg]=Вграден текстов редактор
+ Name[ca]=Editor de text encastable
++Name[ca@valencia]=Editor de text encastable
+ Name[cs]=Zabudovaný textový editor
+ Name[da]=Indlejret tekstredigering
+ Name[de]=Eingebetteter Texteditor
+@@ -39,8 +40,8 @@
+ Name[ru]=Встроенный текстовый редактор
+ Name[se]=Vuojuhahtti čállinprográmma
+ Name[sl]=Vgrajeni urejevalnik besedil
+-Name[sr]=угњеждени уређивач текста
+-Name[sr@latin]=ugnježdeni uređivač teksta
++Name[sr]=угнежђени уређивач текста
++Name[sr@latin]=ugnežđeni uređivač teksta
+ Name[sv]=Inbäddad texteditor
+ Name[tr]=Gömülü Metin Düzenleyici
+ Name[uk]=Вмонтований текстовий редактор
+@@ -58,7 +59,7 @@
+ Comment[bn]=টেক্সট সম্পাদক সার্ভিসটি বিভিন্ন অ্যাপলিকেশন-কে একটি টেক্সট প্রদর্শক এবং সম্পাদক ব্যবহার করার সুযোগ দেয়। কোন কে.ডি.ই. অ্যাপলিকেশন টেক্সট সম্পাদনা করার সুবিধা দিতে চাইলে তার এই সার্ভিসটি ব্যবহার করা উচিত্‍।
+ Comment[bn_IN]=টেক্সট এডিটর পরিসেবার সাহায্যে টেক্সট প্রদর্শন ব্যবস্থা ও এডিটর উপলব্ধ করা হয়। টেক্সট এডিটরের কর্ম উপলব্ধকারী KDE অ্যাপ্লিকেশনগুলি দ্বারা এই পরিসেবা ব্যবহার করা আবশ্যক।
+ Comment[ca]=El servei de l'editor de text proveeix d'aplicacions amb un visor i un editor de text. Les aplicacions KDE que proveeixen de facilitats d'edició haurien d'emprar aquest servei.
+-Comment[ca@valencia]=El servici de l'editor de text proveeix d'aplicacions amb un visor i un editor de text. Les aplicacions KDE que proveeixen de facilitats d'edició haurien d'emprar este servici.
++Comment[ca@valencia]=El servei de l'editor de text proveeix d'aplicacions amb un visor i un editor de text. Les aplicacions KDE que proveeixen de facilitats d'edició haurien d'emprar este servei.
+ Comment[cs]=Služba textového editoru poskytuje aplikacím prohlížeč a editor textu. Aplikace KDE, které umožňují upravovat text, by měly používat tuto službu.
+ Comment[csb]=Ùsłëżnota tekstowegò editorë zezwôlô aplikaceją na przezéranié ë edicejã tekstów. Programë KDE, jaczé ùprzistãpniają nã edicëjną fùnkcëjã, mają brëkòwac ti ùsłëżnotë.
+ Comment[cy]=Mae'r gwasanaeth golygu testun yn darparu gwelydd testun a golygydd i gymhwysiadau.  dylai cymhwysiadau KDE sy'n darparu galluoedd golygu testun ddefnyddio'r gwasanaeth yma.
+@@ -122,7 +123,7 @@
+ Comment[tg]=Хидмати таҳриргари матн барномаҳоро бо намоишгари матн ва таҳриргар имкон медиҳад. Барномаҳои KDE бо хосиятҳои таҳриргари матн бояд ин хидмат истифода барад.
+ Comment[th]=บริการตัวแก้ไขข้อความ จะจัดเตรียมตัวดูข้อความและแก้ไขข้อความให้กับโปรแกรม โปรแกรมของ KDE ที่เตรียมความสามารถในการแก้ไขข้อความเอาไว้ ควรจะใช้บริการนี้
+ Comment[tr]=Metin düzenleyici servisi bir metin düzenleyici ve gösterici uygulama sağlar. Metin düzenleyebilen KDE uygulamaları bu servisi kullanmalıdır.
+-Comment[uk]=Служба "Текстовий редактор" постачає програми з переглядачем та редактором тексту. Програми KDE, які надають можливість редагування тексту, повинні користуватись цією службою.
++Comment[uk]=Служба «Текстовий редактор» забезпечує роботу програм з переглядачем та редактором тексту. Програми KDE, які надають можливість редагування тексту, повинні користуватись цією службою.
+ Comment[uz]=Matn tarhrirchi xizmati dasturlarni matn koʻruvchi va tahrirchi bilan taʼminlaydi. Matn tahrirlash imkoniyatini yaratuvchi KDE dasturlari shu xizmatni ishlatishi kerak.
+ Comment[uz@cyrillic]=Матн тарҳрирчи хизмати дастурларни матн кўрувчи ва таҳрирчи билан таъминлайди. Матн таҳрирлаш имкониятини яратувчи KDE дастурлари шу хизматни ишлатиши керак.
+ Comment[vi]=Dịch vụ soạn thảo văn bản cung cấp cho ứng dụng một bộ xem và soạn thảo văn bản. Các ứng dụng KDE mà cung cấp khả năng soạn thảo văn bản nên dùng dịch vụ này.
+diff -Nur kdelibs-4.3.4/interfaces/ktexteditor/ktexteditor.desktop kdelibs-4.3.5/interfaces/ktexteditor/ktexteditor.desktop
+--- kdelibs-4.3.4/interfaces/ktexteditor/ktexteditor.desktop	2009-10-02 10:18:05.000000000 +0200
++++ kdelibs-4.3.5/interfaces/ktexteditor/ktexteditor.desktop	2010-01-21 21:49:08.000000000 +0100
+@@ -68,8 +68,8 @@
+ Comment[se]=Vuojuhanláhkái čállinprográmmaoassi (Doc/View-sirremiin)
+ Comment[sk]=Vložiteľný komponent textového editora (s oddelením Doc/View)
+ Comment[sl]=Vgradljiva komponenta urejevalnika besedil (z ločevanjem pogleda in dokumenta)
+-Comment[sr]=Угњездива компонента уређивача текста (уз раздвајање документ-приказ)
+-Comment[sr@latin]=Ugnjezdiva komponenta uređivača teksta (uz razdvajanje dokument-prikaz)
++Comment[sr]=Угнездива компонента уређивача текста (уз раздвајање документ-приказ)
++Comment[sr@latin]=Ugnezdiva komponenta uređivača teksta (uz razdvajanje dokument-prikaz)
+ Comment[sv]=Inbäddningsbar texteditor (med dok/vyseparation)
+ Comment[ta]=உட்பொதிந்த உரை தொகுப்பாளர் பகுதி (ஆவண/காட்சி பிரிவுகளுடன்)
+ Comment[te]=పొదగబడె వాచకం సరిచేయు అంశం (పత్ర/వీక్షణ విభజన వున్నది)
+diff -Nur kdelibs-4.3.4/interfaces/ktexteditor/ktexteditorplugin.desktop kdelibs-4.3.5/interfaces/ktexteditor/ktexteditorplugin.desktop
+--- kdelibs-4.3.4/interfaces/ktexteditor/ktexteditorplugin.desktop	2009-10-02 10:18:05.000000000 +0200
++++ kdelibs-4.3.5/interfaces/ktexteditor/ktexteditorplugin.desktop	2010-01-21 21:49:08.000000000 +0100
+@@ -79,7 +79,7 @@
+ Comment[tg]=Васлкунаки KTextEditor
+ Comment[th]=โปรแกรมเสริม KTextEditor
+ Comment[tr]=KTextEditor Eklentisi
+-Comment[uk]=Втулок KTextEditor
++Comment[uk]=Додаток KTextEditor
+ Comment[uz]=KTextEditor plagini
+ Comment[uz@cyrillic]=KTextEditor плагини
+ Comment[vi]=Bổ sung Soạn thảo Văn bản
+diff -Nur kdelibs-4.3.4/kate/data/katepart.desktop kdelibs-4.3.5/kate/data/katepart.desktop
+--- kdelibs-4.3.4/kate/data/katepart.desktop	2009-10-02 10:18:06.000000000 +0200
++++ kdelibs-4.3.5/kate/data/katepart.desktop	2010-01-21 21:49:08.000000000 +0100
+@@ -67,8 +67,8 @@
+ Name[se]=Nana buorre vuojuhanláhkái čállinprográmma
+ Name[sk]=Vložiteľný komponent pokročilého textového editora
+ Name[sl]=Vgrajeni napredni urejevalnik besedil
+-Name[sr]=Угњеждени напредни уређивач текста
+-Name[sr@latin]=Ugnježdeni napredni uređivač teksta
++Name[sr]=Угнежђени напредни уређивач текста
++Name[sr@latin]=Ugnežđeni napredni uređivač teksta
+ Name[sv]=Inbäddningsbar avancerad texteditor
+ Name[ta]=உட்பொதிந்த மேம்பட்ட உரை தொகுப்பாளர்
+ Name[te]=ఆధునిక పొదగిన వాచకం సరిచేయునది
+diff -Nur kdelibs-4.3.4/kate/plugins/autobookmarker/ktexteditor_autobookmarker.desktop kdelibs-4.3.5/kate/plugins/autobookmarker/ktexteditor_autobookmarker.desktop
+--- kdelibs-4.3.4/kate/plugins/autobookmarker/ktexteditor_autobookmarker.desktop	2009-10-02 10:18:06.000000000 +0200
++++ kdelibs-4.3.5/kate/plugins/autobookmarker/ktexteditor_autobookmarker.desktop	2010-01-21 21:49:08.000000000 +0100
+@@ -157,8 +157,8 @@
+ Comment[se]=Bidjá girjemearkkaid linnjáide mat heivehit dihto minsttáriid go dokumeanttat rahpejuvvot.
+ Comment[sk]=Nastavuje záložky pri načítaní dokumentu na riadky zodpovedajúce vzorke
+ Comment[sl]=Ob nalaganju dokumentov nastavi zaznamke za vrstice, ki se ujemajo z vzorcem
+-Comment[sr]=При учитавању докумената, постави маркере на редове поклопљене обрасцем
+-Comment[sr@latin]=Pri učitavanju dokumenata, postavi markere na redove poklopljene obrascem
++Comment[sr]=Поставља маркере на редове поклопљене обрасцем по учитавању документа
++Comment[sr@latin]=Postavlja markere na redove poklopljene obrascem po učitavanju dokumenta
+ Comment[sv]=Lägg till bokmärken på rader som motsvarar ett mönster när dokument laddas
+ Comment[ta]= ஆவணங்கள் பதிவாகும் போது அமைப்பு புத்தகக்குறிப்பு கோடுகள் பொருத்தும் மாதிரி
+ Comment[te]=పత్రాలు ఎక్కించిన తరువాత బాణీకి సరిపొయిన వరుసల మీద బుక్ మార్కులను ఏర్పరుచును
+diff -Nur kdelibs-4.3.4/kate/plugins/insertfile/ktexteditor_insertfile.desktop kdelibs-4.3.5/kate/plugins/insertfile/ktexteditor_insertfile.desktop
+--- kdelibs-4.3.4/kate/plugins/insertfile/ktexteditor_insertfile.desktop	2009-10-02 10:18:06.000000000 +0200
++++ kdelibs-4.3.5/kate/plugins/insertfile/ktexteditor_insertfile.desktop	2010-01-21 21:49:08.000000000 +0100
+@@ -162,8 +162,8 @@
+ Comment[se]=Lasiha logahahtti fiilla čállinmearkka sajádahkii
+ Comment[sk]=Vloží ľubovoľný súbor na pozíciu kurzora
+ Comment[sl]=Vstavi katerokoli berljivo datoteko na položaju kazalca
+-Comment[sr]=Убаци било који читљиви фајл на положају курсора
+-Comment[sr@latin]=Ubaci bilo koji čitljivi fajl na položaju kursora
++Comment[sr]=Умеће било који читљиви фајл на положају курсора
++Comment[sr@latin]=Umeće bilo koji čitljivi fajl na položaju kursora
+ Comment[sv]=Infoga vilken läsbar fil som helst vid markörens plats
+ Comment[ta]=சுட்டும் இடத்தில் படிக்கக்கூடிய கோப்பினை உள்ளிடு
+ Comment[te]=ములుకు వున్న చోట చదవగలిగే దస్త్రాన్ని దూర్చును 
+diff -Nur kdelibs-4.3.4/kate/plugins/pythonencoding/ktexteditor_python-encoding.desktop kdelibs-4.3.5/kate/plugins/pythonencoding/ktexteditor_python-encoding.desktop
+--- kdelibs-4.3.4/kate/plugins/pythonencoding/ktexteditor_python-encoding.desktop	2009-10-02 10:18:06.000000000 +0200
++++ kdelibs-4.3.5/kate/plugins/pythonencoding/ktexteditor_python-encoding.desktop	2010-01-21 21:49:08.000000000 +0100
+@@ -114,8 +114,8 @@
+ Comment[se]=Vurkedettiin pythonfiillaid, iskka kodema ja lasit kodenlinnjá
+ Comment[sk]=Pri ukladaní kontroluje kódovanie pythonových súborov a pridáva záznam o kódovaní
+ Comment[sl]=Med shranjevanje datotek pythona preveri kodiranje in doda kodno vrstico
+-Comment[sr]=При уписивању питонских фајлова, проверава и додаје ред о кодирању
+-Comment[sr@latin]=Pri upisivanju python fajlova, proverava i dodaje red o kodiranju
++Comment[sr]=При уписивању питонских фајлова проверава и додаје ред о кодирању
++Comment[sr@latin]=Pri upisivanju Python fajlova proverava i dodaje red o kodiranju
+ Comment[sv]=När Python-filer sparas, kontrollera kodning och lägg till en kodningsrad
+ Comment[ta]=பைதான் கோப்புகளின் எழுத்துருவாக்கம் என்னவென சோதித்து எழுத்துருவாக்க வரியொன்றை உள்ளிடுக
+ Comment[tg]=Ҳангоми захиракунӣ, рамзгузории файлҳои python-ро тафтиш кунед ва хати рамзгузориро илова диҳед
+diff -Nur kdelibs-4.3.4/kate/plugins/timedate/ktexteditor_timedate.desktop kdelibs-4.3.5/kate/plugins/timedate/ktexteditor_timedate.desktop
+--- kdelibs-4.3.4/kate/plugins/timedate/ktexteditor_timedate.desktop	2009-10-02 10:18:06.000000000 +0200
++++ kdelibs-4.3.5/kate/plugins/timedate/ktexteditor_timedate.desktop	2010-01-21 21:49:08.000000000 +0100
+@@ -159,8 +159,8 @@
+ Comment[se]=Bija sisa dálá dáhtona ja áiggi
+ Comment[sk]=Vložiť aktuálny Čas & Dátum
+ Comment[sl]=Vstavi trenuten čas in datum
+-Comment[sr]=Уметни тренутно време и датум
+-Comment[sr@latin]=Umetni trenutno vreme i datum
++Comment[sr]=Умеће тренутно време и датум
++Comment[sr@latin]=Umeće trenutno vreme i datum
+ Comment[sv]=Infoga aktuell tid och datum
+ Comment[ta]=தற்போதைய நேரத்தினையும் தேதியினையும் நுழைக்கவும்
+ Comment[tg]=Вориди вақт ва санаи ҷорӣ
+diff -Nur kdelibs-4.3.4/kate/smart/katesmartmanager.cpp kdelibs-4.3.5/kate/smart/katesmartmanager.cpp
+--- kdelibs-4.3.4/kate/smart/katesmartmanager.cpp	2009-05-14 19:27:26.000000000 +0200
++++ kdelibs-4.3.5/kate/smart/katesmartmanager.cpp	2010-01-21 21:49:08.000000000 +0100
+@@ -324,7 +324,7 @@
+     int currentCanExpand = endGroup ? s_maximumGroupSize - currentGroup->length() : s_defaultGroupSize - currentGroup->length();
+     int expanded = 0;
+ 
+-    if (currentCanExpand) {
++    if (currentCanExpand > 0) {
+        int expandBy = qMin(edit->translate().line(), currentCanExpand);
+       // Current group can expand to accommodate the extra lines
+       currentGroup->setNewEndLine(currentGroup->endLine() + expandBy);
+diff -Nur kdelibs-4.3.4/kate/syntax/katecodefolding.cpp kdelibs-4.3.5/kate/syntax/katecodefolding.cpp
+--- kdelibs-4.3.4/kate/syntax/katecodefolding.cpp	2009-06-23 13:16:14.000000000 +0200
++++ kdelibs-4.3.5/kate/syntax/katecodefolding.cpp	2010-01-21 21:49:08.000000000 +0100
+@@ -1486,24 +1486,24 @@
+   if (hiddenLines.isEmpty())
+     return virtualLine;
+ 
+-  // kDebug(13000)<<QString("VirtualLine %1").arg(virtualLine);
++  // kDebug(13000) << "virtualLine" << virtualLine;
+ 
+   if (lineMapping.contains(virtualLine))
+     return lineMapping[virtualLine];
+ 
+-  unsigned int tmp = virtualLine;
++  unsigned int realLine = virtualLine;
+   for (QList<KateHiddenLineBlock>::const_iterator it=hiddenLines.constBegin();it!=hiddenLines.constEnd();++it)
+   {
+-    if ((*it).start<=virtualLine)
+-      virtualLine += (*it).length;
++    if ((*it).start <= realLine)
++      realLine += (*it).length;
+     else
+       break;
+   }
+ 
+-  // kDebug(13000)<<QString("Real Line %1").arg(virtualLine);
++  // kDebug(13000) << "realLine" << realLine;
+ 
+-  lineMapping.insert(tmp, virtualLine);
+-  return virtualLine;
++  lineMapping.insert(virtualLine, realLine);
++  return realLine;
+ }
+ 
+ //
+@@ -1515,19 +1515,22 @@
+   if (hiddenLines.isEmpty())
+     return realLine;
+ 
+-  // kDebug(13000)<<QString("RealLine--> %1").arg(realLine);
++  // kDebug(13000) << "realLine" << realLine;
++  int virtualLine = realLine;
+ 
+-  for (int i = hiddenLines.size()-1; i >= 0; --i)
+-  {
+-    if (hiddenLines[i].start <= realLine)
+-      realLine -= hiddenLines[i].length;
++  for (int i = hiddenLines.size()-1; i >= 0; --i) {
++    if ((int)hiddenLines[i].start <= virtualLine) {
++        virtualLine -= hiddenLines[i].length;
++        if (virtualLine < (int)hiddenLines[i].start)
++            virtualLine = hiddenLines[i].start-1;
++    }
+     // else
+       // break;
+   }
+ 
+-  // kDebug(13000)<<QString("-->virtual Line %1").arg(realLine);
++  // kDebug(13000) << "virtualLine" << virtualLine;
+ 
+-  return realLine;
++  return virtualLine;
+ }
+ 
+ //
+diff -Nur kdelibs-4.3.4/kate/utils/kateprinter.cpp kdelibs-4.3.5/kate/utils/kateprinter.cpp
+--- kdelibs-4.3.4/kate/utils/kateprinter.cpp	2009-08-27 10:19:01.000000000 +0200
++++ kdelibs-4.3.5/kate/utils/kateprinter.cpp	2010-01-21 21:49:08.000000000 +0100
+@@ -609,20 +609,25 @@
+ 
+       // If the line is too long (too many 'viewlines') to fit the remaining vertical space,
+       // clip and adjust the painter position as necessary
+-      int _lines = (*rangeptr)->viewLineCount()-remainder; // number of "sublines" to paint.
+-      int _yadjust = remainder * fontHeight; // if we need to clip at the start of the line, it's this much.
+-      bool _needWrap = (fontHeight*_lines > maxHeight-y);
+-
+-      if (remainder || _needWrap) {
+-        remainder = _needWrap? _lines - ((maxHeight-y)/fontHeight) : 0;
+-        paint.translate(0, -_yadjust);
+-        paint.setClipRect(0,_yadjust,maxWidth,((_lines-remainder)*fontHeight)-1); //### drop the crosspatch in printerfriendly mode???
++      int _lines = (*rangeptr)->viewLineCount(); // number of "sublines" to paint.
++
++      if (remainder) {
++        int _height = (maxHeight-y)/fontHeight;
++        _height = qMin(_height, remainder);        
++
++        paint.translate(0, -(_lines-remainder)*fontHeight+1);
++        paint.setClipRect(0, (_lines-remainder)*fontHeight+1, maxWidth, _height*fontHeight); //### drop the crosspatch in printerfriendly mode???
++        remainder -= _height;
++      }
++      else if (fontHeight*_lines > maxHeight-y) {
++        remainder = _lines - ((maxHeight-y)/fontHeight);
++        paint.setClipRect(0, 0, maxWidth, (_lines-remainder)*fontHeight+1); //### drop the crosspatch in printerfriendly mode???
+       }
+ 
+       renderer.paintTextLine(paint, *rangeptr, 0, (int)maxWidth);
+ 
+       paint.setClipping(false);
+-      paint.translate(_xadjust, (fontHeight * _lines)+_yadjust);
++      paint.translate(_xadjust, (fontHeight * _lines));
+ 
+       y += fontHeight*_lines;
+ 
+diff -Nur kdelibs-4.3.4/kate/view/kateviewinternal.cpp kdelibs-4.3.5/kate/view/kateviewinternal.cpp
+--- kdelibs-4.3.4/kate/view/kateviewinternal.cpp	2009-11-27 14:00:26.000000000 +0100
++++ kdelibs-4.3.5/kate/view/kateviewinternal.cpp	2010-01-21 21:49:08.000000000 +0100
+@@ -352,7 +352,7 @@
+   int range = y / renderer()->fontHeight();
+ 
+   // lineRanges is always bigger than 0, after the initial updateView call
+-  if (range >= 0 && range <= cache()->viewCacheLineCount())
++  if (range >= 0 && range < cache()->viewCacheLineCount())
+     return cache()->viewLine(range);
+ 
+   return KateTextLayout::invalid();
+@@ -704,10 +704,17 @@
+   if (startPos() > max)
+     scrollPos(max);
+ 
+-  if (clear_cache) {
++  {
+     QMutexLocker lock(m_doc->smartMutex());
+     cache()->clear ();
+   }
++
++  m_preserveX = true;
++  KTextEditor::Cursor newPos = toRealCursor(toVirtualCursor(m_cursor));
++  KateTextLayout newLine = cache()->textLayout(newPos);
++  newPos = renderer()->xToCursor(newLine, m_preservedX, !m_view->wrapCursor());
++  updateCursor(newPos, true);
++
+   updateView();
+   update();
+   m_leftBorder->update();
+diff -Nur kdelibs-4.3.4/kdecore/all_languages.desktop kdelibs-4.3.5/kdecore/all_languages.desktop
+--- kdelibs-4.3.4/kdecore/all_languages.desktop	2009-11-27 14:00:28.000000000 +0100
++++ kdelibs-4.3.5/kdecore/all_languages.desktop	2010-01-21 21:49:11.000000000 +0100
+@@ -544,7 +544,7 @@
+ Name[bn_IN]=অসমীয়া
+ Name[br]=Assamese
+ Name[ca]=Assamès
+-Name[ca@valencia]=Assamès
++Name[ca@valencia]=Assamés
+ Name[cs]=Asamský
+ Name[csb]=Assamijsczi
+ Name[cy]=Assameg
+@@ -1843,6 +1843,7 @@
+ Name[be@latin]=Valenskaja (paŭdniova-katalonskaja)
+ Name[bg]=Валенсиански (южен каталонски)
+ Name[ca]=Valencià (català meridional)
++Name[ca@valencia]=Valencià (català meridional)
+ Name[cs]=Valnecijský (jižní Katalánie)
+ Name[da]=Valenciansk (sydcatalansk)
+ Name[de]=Valencianisch (südliches Katalonien)
+@@ -2673,7 +2674,7 @@
+ Name[bn_IN]=ডেনিশ
+ Name[br]=Daneg
+ Name[ca]=Danès
+-Name[ca@valencia]=Danès
++Name[ca@valencia]=Danés
+ Name[cs]=Dánský
+ Name[csb]=Dëńsczi
+ Name[cy]=Daneg
+@@ -3098,7 +3099,7 @@
+ Name[bn_IN]=ইংরেজি
+ Name[br]=Saozneg
+ Name[ca]=Anglès
+-Name[ca@valencia]=Anglès
++Name[ca@valencia]=Anglés
+ Name[cs]=Anglický
+ Name[csb]=Anielsczi
+ Name[cy]=Saesneg
+@@ -3188,7 +3189,7 @@
+ Name[bn_IN]=ব্রিটিশ ইংরাজি
+ Name[br]=Saozneg eus Bro Saoz
+ Name[ca]=Anglès britànic
+-Name[ca@valencia]=Anglès britànic
++Name[ca@valencia]=Anglés britànic
+ Name[cs]=Britská angličtina
+ Name[csb]=Britijsczi anielsczi
+ Name[cy]=Saesneg Prydain
+@@ -3277,7 +3278,7 @@
+ Name[bn_IN]=আমেরিকান ইংরেজি
+ Name[br]=Saozneg eus SUA
+ Name[ca]=Anglès americà
+-Name[ca@valencia]=Anglès americà
++Name[ca@valencia]=Anglés americà
+ Name[cs]=Americká angličtina
+ Name[csb]=Amerikańsczi anielsczi
+ Name[da]=Amerikansk engelsk
+@@ -3811,7 +3812,7 @@
+ Name[bn_IN]=ফিনিশ
+ Name[br]=Finneg
+ Name[ca]=Finès
+-Name[ca@valencia]=Finès
++Name[ca@valencia]=Finés
+ Name[cs]=Finský
+ Name[csb]=Finsczi
+ Name[cy]=Ffineg
+@@ -3990,7 +3991,7 @@
+ Name[bn_IN]=ফেরোইজ
+ Name[br]=Faroeseg
+ Name[ca]=Feroès
+-Name[ca@valencia]=Feroès
++Name[ca@valencia]=Feroés
+ Name[cs]=Faerský
+ Name[csb]=z Òwczëch Òstrowów
+ Name[cy]=Faroeg
+@@ -4078,7 +4079,7 @@
+ Name[bn_IN]=ফ্রেঞ্চ
+ Name[br]=Galleg
+ Name[ca]=Francès
+-Name[ca@valencia]=Francès
++Name[ca@valencia]=Francés
+ Name[cs]=Francouzský
+ Name[csb]=Francësczi
+ Name[cy]=Frangeg
+@@ -4257,7 +4258,7 @@
+ Name[bn_IN]=আইরিশ গেলিক
+ Name[br]=Iwerzhoneg eus Bro Iwerzhon
+ Name[ca]=Gaèlic irlandès
+-Name[ca@valencia]=Gaèlic irlandès
++Name[ca@valencia]=Gaèlic irlandés
+ Name[cs]=Galský (irština)
+ Name[csb]=Irlandzczi Gaelic
+ Name[da]=Irsk gælisk
+@@ -4574,7 +4575,7 @@
+ Name[se]=Guaránagiella
+ Name[si]=ගුවාරානි
+ Name[sk]=Guarani
+-Name[sl]=guarani
++Name[sl]=gvarani
+ Name[sr]=гварани
+ Name[sr@latin]=gvarani
+ Name[sv]=Gujarati
+@@ -4664,8 +4665,8 @@
+ Name[si]=ගුජරාටි
+ Name[sk]=Gujarati
+ Name[sl]=gujarati
+-Name[sr]=гујарати
+-Name[sr@latin]=gujarati
++Name[sr]=гуџарати
++Name[sr@latin]=gudžarati
+ Name[sv]=Gujarati
+ Name[ta]=குஜராத்தி
+ Name[te]=గుజరాతీ
+@@ -5044,6 +5045,7 @@
+ Name[be@latin]=Chhattisgarhi
+ Name[bg]=Чхатисгархи
+ Name[ca]=Chattisgarbi
++Name[ca@valencia]=Chattisgarbi
+ Name[cs]=Chhattisgarhi
+ Name[da]=Chhattisgarhi
+ Name[de]=Chhattisgarhi
+@@ -5365,7 +5367,7 @@
+ Name[bn_IN]=হাঙ্গেরিয়ান
+ Name[br]=Hungareg
+ Name[ca]=Hongarès
+-Name[ca@valencia]=Hongarès
++Name[ca@valencia]=Hongarés
+ Name[cs]=Maďarský
+ Name[csb]=Madżarsczi
+ Name[cy]=Hwngareg
+@@ -6073,7 +6075,7 @@
+ Name[bn_IN]=আইসল্যান্ডিক
+ Name[br]=Islandeg
+ Name[ca]=Islandès
+-Name[ca@valencia]=Islandès
++Name[ca@valencia]=Islandés
+ Name[cs]=Islandský
+ Name[csb]=Islandzczi
+ Name[cy]=Islandeg
+@@ -6340,7 +6342,7 @@
+ Name[bn_IN]=জাপানি
+ Name[br]=Japaneg
+ Name[ca]=Japonès
+-Name[ca@valencia]=Japonès
++Name[ca@valencia]=Japonés
+ Name[cs]=Japonský
+ Name[csb]=Japòńsczi
+ Name[cy]=Japaneg
+@@ -6429,7 +6431,7 @@
+ Name[bn_IN]=জাভানিস
+ Name[br]=Javaneg
+ Name[ca]=Javanès
+-Name[ca@valencia]=Javanès
++Name[ca@valencia]=Javanés
+ Name[cs]=Jávský
+ Name[csb]=Jawańsczi
+ Name[cy]=Javaneg
+@@ -6961,7 +6963,7 @@
+ Name[bn_IN]=কন্নড়
+ Name[br]=Kanada
+ Name[ca]=Kanarès
+-Name[ca@valencia]=Kanarès
++Name[ca@valencia]=Kanarés
+ Name[cs]=Kannada
+ Name[csb]=Kannada
+ Name[cy]=Kannada
+@@ -7465,8 +7467,8 @@
+ Name[si]=කෝර්නිෂ්
+ Name[sk]=Kornšský
+ Name[sl]=cornish
+-Name[sr]=корниш
+-Name[sr@latin]=korniš
++Name[sr]=корнвалски
++Name[sr@latin]=kornvalski
+ Name[sv]=Korniska
+ Name[ta]=கோர்னிஷ்
+ Name[te]=కొర్నిష్
+@@ -7554,8 +7556,8 @@
+ Name[si]=කිර්ඝිස්
+ Name[sk]=Kyrghyzský
+ Name[sl]=kirgizijsko
+-Name[sr]=киргиз
+-Name[sr@latin]=kirgiz
++Name[sr]=киргиски
++Name[sr@latin]=kirgiski
+ Name[sv]=Kirghiziska
+ Name[ta]=கிர்கிஸ்
+ Name[te]=కిర్ఘిజ్
+@@ -7674,7 +7676,7 @@
+ Name[bn_IN]=লাক্সেমবুর্গিশ
+ Name[br]=Luksembourgeg
+ Name[ca]=Luxemburguès
+-Name[ca@valencia]=Luxemburguès
++Name[ca@valencia]=Luxemburgués
+ Name[cs]=Lucemburský
+ Name[csb]=Luksembùrsczi
+ Name[cy]=Luxembwrgeg
+@@ -7763,7 +7765,7 @@
+ Name[bn_IN]=লিমবুর্গান
+ Name[br]=Limburgeg
+ Name[ca]=Limburguès
+-Name[ca@valencia]=Limburguès
++Name[ca@valencia]=Limburgués
+ Name[cs]=Limburgan
+ Name[csb]=Limbùrgańsczi
+ Name[cy]=Limbwrgeg
+@@ -8358,7 +8360,7 @@
+ Name[bn_IN]=মার্শালিস
+ Name[br]=Yezh an enez Marshall
+ Name[ca]=Marshallès
+-Name[ca@valencia]=Marshallès
++Name[ca@valencia]=Marshallés
+ Name[cs]=Marshallský
+ Name[csb]=z Òstrowów Marshalla
+ Name[cy]=Marshalleg
+@@ -9069,7 +9071,7 @@
+ Name[bn_IN]=মল্টিস
+ Name[br]=Malteg
+ Name[ca]=Maltès
+-Name[ca@valencia]=Maltès
++Name[ca@valencia]=Maltés
+ Name[cs]=Maltézský
+ Name[csb]=Maltajsczi
+ Name[cy]=Malteg
+@@ -9596,7 +9598,7 @@
+ Name[bn_IN]=নেপালি
+ Name[br]=Nepaleg
+ Name[ca]=Nepalès
+-Name[ca@valencia]=Nepalès
++Name[ca@valencia]=Nepalés
+ Name[cs]=Nepálský
+ Name[csb]=Nepalsczi
+ Name[cy]=Nepali
+@@ -9773,7 +9775,7 @@
+ Name[bn_IN]=ডাচ
+ Name[br]=Nederlandeg
+ Name[ca]=Neerlandès
+-Name[ca@valencia]=Neerlandès
++Name[ca@valencia]=Neerlandés
+ Name[cs]=Holandský
+ Name[csb]=Hòlandzczi
+ Name[cy]=Iseldireg
+@@ -10824,7 +10826,7 @@
+ Name[bn_IN]=পোলিশ
+ Name[br]=Poloneg
+ Name[ca]=Polonès
+-Name[ca@valencia]=Polonès
++Name[ca@valencia]=Polonés
+ Name[cs]=Polský
+ Name[csb]=Pòlsczi
+ Name[cy]=Pwyleg
+@@ -11001,7 +11003,7 @@
+ Name[bn_IN]=পোর্তুগিস
+ Name[br]=Portugaleg
+ Name[ca]=Portuguès
+-Name[ca@valencia]=Portuguès
++Name[ca@valencia]=Portugués
+ Name[cs]=Portugalský
+ Name[csb]=Pòrtugalsczi
+ Name[cy]=Portiwgaleg
+@@ -11090,7 +11092,7 @@
+ Name[bn_IN]=ব্রাজিলিয়ান পোর্তুগিজ 
+ Name[br]=Portugaleg Brazil
+ Name[ca]=Portuguès Brasiler
+-Name[ca@valencia]=Portuguès Brasiler
++Name[ca@valencia]=Portugués Brasiler
+ Name[cs]=Portugalský (Brazílie)
+ Name[csb]=Brazylsczi pòrtugalsczi
+ Name[cy]=Portiwgaleg Brasil
+@@ -11355,7 +11357,7 @@
+ Name[bn_IN]=রোমেনিয়ান
+ Name[br]=Roumaneg
+ Name[ca]=Romanès
+-Name[ca@valencia]=Romanès
++Name[ca@valencia]=Romanés
+ Name[cs]=Rumunský
+ Name[csb]=Rumùńsczi
+ Name[cy]=Romaneg
+@@ -12142,6 +12144,7 @@
+ Name[be@latin]=Sinhaleskaja
+ Name[bg]=Сингалски
+ Name[ca]=Singalès
++Name[ca@valencia]=Singalés
+ Name[cs]=Sinhalský
+ Name[da]=Sinhala
+ Name[de]=Singhalesisch
+@@ -12183,8 +12186,8 @@
+ Name[si]=සිංහල
+ Name[sk]=Sinhálsky
+ Name[sl]=sinhalsko
+-Name[sr]=синхала
+-Name[sr@latin]=sinhala
++Name[sr]=синхалески
++Name[sr@latin]=sinhaleski
+ Name[sv]=Singalesiska
+ Name[tr]=Sinhala
+ Name[uk]=Сингала
+@@ -12648,7 +12651,7 @@
+ Name[bn_IN]=আলবেনিয়ান
+ Name[br]=Albanieg
+ Name[ca]=Albanès
+-Name[ca@valencia]=Albanès
++Name[ca@valencia]=Albanés
+ Name[cs]=Albánský
+ Name[csb]=Albańsczi
+ Name[cy]=Albaneg
+@@ -13088,7 +13091,7 @@
+ Name[bn_IN]=সুদানিজ
+ Name[br]=Soudaneg
+ Name[ca]=Sundanès
+-Name[ca@valencia]=Sondanès
++Name[ca@valencia]=Sundanés
+ Name[cs]=Sundanský
+ Name[csb]=Sudańsczi
+ Name[cy]=Sundaneg
+@@ -13591,8 +13594,8 @@
+ Name[si]=ටජික්
+ Name[sk]=Tadžitský
+ Name[sl]=tadžiško
+-Name[sr]=таџикистански
+-Name[sr@latin]=tadžikistanski
++Name[sr]=таџички
++Name[sr@latin]=tadžički
+ Name[sv]=Tadzjikiska
+ Name[ta]=தஜிக்
+ Name[te]=తాజిక్
+@@ -14566,8 +14569,8 @@
+ Name[si]=උයිගුර්
+ Name[sk]=Uighur
+ Name[sl]=ujgursko
+-Name[sr]=ујгур
+-Name[sr@latin]=ujgur
++Name[sr]=ујгурски
++Name[sr@latin]=ujgurski
+ Name[sv]=Uiguriska
+ Name[ta]=உயிகூர்
+ Name[te]=ఉఇఘర్
+@@ -14596,7 +14599,7 @@
+ Name[bn_IN]=ইউক্রেনিয়ান
+ Name[br]=Ukrainiek
+ Name[ca]=Ucraïnès
+-Name[ca@valencia]=Ucraïnès
++Name[ca@valencia]=Ucraïnés
+ Name[cs]=Ukrajinský
+ Name[csb]=Ùkrajińsczi
+ Name[cy]=Ukraineg
+@@ -15731,7 +15734,7 @@
+ Name[bn_IN]=চিনা
+ Name[br]=Sinaeg
+ Name[ca]=Xinès
+-Name[ca@valencia]=Xinès
++Name[ca@valencia]=Xinés
+ Name[cs]=Čínský
+ Name[csb]=Chińsczi
+ Name[cy]=Tseineeg
+@@ -15820,7 +15823,7 @@
+ Name[bn_IN]=চিনা (সরলীকৃত)
+ Name[br]=Sineg eeun
+ Name[ca]=Xinès simplificat
+-Name[ca@valencia]=Xinès simplificat
++Name[ca@valencia]=Xinés simplificat
+ Name[cs]=Čínský (zjednodušená)
+ Name[csb]=Chińsczi Prosti
+ Name[cy]=Tseineeg Syml
+@@ -15908,7 +15911,7 @@
+ Name[bn_IN]=চিনা (হং কং)
+ Name[br]=Sinaeg (Hong Kong)
+ Name[ca]=Xinès (Hong Kong)
+-Name[ca@valencia]=Xinès (Hong Kong)
++Name[ca@valencia]=Xinés (Hong Kong)
+ Name[cs]=Čínský (Hong Kong)
+ Name[csb]=Chińsczi (Hong Kong)
+ Name[da]=Kinesisk (Hong Kong)
+@@ -15994,7 +15997,7 @@
+ Name[bn_IN]=চিনা(পারম্পরিক)
+ Name[br]=Sinaeg da gustum
+ Name[ca]=Xinès tradicional
+-Name[ca@valencia]=Xinès tradicional
++Name[ca@valencia]=Xinés tradicional
+ Name[cs]=Čínský (tradiční)
+ Name[csb]=Chińsczi Tradicëjny
+ Name[cy]=Tsieineeg Traddodiadol
+diff -Nur kdelibs-4.3.4/kdecore/io/kurl.cpp kdelibs-4.3.5/kdecore/io/kurl.cpp
+--- kdelibs-4.3.4/kdecore/io/kurl.cpp	2009-06-17 22:08:17.000000000 +0200
++++ kdelibs-4.3.5/kdecore/io/kurl.cpp	2010-01-21 21:49:11.000000000 +0100
+@@ -839,7 +839,12 @@
+ 
+ QString KUrl::path( AdjustPathOption trailing ) const
+ {
++#ifdef Q_WS_WIN
++  kWarning() << (isLocalFile() ? "converted to local file - the related call should be converted to toLocalFile()" : "") << QUrl::path();
++  return trailingSlash( trailing, isLocalFile() ? QUrl::toLocalFile() : QUrl::path() );
++#else
+   return trailingSlash( trailing, QUrl::path() );
++#endif
+ }
+ 
+ QString KUrl::toLocalFile( AdjustPathOption trailing ) const
+diff -Nur kdelibs-4.3.4/kdecore/services/kmimetypefactory.cpp kdelibs-4.3.5/kdecore/services/kmimetypefactory.cpp
+--- kdelibs-4.3.4/kdecore/services/kmimetypefactory.cpp	2009-04-05 21:59:48.000000000 +0200
++++ kdelibs-4.3.5/kdecore/services/kmimetypefactory.cpp	2010-01-21 21:49:10.000000000 +0100
+@@ -29,15 +29,16 @@
+ 
+ KMimeTypeFactory::KMimeTypeFactory()
+     : KSycocaFactory( KST_KMimeTypeFactory ),
++      m_fastPatternOffset(0),
++      m_highWeightPatternOffset(0),
++      m_lowWeightPatternOffset(0),
++      m_parentsMapOffset(0),
+       m_highWeightPatternsLoaded(false),
+       m_lowWeightPatternsLoaded(false),
+       m_parentsMapLoaded(false),
+       m_magicFilesParsed(false)
+ {
+     kMimeTypeFactoryInstance->instanceCreated(this);
+-    m_fastPatternOffset = 0;
+-    m_highWeightPatternOffset = 0;
+-    m_lowWeightPatternOffset = 0;
+     if (!KSycoca::self()->isBuilding()) {
+         QDataStream* str = stream();
+         Q_ASSERT(str);
+diff -Nur kdelibs-4.3.4/kdecore/services/kplugininfo.desktop kdelibs-4.3.5/kdecore/services/kplugininfo.desktop
+--- kdelibs-4.3.4/kdecore/services/kplugininfo.desktop	2009-10-02 10:18:08.000000000 +0200
++++ kdelibs-4.3.5/kdecore/services/kplugininfo.desktop	2010-01-21 21:49:10.000000000 +0100
+@@ -78,7 +78,7 @@
+ Name[tg]=Иттилооти васлкунаки KDE
+ Name[th]=ข้อมูลโปรแกรมเสริมของ KDE
+ Name[tr]=KDE Eklenti Bilgisi
+-Name[uk]=Інформація про втулок KDE
++Name[uk]=Інформація про додаток до KDE
+ Name[uz]=KDE plagin haqida maʼlumot
+ Name[uz@cyrillic]=KDE плагин ҳақида маълумот
+ Name[vi]=Thông tin bổ sung KDE
+diff -Nur kdelibs-4.3.4/kdecore/services/kservicefactory.cpp kdelibs-4.3.5/kdecore/services/kservicefactory.cpp
+--- kdelibs-4.3.4/kdecore/services/kservicefactory.cpp	2009-03-10 13:26:06.000000000 +0100
++++ kdelibs-4.3.5/kdecore/services/kservicefactory.cpp	2010-01-21 21:49:10.000000000 +0100
+@@ -39,6 +39,8 @@
+     m_menuIdDictOffset = 0;
+     if (!KSycoca::self()->isBuilding()) {
+         QDataStream* str = stream();
++        if (!str) 
++            return;
+         // Read Header
+         qint32 i;
+         (*str) >> i;
+diff -Nur kdelibs-4.3.4/kdecore/sycoca/ksycocafactory.cpp kdelibs-4.3.5/kdecore/sycoca/ksycocafactory.cpp
+--- kdelibs-4.3.4/kdecore/sycoca/ksycocafactory.cpp	2009-03-10 13:26:06.000000000 +0100
++++ kdelibs-4.3.5/kdecore/sycoca/ksycocafactory.cpp	2010-01-21 21:49:10.000000000 +0100
+@@ -31,7 +31,10 @@
+ class KSycocaFactory::Private
+ {
+ public:
+-    Private() {}
++    Private() : mOffset(0),
++                m_sycocaDictOffset(0),
++                m_beginEntryOffset(0),
++                m_endEntryOffset(0) {}
+     ~Private()
+     {
+         delete m_sycocaDict;
+diff -Nur kdelibs-4.3.4/kdecore/tests/kurltest.cpp kdelibs-4.3.5/kdecore/tests/kurltest.cpp
+--- kdelibs-4.3.4/kdecore/tests/kurltest.cpp	2009-06-17 22:08:17.000000000 +0200
++++ kdelibs-4.3.5/kdecore/tests/kurltest.cpp	2010-01-21 21:49:10.000000000 +0100
+@@ -1452,26 +1452,32 @@
+   weird = "http://strange<username>@strange<hostname>/";
+   QVERIFY( !weird.isValid() );
+ 
+-  weird = "http://strange<username>@ok_hostname/";
++  weird = "http://strange<username>@hostname/";
+   QVERIFY( weird.isValid() ); // KDE3: was valid. Fixed by _setEncodedUrl.
+-  QCOMPARE( weird.host(), QString("ok_hostname") );
++  QCOMPARE( weird.host(), QString("hostname") );
+ 
+   weird = "http://strange;hostname/";
++#if QT_VERSION < 0x040600
+   QVERIFY( weird.isValid() ); // KDE3: was invalid. bah*2.
++#endif
+ 
+   weird = "http://strange;username@strange;hostname/";
++#if QT_VERSION < 0x040600
+   QVERIFY( weird.isValid() ); // KDE3: was invalid. bah*3.
++#endif
+ 
+-  weird = "http://strange;username@ok_hostname/";
++  weird = "http://strange;username@hostname/";
+   QVERIFY( weird.isValid() );
+-  QCOMPARE( weird.host(), QString("ok_hostname") );
++  QCOMPARE( weird.host(), QString("hostname") );
+ 
+   weird = "http://strange;username:password@strange;hostname/";
++#if QT_VERSION < 0x040600
+   QVERIFY( weird.isValid() ); // KDE3: was invalid
++#endif
+ 
+-  weird = "http://strange;username:password@ok_hostname/";
++  weird = "http://strange;username:password@hostname/";
+   QVERIFY( weird.isValid() );
+-  QCOMPARE( weird.host(), QString("ok_hostname") );
++  QCOMPARE( weird.host(), QString("hostname") );
+ 
+   weird = "http://[strange;hostname]/";
+   QVERIFY( !weird.isValid() );
+@@ -1626,10 +1632,16 @@
+   QCOMPARE( leo.path(), QString("text/html,http://www.invalid/" ) );
+ 
+   KUrl ptal( "ptal://mlc:usb@PC_970" ); // User=mlc, password=usb, host=PC_970
++#if QT_VERSION >= 0x040600
++  QCOMPARE(ptal.url(), QString("ptal://mlc:usb@")); // The host "PC_970" is invalid according to STD3 validation
++  KUrl ptalSimpler("ptal://mlc:usb@pc123");
++  QCOMPARE(ptalSimpler.url(), QString("ptal://mlc:usb@pc123"));
++#else
+   QVERIFY( ptal.isValid() );
+   QCOMPARE( ptal.host(), QString("pc_970") );
+   QCOMPARE( ptal.user(), QString("mlc") );
+   QCOMPARE( ptal.pass(), QString("usb") );
++#endif
+ }
+ 
+ void KUrlTest::testUtf8()
+@@ -1868,12 +1880,6 @@
+   KUrl uwp( "http://%C3%A4.de" );
+   QVERIFY( uwp.isValid() );
+   QCOMPARE( thiago.url(), QString("http://xn--4ca.de") ); // as above
+-
+-  // #183720
+-  const QByteArray init = ".kde.org";
+-  const QString fromAce = QUrl::fromAce(init);
+-  QCOMPARE( fromAce, QString(".kde.org"));
+-  QCOMPARE( QUrl::toAce(fromAce), init );
+ }
+ 
+ void KUrlTest::testUriMode()
+diff -Nur kdelibs-4.3.4/kded/kbuildmimetypefactory.cpp kdelibs-4.3.5/kded/kbuildmimetypefactory.cpp
+--- kdelibs-4.3.4/kded/kbuildmimetypefactory.cpp	2009-07-08 16:42:08.000000000 +0200
++++ kdelibs-4.3.5/kded/kbuildmimetypefactory.cpp	2010-01-21 21:49:14.000000000 +0100
+@@ -100,6 +100,11 @@
+     QMap<QString, QString> commentsByLanguage;
+ 
+     const QStringList mimeFiles = KGlobal::dirs()->findAllResources(resource, file);
++    if (mimeFiles.isEmpty()) {
++        kWarning() << "No file found for" << file << ", even though the file appeared in a directory listing.";
++        kWarning() << "Either it was just removed, or the directory doesn't have executable permission...";
++        return 0;
++    }
+     QListIterator<QString> mimeFilesIter(mimeFiles);
+     mimeFilesIter.toBack();
+     while (mimeFilesIter.hasPrevious()) { // global first, then local.
+@@ -167,7 +172,7 @@
+         kWarning() << "Missing <comment> field in" << file;
+     }
+ 
+-    //kDebug() << "Creating mimetype" << name << "from file" << file << "path" << fullPath;
++    //kDebug() << "Creating mimetype" << name << "from file" << file << mimeFiles;
+ 
+     KMimeType* e;
+     if ( name == "inode/directory" )
+@@ -347,6 +352,10 @@
+     const KMimeFileParser::AllGlobs& allGlobs = m_parser.mimeTypeGlobs();
+     Q_FOREACH(const QString& mimeTypeName, m_parser.allMimeTypes()) {
+         const KMimeType::Ptr mimeType = findMimeTypeByName(mimeTypeName, KMimeType::DontResolveAlias);
++        if (!mimeType) {
++            kDebug() << "globs file refers to unknown mimetype" << mimeTypeName;
++            continue;
++        }
+         const KMimeFileParser::GlobList globs = allGlobs.value(mimeTypeName);
+         Q_FOREACH(const KMimeFileParser::Glob& glob, globs) {
+             const QString &pattern = glob.pattern;
+diff -Nur kdelibs-4.3.4/kded/kbuildsycoca.cpp kdelibs-4.3.5/kded/kbuildsycoca.cpp
+--- kdelibs-4.3.4/kded/kbuildsycoca.cpp	2009-03-10 13:26:04.000000000 +0100
++++ kdelibs-4.3.5/kded/kbuildsycoca.cpp	2010-01-21 21:49:14.000000000 +0100
+@@ -497,7 +497,7 @@
+          mimeTypeFactory = static_cast<KBuildMimeTypeFactory *>( *factory );
+       else if ( aId == KST_KServiceFactory )
+          serviceFactory = static_cast<KBuildServiceFactory *>( *factory );
+-      aOffset = (*factory)->offset();
++      aOffset = (*factory)->offset(); // not set yet, so always 0
+       (*str) << aId;
+       (*str) << aOffset;
+    }
+@@ -854,6 +854,7 @@
+      if (QDBusConnection::sessionBus().isConnected()) {
+         kDebug() << "Emitting notifyDatabaseChanged" << *g_changeList;
+        QDBusConnection::sessionBus().send(signal);
++       qApp->processEvents(); // make sure the dbus signal is sent before we quit.
+      }
+    }
+ 
+diff -Nur kdelibs-4.3.4/kdeui/dialogs/kdialog.cpp kdelibs-4.3.5/kdeui/dialogs/kdialog.cpp
+--- kdelibs-4.3.4/kdeui/dialogs/kdialog.cpp	2009-08-27 10:19:10.000000000 +0200
++++ kdelibs-4.3.5/kdeui/dialogs/kdialog.cpp	2010-01-21 21:49:14.000000000 +0100
+@@ -69,6 +69,10 @@
+ 
+   Q_Q(KDialog);
+ 
++    // Don't lose the focus widget when re-creating the layout.
++    // Testcase: KOrganizer's "Select Categories" dialog
++    QPointer<QWidget> focusWidget = mMainWidget ? mMainWidget->focusWidget() : 0;
++
+   if (q->layout() && q->layout() != mTopLayout) {
+       kWarning(240) << q->metaObject()->className() << "created with a layout; don't do that, KDialog takes care of it, use mainWidget or setMainWidget instead";
+       delete q->layout();
+@@ -97,6 +101,10 @@
+     mButtonBox->setOrientation( mButtonOrientation );
+     mTopLayout->addWidget( mButtonBox );
+   }
++
++    if (focusWidget) {
++        focusWidget->setFocus();
++    }
+ }
+ 
+ void KDialogPrivate::setButtonFocus(QPushButton *button, bool isDefault, bool isFocus)
+diff -Nur kdelibs-4.3.4/kdeui/icons/kiconloader.cpp kdelibs-4.3.5/kdeui/icons/kiconloader.cpp
+--- kdelibs-4.3.4/kdeui/icons/kiconloader.cpp	2009-10-02 10:18:15.000000000 +0200
++++ kdelibs-4.3.5/kdeui/icons/kiconloader.cpp	2010-01-21 21:49:15.000000000 +0100
+@@ -1505,6 +1505,8 @@
+ // used by KIconDialog to find out which contexts to offer in a combobox
+ bool KIconLoader::hasContext(KIconLoader::Context context) const
+ {
++    d->initIconThemes();
++
+     foreach(KIconThemeNode *themeNode, d->links)
+        if( themeNode->theme->hasContext( context ))
+            return true;
+diff -Nur kdelibs-4.3.4/kdeui/tests/kglobalsettingstest.cpp kdelibs-4.3.5/kdeui/tests/kglobalsettingstest.cpp
+--- kdelibs-4.3.4/kdeui/tests/kglobalsettingstest.cpp	2009-07-21 17:16:14.000000000 +0200
++++ kdelibs-4.3.5/kdeui/tests/kglobalsettingstest.cpp	2010-01-21 21:49:14.000000000 +0100
+@@ -49,6 +49,7 @@
+ 
+ #define CREATE_ALL_SPYS \
+     KGlobalSettings* settings = KGlobalSettings::self(); \
++    settings->activate();                                                 \
+     QSignalSpy palette_spy( settings, SIGNAL(kdisplayPaletteChanged()) ); \
+     QSignalSpy font_spy( settings, SIGNAL(kdisplayFontChanged()) ); \
+     QSignalSpy style_spy( settings, SIGNAL(kdisplayStyleChanged()) ); \
+diff -Nur kdelibs-4.3.4/kdeui/widgets/kcompletionbox.cpp kdelibs-4.3.5/kdeui/widgets/kcompletionbox.cpp
+--- kdelibs-4.3.4/kdeui/widgets/kcompletionbox.cpp	2009-07-21 17:16:14.000000000 +0200
++++ kdelibs-4.3.5/kdeui/widgets/kcompletionbox.cpp	2010-01-21 21:49:14.000000000 +0100
+@@ -115,12 +115,18 @@
+         return false;
+     }
+ 
+-    if (wid && (wid == d->m_parent || wid->windowFlags() & Qt::Window) &&
++    if (wid && wid == d->m_parent &&
+         (type == QEvent::Move || type == QEvent::Resize)) {
+         hide();
+         return false;
+     }
+ 
++    if (wid && (wid->windowFlags() & Qt::Window) &&
++        type == QEvent::Move && wid == d->m_parent->window()) {
++        hide();
++        return false;
++    }
++
+     if (type == QEvent::MouseButtonPress && (wid && !isAncestorOf(wid))) {
+         if (!d->emitSelected && currentItem() && !qobject_cast<QScrollBar*>(o)) {
+             Q_ASSERT(currentItem());
+diff -Nur kdelibs-4.3.4/kdeui/widgets/kmultitabbar.cpp kdelibs-4.3.5/kdeui/widgets/kmultitabbar.cpp
+--- kdelibs-4.3.4/kdeui/widgets/kmultitabbar.cpp	2008-05-21 13:08:46.000000000 +0200
++++ kdelibs-4.3.5/kdeui/widgets/kmultitabbar.cpp	2010-01-21 21:49:14.000000000 +0100
+@@ -147,6 +147,11 @@
+ {
+ 	connect(this,SIGNAL(clicked()),this,SLOT(slotClicked()));
+ 	setFlat(true);
++
++        // we can't see the focus, so don't take focus. #45557
++        // If keyboard navigation is wanted, then only the bar should take focus,
++        // and arrows could change the focused button; but generally, tabbars don't take focus anyway.
++        setFocusPolicy(Qt::NoFocus);
+ }
+ 
+ KMultiTabBarButton::~KMultiTabBarButton()
+diff -Nur kdelibs-4.3.4/kfile/kfilepreviewgenerator.cpp kdelibs-4.3.5/kfile/kfilepreviewgenerator.cpp
+--- kdelibs-4.3.4/kfile/kfilepreviewgenerator.cpp	2009-10-02 10:18:06.000000000 +0200
++++ kdelibs-4.3.5/kfile/kfilepreviewgenerator.cpp	2010-01-21 21:49:08.000000000 +0100
+@@ -298,6 +298,11 @@
+      */
+     void delayedIconUpdate();
+ 
++    /**
++     * Any items that are removed from the model are also removed from m_changedItems.
++     */
++    void rowsAboutToBeRemoved(const QModelIndex& parent, int start, int end);
++
+     /** Remembers the pixmap for an item specified by an URL. */
+     struct ItemInfo
+     {
+@@ -443,6 +448,8 @@
+                 q, SLOT(updateIcons(const QModelIndex&, const QModelIndex&)));
+         connect(m_dirModel, SIGNAL(needSequenceIcon(const QModelIndex&,int)),
+                q, SLOT(requestSequenceIcon(const QModelIndex&, int)));
++        connect(m_dirModel, SIGNAL(rowsAboutToBeRemoved(const QModelIndex&, int, int)),
++                q, SLOT(rowsAboutToBeRemoved(const QModelIndex&, int, int)));
+     }
+ 
+     QClipboard* clipboard = QApplication::clipboard();
+@@ -1088,6 +1095,26 @@
+     updateIcons(itemList);
+ }
+ 
++void KFilePreviewGenerator::Private::rowsAboutToBeRemoved(const QModelIndex& parent, int start, int end)
++{
++    if (m_changedItems.isEmpty()) {
++        return;
++    }
++
++    for (int row = start; row <= end; row++) {
++        const QModelIndex index = m_dirModel->index(row, 0, parent);
++
++        const KFileItem item = m_dirModel->itemForIndex(index);
++        if (!item.isNull()) {
++            m_changedItems.remove(item.url());
++        }
++
++        if (m_dirModel->hasChildren(index)) {
++            rowsAboutToBeRemoved(index, 0, m_dirModel->rowCount(index) - 1);
++        }
++    }
++}
++
+ KFilePreviewGenerator::KFilePreviewGenerator(QAbstractItemView* parent) :
+     QObject(parent),
+     d(new Private(this, new KIO::DefaultViewAdapter(parent, this), parent->model()))
+diff -Nur kdelibs-4.3.4/kfile/kfilepreviewgenerator.h kdelibs-4.3.5/kfile/kfilepreviewgenerator.h
+--- kdelibs-4.3.4/kfile/kfilepreviewgenerator.h	2009-05-19 14:06:50.000000000 +0200
++++ kdelibs-4.3.5/kfile/kfilepreviewgenerator.h	2010-01-21 21:49:08.000000000 +0100
+@@ -132,6 +132,7 @@
+     Q_PRIVATE_SLOT(d, void resolveMimeType())
+     Q_PRIVATE_SLOT(d, void requestSequenceIcon(const QModelIndex&, int))
+     Q_PRIVATE_SLOT(d, void delayedIconUpdate())
++    Q_PRIVATE_SLOT(d, void rowsAboutToBeRemoved(const QModelIndex&, int, int))
+ };
+ 
+ #endif
+diff -Nur kdelibs-4.3.4/khtml/imload/decoders/pngloader.cpp kdelibs-4.3.5/khtml/imload/decoders/pngloader.cpp
+--- kdelibs-4.3.4/khtml/imload/decoders/pngloader.cpp	2008-05-21 13:06:09.000000000 +0200
++++ kdelibs-4.3.5/khtml/imload/decoders/pngloader.cpp	2010-01-21 21:49:12.000000000 +0100
+@@ -93,7 +93,11 @@
+         
+         //Ask libPNG to change bit depths we don't support
+         if (bitDepth < 8)
++#if PNG_LIBPNG_VER < 10400
+             png_set_gray_1_2_4_to_8(pngReadStruct);
++#else
++            png_set_expand_gray_1_2_4_to_8(pngReadStruct);
++#endif
+         
+         if (bitDepth > 8)
+             png_set_strip_16       (pngReadStruct);
+diff -Nur kdelibs-4.3.4/khtml/java/kjavaappletviewer.desktop kdelibs-4.3.5/khtml/java/kjavaappletviewer.desktop
+--- kdelibs-4.3.4/khtml/java/kjavaappletviewer.desktop	2009-10-02 10:18:12.000000000 +0200
++++ kdelibs-4.3.5/khtml/java/kjavaappletviewer.desktop	2010-01-21 21:49:12.000000000 +0100
+@@ -67,8 +67,8 @@
+ Name[se]=Vuojuhanláhkái Javaprográmmaš čájeheaddji
+ Name[sk]=Vložiteľný prehliadač Java appletov
+ Name[sl]=Vgrajeni pregledovalnik vstavkov java
+-Name[sr]=Угњеждени приказивач јаванских аплета
+-Name[sr@latin]=Ugnježdeni prikazivač javanskih apleta
++Name[sr]=Угнежђени приказивач јаванских аплета
++Name[sr@latin]=Ugnežđeni prikazivač javanskih apleta
+ Name[sv]=Inbäddningsbar visare av Javaminiprogram
+ Name[ta]=உட்பொதிந்த ஜாவா சிறுநிரல் காட்டி
+ Name[te]=పొదిగిన జావా ఎపలెట్ చూపరి
+diff -Nur kdelibs-4.3.4/khtml/khtmladaptorpart.desktop kdelibs-4.3.5/khtml/khtmladaptorpart.desktop
+--- kdelibs-4.3.4/khtml/khtmladaptorpart.desktop	2009-10-02 10:18:12.000000000 +0200
++++ kdelibs-4.3.5/khtml/khtmladaptorpart.desktop	2010-01-21 21:49:12.000000000 +0100
+@@ -67,7 +67,7 @@
+ Name[tg]=Созгори пасванди KHTML
+ Name[th]=ตัวแปลงส่วนขยาย KHTML
+ Name[tr]=KHTML Eklenti Bağdaştırıcısı
+-Name[uk]=Адаптор розширень KHTML
++Name[uk]=Адаптер розширень KHTML
+ Name[wa]=Adaptateu d' sitindaedje KHTML
+ Name[x-test]=xxKHTML Extension Adaptorxx
+ Name[zh_CN]=KHTML 扩展适配器
+diff -Nur kdelibs-4.3.4/khtml/khtml.desktop kdelibs-4.3.5/khtml/khtml.desktop
+--- kdelibs-4.3.4/khtml/khtml.desktop	2009-10-02 10:18:12.000000000 +0200
++++ kdelibs-4.3.5/khtml/khtml.desktop	2010-01-21 21:49:12.000000000 +0100
+@@ -68,15 +68,15 @@
+ Comment[se]=Vuojuhanláhkái HTML-čájehanoassi
+ Comment[sk]=Vložiteľný komponent HTML prehliadač
+ Comment[sl]=Integrirani pregled besedila HTML
+-Comment[sr]=Угњездива компонента за приказ ХТМЛ‑а
+-Comment[sr@latin]=Ugnjezdiva komponenta za prikaz HTML‑a
++Comment[sr]=Угнездива компонента за приказ ХТМЛ‑а
++Comment[sr@latin]=Ugnezdiva komponenta za prikaz HTML‑a
+ Comment[sv]=Inbäddningsbar HTML-visande komponent
+ Comment[ta]=உட்பொதிக்கவல்ல HTML காட்சிக் கூறு
+ Comment[te]=పొదగదగ్గ HTML విక్షణాంశం
+ Comment[tg]=Қисми намоиши HTML-и дарунсохт
+ Comment[th]=ส่วนประกอบสำหรับแสดงผล HTML ที่ฝังได้
+ Comment[tr]=Gömülebilir HTML görüntüleme aracı
+-Comment[uk]=Вбудований компонент "переглядач HTML"
++Comment[uk]=Вбудований компонент «переглядач HTML»
+ Comment[uz]=Ichiga oʻrnatib boʻladigan HTML koʻruvchi komponent
+ Comment[uz@cyrillic]=Ичига ўрнатиб бўладиган HTML кўрувчи компонент
+ Comment[vi]=Thành phần xem HTML có khả năng nhúng.
+diff -Nur kdelibs-4.3.4/khtml/khtmlimage.desktop kdelibs-4.3.5/khtml/khtmlimage.desktop
+--- kdelibs-4.3.4/khtml/khtmlimage.desktop	2009-10-02 10:18:12.000000000 +0200
++++ kdelibs-4.3.5/khtml/khtmlimage.desktop	2010-01-21 21:49:12.000000000 +0100
+@@ -68,8 +68,8 @@
+ Comment[se]=Vuojuhanláhkái govvačájehanoassi
+ Comment[sk]=Vložiteľný komponent prehliadač obrázkov
+ Comment[sl]=Integrirana komponenta za ogledovanje slik
+-Comment[sr]=Угњездива компонента за приказ слика
+-Comment[sr@latin]=Ugnjezdiva komponenta za prikaz slika
++Comment[sr]=Угнездива компонента за приказ слика
++Comment[sr@latin]=Ugnezdiva komponenta za prikaz slika
+ Comment[sv]=Inbäddningsbar bildvisande komponent
+ Comment[ta]=உட்பொதிந்த பிம்பக் காட்டிக் பகுதி
+ Comment[te]=పొదగదగ్గ ప్రతిబింబాల విక్షణాంశం
+@@ -155,8 +155,8 @@
+ Name[se]=Vuojuhanláhkái govvačájeheaddji
+ Name[sk]=Vložiteľný prehliadač obrázkov
+ Name[sl]=Vgrajeni pregledovalnik slik
+-Name[sr]=Угњездиви приказивач слика
+-Name[sr@latin]=Ugnjezdivi prikazivač slika
++Name[sr]=Угнездиви приказивач слика
++Name[sr@latin]=Ugnezdivi prikazivač slika
+ Name[sv]=Inbäddningsbar bildvisare
+ Name[ta]=உட்பொதிந்த பிம்பக் காட்டி
+ Name[te]=పొదిగిన ప్రతిబింబ చూపరి
+diff -Nur kdelibs-4.3.4/khtml/kmultipart/kmultipart.desktop kdelibs-4.3.5/khtml/kmultipart/kmultipart.desktop
+--- kdelibs-4.3.4/khtml/kmultipart/kmultipart.desktop	2009-10-02 10:18:11.000000000 +0200
++++ kdelibs-4.3.5/khtml/kmultipart/kmultipart.desktop	2010-01-21 21:49:11.000000000 +0100
+@@ -66,8 +66,8 @@
+ Name[se]=Vuojuhanláhkái oassi multipart/mixed:a várás
+ Name[sk]=Vložiteľný komponent pre multipart/mixed
+ Name[sl]=Vgradljiva komponenta za multipart/mixed
+-Name[sr]=Угњездива компонента за вишеделни МИМЕ
+-Name[sr@latin]=Ugnjezdiva komponenta za višedelni MIME
++Name[sr]=Угнездива компонента за вишеделни МИМЕ
++Name[sr@latin]=Ugnezdiva komponenta za višedelni MIME
+ Name[sv]=Inbyggbar komponent för multipart/mixed
+ Name[ta]=பலப்பகுதி/கலக்கப்பட்ட பகுதிக்குரிய உட்பொதிந்த பகுதி
+ Name[te]=మల్టిపార్ట్/మిక్స్డ్ కొరకు పొదిగిన అంశం
+diff -Nur kdelibs-4.3.4/kimgio/qimageio_plugin.desktop kdelibs-4.3.5/kimgio/qimageio_plugin.desktop
+--- kdelibs-4.3.4/kimgio/qimageio_plugin.desktop	2009-10-02 10:18:07.000000000 +0200
++++ kdelibs-4.3.5/kimgio/qimageio_plugin.desktop	2010-01-21 21:49:09.000000000 +0100
+@@ -71,7 +71,7 @@
+ Comment[tg]=Васлкунаки QImageIOHandler
+ Comment[th]=โปรแกรมเสริม QImageIOHandler
+ Comment[tr]=QImageIOHandler eklentisi
+-Comment[uk]=Втулок QImageIOHandler
++Comment[uk]=Додаток QImageIOHandler
+ Comment[vi]=Bổ sung QImageIOHandler
+ Comment[wa]=Tchôke-divins QImageIOHandler
+ Comment[x-test]=xxQImageIOHandler pluginxx
+diff -Nur kdelibs-4.3.4/kio/bookmarks/kbookmarkmanager.cc kdelibs-4.3.5/kio/bookmarks/kbookmarkmanager.cc
+--- kdelibs-4.3.4/kio/bookmarks/kbookmarkmanager.cc	2009-02-04 19:21:01.000000000 +0100
++++ kdelibs-4.3.5/kio/bookmarks/kbookmarkmanager.cc	2010-01-21 21:49:09.000000000 +0100
+@@ -641,8 +641,10 @@
+ 
+ KBookmarkManager* KBookmarkManager::userBookmarksManager()
+ {
+-   QString bookmarksFile = KStandardDirs::locateLocal("data", QLatin1String("konqueror/bookmarks.xml"));
+-   return KBookmarkManager::managerForFile( bookmarksFile, "konqueror" );
++     const QString bookmarksFile = KStandardDirs::locateLocal("data", QString::fromLatin1("konqueror/bookmarks.xml"));
++     KBookmarkManager* bookmarkManager = KBookmarkManager::managerForFile( bookmarksFile, "konqueror" );
++     bookmarkManager->setEditorOptions(KGlobal::caption(), true);
++     return bookmarkManager;
+ }
+ 
+ KBookmarkSettings* KBookmarkSettings::s_self = 0;
+diff -Nur kdelibs-4.3.4/kio/kcmoduleinit.desktop kdelibs-4.3.5/kio/kcmoduleinit.desktop
+--- kdelibs-4.3.4/kio/kcmoduleinit.desktop	2009-08-27 10:19:04.000000000 +0200
++++ kdelibs-4.3.5/kio/kcmoduleinit.desktop	2010-01-21 21:49:10.000000000 +0100
+@@ -71,7 +71,7 @@
+ Name[tg]=Омодасозии танзимшавандаи KDE
+ Name[th]=เริ่มการปรับแต่งค่า KDE
+ Name[tr]=KDE Yapılandırma İlklendirmesi
+-Name[uk]=Започаткування конфігурації KDE
++Name[uk]=Ініціалізація налаштувань KDE
+ Name[vi]=Sở khởi cấu hình KDE
+ Name[wa]=Inicialijhaedje di l' apontiaedje di KDE
+ Name[x-test]=xxKDE Configuration Initializationxx
+diff -Nur kdelibs-4.3.4/kio/kfile/kpropertiesdialogplugin.desktop kdelibs-4.3.5/kio/kfile/kpropertiesdialogplugin.desktop
+--- kdelibs-4.3.4/kio/kfile/kpropertiesdialogplugin.desktop	2009-08-27 10:19:03.000000000 +0200
++++ kdelibs-4.3.5/kio/kfile/kpropertiesdialogplugin.desktop	2010-01-21 21:49:09.000000000 +0100
+@@ -78,7 +78,7 @@
+ Comment[tg]=Васлкунак барои хосияти диалог
+ Comment[th]=โปรแกรมเสริมสำหรับกล่องคุณสมบัติ
+ Comment[tr]=Özellikler İletişim Kutusu İçin Eklenti
+-Comment[uk]=Втулок для діалогу властивостей
++Comment[uk]=Додаток для створення діалогових вікон властивостей
+ Comment[uz]=Xossalar dialogi uchun plagin
+ Comment[uz@cyrillic]=Хоссалар диалоги учун плагин
+ Comment[vi]=Bổ sung cho hộp thoại đặc tả.
+diff -Nur kdelibs-4.3.4/kio/kfileplugin.desktop kdelibs-4.3.5/kio/kfileplugin.desktop
+--- kdelibs-4.3.4/kio/kfileplugin.desktop	2009-10-02 10:18:08.000000000 +0200
++++ kdelibs-4.3.5/kio/kfileplugin.desktop	2010-01-21 21:49:10.000000000 +0100
+@@ -75,7 +75,7 @@
+ Name[tg]=Васлкунаки маълумоти KFile Meta
+ Name[th]=โปรแกรมเสริมข้อมูลกำกับ KFile
+ Name[tr]=KFile Meta Verisi Eklentisi
+-Name[uk]=Втулок метаданих KFile
++Name[uk]=Додаток роботи з метаданими KFile
+ Name[uz]=KFile meta maʼlumot uchun plagin
+ Name[uz@cyrillic]=KFile мета маълумот учун плагин
+ Name[vi]=Bổ sung siêu dữ liệu KFile
+diff -Nur kdelibs-4.3.4/kio/kio/accessmanager.cpp kdelibs-4.3.5/kio/kio/accessmanager.cpp
+--- kdelibs-4.3.4/kio/kio/accessmanager.cpp	2009-10-02 10:18:07.000000000 +0200
++++ kdelibs-4.3.5/kio/kio/accessmanager.cpp	2010-01-21 21:49:09.000000000 +0100
+@@ -25,13 +25,14 @@
+ 
+ #include "accessmanagerreply_p.h"
+ 
+-#include <QtNetwork/QNetworkRequest>
+-#include <QtNetwork/QNetworkReply>
+-
+ #include <kdebug.h>
+ #include <kio/job.h>
+ #include <kio/scheduler.h>
+ 
++#include <QtNetwork/QNetworkRequest>
++#include <QtNetwork/QNetworkReply>
++
++
+ namespace KIO {
+ 
+ class AccessManager::AccessManagerPrivate
+@@ -108,12 +109,15 @@
+     kioJob->addMetaData(d->metaDataForRequest(req));
+ 
+     if ( op == PostOperation && !kioJob->metaData().contains("content-type"))  {
++        QString contentType (QLatin1String("Content-Type: "));
+         QVariant header = req.header(QNetworkRequest::ContentTypeHeader);
++
+         if (header.isValid())
+-          kioJob->addMetaData("content-type",
+-                              QString::fromLatin1("Content-Type: %1").arg(header.toString()));
++            contentType += header.toString();
+         else
+-          kioJob->addMetaData("content-type", "Content-Type: application/x-www-form-urlencoded");
++            contentType += QLatin1String("application/x-www-form-urlencoded");
++
++        kioJob->addMetaData("content-type", contentType);
+     }
+ 
+     //kDebug () << "Job '" << kioJob << "' started...";
+@@ -143,24 +147,31 @@
+     request.setRawHeader("Connection", QByteArray());
+ 
+     QString additionHeaders;
+-    Q_FOREACH(const QByteArray &headerKey, request.rawHeaderList()) {
+-        const QByteArray value = request.rawHeader(headerKey);
++    QListIterator<QByteArray> headersIt (request.rawHeaderList());
++
++    while (headersIt.hasNext()) {
++        const QByteArray key = headersIt.next();
++        const QByteArray value = request.rawHeader(key);
++
+         if (value.isNull())
+             continue;
+ 
+         // createRequest() checks later for existence "content-type" metadata
+-        if (headerKey=="Content-Type") {
++        if (QString::compare(key, QLatin1String("Content-Type"), Qt::CaseInsensitive) == 0) {
+             metaData.insert("content-type", value);
+             continue;
+         }
+ 
+         if (additionHeaders.length() > 0) {
+-            additionHeaders += "\r\n";
++            additionHeaders += QLatin1String("\r\n");
+         }
+-        additionHeaders += headerKey + ": " + value;
++
++        additionHeaders += key;
++        additionHeaders += QLatin1String(": ");
++        additionHeaders += value;
+     }
+-    metaData.insert("customHTTPHeader", additionHeaders);
+ 
++    metaData.insert("customHTTPHeader", additionHeaders);
+     return metaData;
+ }
+ 
+diff -Nur kdelibs-4.3.4/kio/kio/accessmanagerreply_p.cpp kdelibs-4.3.5/kio/kio/accessmanagerreply_p.cpp
+--- kdelibs-4.3.4/kio/kio/accessmanagerreply_p.cpp	2009-11-27 14:00:27.000000000 +0100
++++ kdelibs-4.3.5/kio/kio/accessmanagerreply_p.cpp	2010-01-21 21:49:09.000000000 +0100
+@@ -28,9 +28,9 @@
+ #include <kdebug.h>
+ #include <klocale.h>
+ 
+-#include <QSslConfiguration>
+-#include <QTimer>
+-#include <QPointer>
++#include <QtNetwork/QSslConfiguration>
++#include <QtCore/QTimer>
++#include <QtCore/QPointer>
+ 
+ namespace KDEPrivate {
+ 
+@@ -46,12 +46,12 @@
+ 
+     AccessManagerReply *q;
+ 
+-    QPointer<KIO::Job> m_kioJob;
++    QPointer<KIO::SimpleJob> m_kioJob;
+     QByteArray m_data;
+     bool m_metaDataRead;
+ };
+ 
+-AccessManagerReply::AccessManagerReply(const QNetworkAccessManager::Operation &op, const QNetworkRequest &request, KIO::Job *kioJob, QObject *parent)
++AccessManagerReply::AccessManagerReply(const QNetworkAccessManager::Operation &op, const QNetworkRequest &request, KIO::SimpleJob *kioJob, QObject *parent)
+                    :QNetworkReply(parent), d(new AccessManagerReply::AccessManagerReplyPrivate(this))
+ 
+ {
+@@ -89,13 +89,15 @@
+ {
+     if (d->m_kioJob) {
+         d->m_kioJob->kill();
+-        d->m_kioJob->deleteLater();
+     }
++
++    d->m_data.clear();
++    d->m_metaDataRead = false;
+ }
+ 
+ qint64 AccessManagerReply::bytesAvailable() const
+ {
+-    return QNetworkReply::bytesAvailable() + d->m_data.length();
++    return (QNetworkReply::bytesAvailable() + d->m_data.size());
+ }
+ 
+ qint64 AccessManagerReply::readData(char *data, qint64 maxSize)
+@@ -109,29 +111,41 @@
+     return length;
+ }
+ 
+-void AccessManagerReply::appendData(KIO::Job *kioJob, const QByteArray &data)
++void AccessManagerReply::readHttpResponseHeaders(KIO::Job *job)
+ {
+     if (!d->m_metaDataRead) {
+-        const QString responseCode = kioJob->queryMetaData("responsecode");
+-        if (!responseCode.isEmpty()) 
++        // Set the HTTP status code...
++        const QString responseCode = job->queryMetaData("responsecode");
++        if (!responseCode.isEmpty())
+             setAttribute(QNetworkRequest::HttpStatusCodeAttribute, responseCode.toInt());
+ 
+-        const QString headers = kioJob->queryMetaData("HTTP-Headers");
++        // Set the encrypted attribute...
++        if (QString::compare(job->queryMetaData("ssl_in_use"), QLatin1String("true"), Qt::CaseInsensitive) == 0)
++            setAttribute(QNetworkRequest::ConnectionEncryptedAttribute, true);
++
++        // Set the raw header information...
++        const QString headers = job->queryMetaData("HTTP-Headers");
+         if (!headers.isEmpty()) {
+             QStringListIterator it (headers.split('\n'));
+             while (it.hasNext()) {
+                 const QStringList headerPair = it.next().split(QLatin1String(":"));
+-                if (headerPair.size() == 2) {
++                if (headerPair.size() == 2 &&
++                    !headerPair.at(0).contains("set-cookie", Qt::CaseInsensitive)) {
+                     setRawHeader(headerPair.at(0).trimmed().toUtf8(), headerPair.at(1).trimmed().toUtf8());
+                 }
+             }
+         }
+ 
++        // Set the returned meta data as attribute...
+         setAttribute(static_cast<QNetworkRequest::Attribute>(KIO::AccessManager::MetaData),
+-                     kioJob->metaData().toVariant());
++                     job->metaData().toVariant());
+         d->m_metaDataRead = true;
+     }
++}
+ 
++void AccessManagerReply::appendData(KIO::Job *kioJob, const QByteArray &data)
++{
++    readHttpResponseHeaders(kioJob);
+     d->m_data += data;
+     emit readyRead();
+ }
+@@ -144,12 +158,12 @@
+ 
+ void AccessManagerReply::jobDone(KJob *kJob)
+ {
+-    const int errcode = kJob->error();
++    int errcode = kJob->error();
+     switch (errcode)
+     {
+         case 0:
+             setError(QNetworkReply::NoError, kJob->errorText());
+-            kDebug() << "0 -> QNetworkReply::NoError";
++            //kDebug() << "0 -> QNetworkReply::NoError";
+             break;
+         case KIO::ERR_COULD_NOT_CONNECT:
+             setError(QNetworkReply::ConnectionRefusedError, kJob->errorText());
+@@ -165,9 +179,18 @@
+             break;
+         case KIO::ERR_USER_CANCELED:
+         case KIO::ERR_ABORTED:
+-            setError(QNetworkReply::OperationCanceledError, kJob->errorText());
+-            kDebug() << "KIO::ERR_ABORTED -> QNetworkReply::OperationCanceledError";
++        {
++            QUrl redirectUrl = attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
++            if (redirectUrl.isValid()) {
++                errcode = 0;
++                readHttpResponseHeaders(d->m_kioJob);
++                kDebug() << "Redirecting to" << redirectUrl;
++            } else {
++                setError(QNetworkReply::OperationCanceledError, kJob->errorText());
++                kDebug() << "KIO::ERR_ABORTED -> QNetworkReply::OperationCanceledError";
++            }
+             break;
++        }
+         case KIO::ERR_UNKNOWN_PROXY_HOST:
+             setError(QNetworkReply::ProxyNotFoundError, kJob->errorText());
+             kDebug() << "KIO::UNKNOWN_PROXY_HOST -> QNetworkReply::ProxyNotFoundError";
+@@ -196,7 +219,7 @@
+             break;
+         case KIO::ERR_UNSUPPORTED_ACTION:
+             setError(QNetworkReply::ProtocolInvalidOperationError, kJob->errorText());
+-            kDebug() << kJob->error();
++            kDebug() << errcode;
+             break;
+         default:
+             setError(QNetworkReply::UnknownNetworkError, errorString());
+@@ -209,16 +232,8 @@
+ 
+ void AccessManagerReply::AccessManagerReplyPrivate::_k_redirection(KIO::Job* job, const KUrl& url)
+ {
+-    job->kill();
+-    m_kioJob = 0;
+-    
+-    // unfortunately we don't get HTTP response code for redirection, so for
+-    // temporary one assume code 302 which is most often used
+-    if (q->attribute(QNetworkRequest::HttpStatusCodeAttribute).isNull())
+-        q->setAttribute(QNetworkRequest::HttpStatusCodeAttribute, 302);
+-
+     q->setAttribute(QNetworkRequest::RedirectionTargetAttribute, QUrl(url));
+-    emit q->finished();
++    job->kill(KJob::EmitResult);
+ }
+ 
+ void AccessManagerReply::AccessManagerReplyPrivate::_k_percent(KJob *job, unsigned long percent)
+diff -Nur kdelibs-4.3.4/kio/kio/accessmanagerreply_p.h kdelibs-4.3.5/kio/kio/accessmanagerreply_p.h
+--- kdelibs-4.3.4/kio/kio/accessmanagerreply_p.h	2009-11-27 14:00:27.000000000 +0100
++++ kdelibs-4.3.5/kio/kio/accessmanagerreply_p.h	2010-01-21 21:49:09.000000000 +0100
+@@ -28,6 +28,7 @@
+ namespace KIO
+ {
+     class Job;
++    class SimpleJob;
+ }
+ class KJob;
+ class KUrl;
+@@ -43,7 +44,7 @@
+ {
+     Q_OBJECT
+ public:
+-    AccessManagerReply(const QNetworkAccessManager::Operation &op, const QNetworkRequest &request, KIO::Job *kioJob, QObject *parent);
++    AccessManagerReply(const QNetworkAccessManager::Operation &op, const QNetworkRequest &request, KIO::SimpleJob *kioJob, QObject *parent);
+     virtual ~AccessManagerReply();
+     virtual qint64 bytesAvailable() const;
+     virtual void abort();
+@@ -55,6 +56,7 @@
+ 
+ protected:
+     virtual qint64 readData(char *data, qint64 maxSize);
++    void readHttpResponseHeaders(KIO::Job *);
+ 
+ private:
+     class AccessManagerReplyPrivate;
+diff -Nur kdelibs-4.3.4/kio/kio/job.cpp kdelibs-4.3.5/kio/kio/job.cpp
+--- kdelibs-4.3.4/kio/kio/job.cpp	2009-06-03 13:54:40.000000000 +0200
++++ kdelibs-4.3.5/kio/kio/job.cpp	2010-01-21 21:49:09.000000000 +0100
+@@ -1986,10 +1986,15 @@
+               offset = 0;
+             else if ( res == R_CANCEL )
+             {
+-                if ( job == m_putJob )
++                if ( job == m_putJob ) {
+                     m_putJob->kill( FileCopyJob::Quietly );
+-                else
++                    q->removeSubjob(m_putJob);
++                    m_putJob = 0;
++                } else {
+                     m_copyJob->kill( FileCopyJob::Quietly );
++                    q->removeSubjob(m_copyJob);
++                    m_copyJob = 0;
++                }
+                 q->setError( ERR_USER_CANCELED );
+                 q->emitResult();
+                 return;
+@@ -2076,6 +2081,8 @@
+        q->setError( ERR_INTERNAL );
+        q->setErrorText( "'Put' job did not send canResume or 'Get' job did not send data!" );
+        m_putJob->kill( FileCopyJob::Quietly );
++       q->removeSubjob(m_putJob);
++       m_putJob = 0;
+        q->emitResult();
+        return;
+    }
+diff -Nur kdelibs-4.3.4/kio/kio/jobuidelegate.cpp kdelibs-4.3.5/kio/kio/jobuidelegate.cpp
+--- kdelibs-4.3.4/kio/kio/jobuidelegate.cpp	2009-08-27 10:19:03.000000000 +0200
++++ kdelibs-4.3.5/kio/kio/jobuidelegate.cpp	2010-01-21 21:49:09.000000000 +0100
+@@ -79,17 +79,19 @@
+                                                      sizeSrc, sizeDest,
+                                                      ctimeSrc, ctimeDest, mtimeSrc,
+                                                      mtimeDest);
++    connect(job, SIGNAL(finished(KJob*)), &dlg, SLOT(reject())); // #192976
+     KIO::RenameDialog_Result res = static_cast<RenameDialog_Result>(dlg.exec());
+     newDest = dlg.newDestUrl().path();
+     return res;
+ }
+ 
+-KIO::SkipDialog_Result KIO::JobUiDelegate::askSkip(KJob *,
++KIO::SkipDialog_Result KIO::JobUiDelegate::askSkip(KJob *job,
+                                               bool multi,
+                                               const QString & error_text)
+ {
+     // We now do it in process. So this method is a useless wrapper around KIO::open_RenameDialog.
+     KIO::SkipDialog dlg( window(), multi, error_text );
++    connect(job, SIGNAL(finished(KJob*)), &dlg, SLOT(reject())); // #192976
+     return static_cast<KIO::SkipDialog_Result>(dlg.exec());
+ }
+ 
+diff -Nur kdelibs-4.3.4/kio/kio/karchive.cpp kdelibs-4.3.5/kio/kio/karchive.cpp
+--- kdelibs-4.3.4/kio/kio/karchive.cpp	2009-02-18 17:29:36.000000000 +0100
++++ kdelibs-4.3.5/kio/kio/karchive.cpp	2010-01-21 21:49:09.000000000 +0100
+@@ -351,7 +351,7 @@
+                          mode_t perm, time_t atime,
+                          time_t mtime, time_t ctime )
+ {
+-    return doWriteDir( name, user, group, perm, atime, mtime, ctime );
++    return doWriteDir( name, user, group, perm | 040000, atime, mtime, ctime );
+ }
+ 
+ bool KArchive::writeSymLink(const QString &name, const QString &target,
+@@ -729,7 +729,9 @@
+ 
+ void KArchiveDirectory::addEntry( KArchiveEntry* entry )
+ {
+-  Q_ASSERT( !entry->name().isEmpty() );
++  if( entry->name().isEmpty() )
++    return;
++
+   if( d->entries.value( entry->name() ) ) {
+       kWarning() << "directory " << name()
+                   << "has entry" << entry->name() << "already";
+diff -Nur kdelibs-4.3.4/kio/kio/kdirlister.cpp kdelibs-4.3.5/kio/kio/kdirlister.cpp
+--- kdelibs-4.3.4/kio/kio/kdirlister.cpp	2009-04-28 15:47:32.000000000 +0200
++++ kdelibs-4.3.5/kio/kio/kdirlister.cpp	2010-01-21 21:49:09.000000000 +0100
+@@ -95,7 +95,6 @@
+ bool KDirListerCache::listDir( KDirLister *lister, const KUrl& _u,
+                                bool _keep, bool _reload )
+ {
+-  // like this we don't have to worry about trailing slashes any further
+   KUrl _url(_u);
+   _url.cleanPath(); // kill consecutive slashes
+ 
+@@ -108,9 +107,24 @@
+           emit lister->redirection(_url);
+   }
+ 
++  // like this we don't have to worry about trailing slashes any further
+   _url.adjustPath(KUrl::RemoveTrailingSlash);
++
+   const QString urlStr = _url.url();
+ 
++  QString resolved;
++  if (_url.isLocalFile()) {
++      // Resolve symlinks (#213799)
++      const QString local = _url.toLocalFile();
++      resolved = QFileInfo(local).canonicalFilePath();
++      if (local != resolved)
++          canonicalUrls[resolved].append(urlStr);
++      // TODO: remove entry from canonicalUrls again in forgetDirs
++      // Note: this is why we use a QStringList value in there rather than a QSet:
++      // we can just remove one entry and not have to worry about other dirlisters
++      // (the non-unicity of the stringlist gives us the refcounting, basically).
++  }
++
+   if (!validUrl(lister, _url)) {
+         kDebug(7004) << lister << "url=" << _url << "not a valid url";
+         return false;
+@@ -189,7 +203,7 @@
+                 kDebug(7004) << "Listing directory:" << _url;
+             }
+ 
+-            itemU = new DirItem(_url);
++            itemU = new DirItem(_url, resolved);
+             itemsInUse.insert(urlStr, itemU);
+ 
+ //        // we have a limit of MAX_JOBS_PER_LISTER concurrently running jobs
+@@ -610,7 +624,7 @@
+ 
+     if (!(listers.isEmpty() || killed)) {
+         kWarning() << "The unexpected happened.";
+-        kWarning() << "listers=" << listers;
++        kWarning() << "listers for" << _dir << "=" << listers;
+         kWarning() << "job=" << job;
+         Q_FOREACH(KDirLister *kdl, listers) {
+             kDebug() << "lister" << kdl << "m_cachedItemsJob=" << kdl->d->m_cachedItemsJob;
+@@ -723,43 +737,54 @@
+     KUrl url(_u);
+     url.adjustPath(KUrl::RemoveTrailingSlash);
+ 
+-    // Maybe _u is a directory itself? (see KDirModelTest::testChmodDirectory)
+-    DirItem* dirItem = dirItemForUrl(url);
+-    if (dirItem && !dirItem->rootItem.isNull() && dirItem->rootItem.url() == url) {
+-        // If lister is set, check that it contains this dir
+-        if (!lister || lister->d->lstDirs.contains(url))
+-            return &dirItem->rootItem;
+-    }
+-
+     KUrl parentDir(url);
+     parentDir.setPath( parentDir.directory() );
+ 
+-    // If lister is set, check that it contains this dir
+-    if (lister && !lister->d->lstDirs.contains(parentDir))
+-        return 0;
+-
+-    dirItem = dirItemForUrl(parentDir);
++    DirItem* dirItem = dirItemForUrl(parentDir);
+     if (dirItem) {
+-        KFileItemList::iterator it = dirItem->lstItems.begin();
+-        const KFileItemList::iterator end = dirItem->lstItems.end();
+-        for (; it != end ; ++it) {
+-            if ((*it).url() == url) {
+-                return &*it;
++        // If lister is set, check that it contains this dir
++        if (!lister || lister->d->lstDirs.contains(parentDir)) {
++            KFileItemList::iterator it = dirItem->lstItems.begin();
++            const KFileItemList::iterator end = dirItem->lstItems.end();
++            for (; it != end ; ++it) {
++                if ((*it).url() == url) {
++                    return &*it;
++                }
+             }
+         }
+     }
+ 
++    // Maybe _u is a directory itself? (see KDirModelTest::testChmodDirectory)
++    // We check this last, though, we prefer returning a kfileitem with an actual
++    // name if possible (and we make it '.' for root items later).
++    dirItem = dirItemForUrl(url);
++    if (dirItem && !dirItem->rootItem.isNull() && dirItem->rootItem.url() == url) {
++        // If lister is set, check that it contains this dir
++        if (!lister || lister->d->lstDirs.contains(url)) {
++            return &dirItem->rootItem;
++        }
++    }
++
+     return 0;
+ }
+ 
+-void KDirListerCache::slotFilesAdded( const QString &dir ) // from KDirNotify signals
++void KDirListerCache::slotFilesAdded( const QString &dir /*url*/ ) // from KDirNotify signals
+ {
+-  kDebug(7004) << dir;
+-  updateDirectory( KUrl(dir) );
++    KUrl urlDir(dir);
++    kDebug(7004) << urlDir; // output urls, not qstrings, since they might contain a password
++    if (urlDir.isLocalFile()) {
++        Q_FOREACH(const QString& u, directoriesForCanonicalPath(urlDir.path())) {
++            updateDirectory(KUrl(u));
++        }
++    } else {
++        updateDirectory(urlDir);
++    }
+ }
+ 
+ void KDirListerCache::slotFilesRemoved( const QStringList &fileList ) // from KDirNotify signals
+ {
++    // TODO: handling of symlinks-to-directories isn't done here,
++    // because I'm not sure how to do it and keep the performance ok...
+     slotFilesRemoved(KUrl::List(fileList));
+ }
+ 
+@@ -900,7 +925,6 @@
+     if (!oldItem.isLocalFile() && !oldItem.localPath().isEmpty()) { // it uses UDS_LOCAL_PATH? ouch, needs an update then
+         slotFilesChanged( QStringList() << src.url() );
+     } else {
+-        aboutToRefreshItem( oldItem );
+         if( nameOnly )
+             fileitem->setName( dst.fileName() );
+         else
+@@ -918,31 +942,14 @@
+ #endif
+ }
+ 
+-void KDirListerCache::aboutToRefreshItem( const KFileItem& fileitem )
+-{
+-    // Look whether this item was shown in any view, i.e. held by any dirlister
+-    KUrl parentDir( fileitem.url() );
+-    parentDir.setPath( parentDir.directory() );
+-    const QString parentDirURL = parentDir.url();
+-
+-    DirectoryDataHash::iterator dit = directoryData.find(parentDirURL);
+-    if (dit == directoryData.end())
+-        return;
+-
+-    foreach (KDirLister *kdl, (*dit).listersCurrentlyHolding)
+-        kdl->d->aboutToRefreshItem( fileitem );
+-
+-    // Also look in listersCurrentlyListing, in case the user manages to rename during a listing
+-    foreach (KDirLister *kdl, (*dit).listersCurrentlyListing)
+-        kdl->d->aboutToRefreshItem( fileitem );
+-}
+-
+-QSet<KDirLister*> KDirListerCache::emitRefreshItem(const KFileItem& oldItem, const KFileItem& fileitem )
++QSet<KDirLister*> KDirListerCache::emitRefreshItem(const KFileItem& oldItem, const KFileItem& fileitem)
+ {
++    //kDebug(7004) << "old:" << oldItem.name() << oldItem.url()
++    //             << "new:" << fileitem.name() << fileitem.url();
+     // Look whether this item was shown in any view, i.e. held by any dirlister
+     KUrl parentDir( oldItem.url() );
+     parentDir.setPath( parentDir.directory() );
+-    QString parentDirURL = parentDir.url();
++    const QString parentDirURL = parentDir.url();
+     DirectoryDataHash::iterator dit = directoryData.find(parentDirURL);
+     QList<KDirLister *> listers;
+     // Also look in listersCurrentlyListing, in case the user manages to rename during a listing
+@@ -957,17 +964,32 @@
+     QSet<KDirLister*> listersToRefresh;
+     Q_FOREACH(KDirLister *kdl, listers) {
+         // For a directory, look for dirlisters where it's the root item.
++        KUrl directoryUrl(oldItem.url());
+         if (oldItem.isDir() && kdl->d->rootFileItem == oldItem) {
++            const KFileItem oldRootItem = kdl->d->rootFileItem;
+             kdl->d->rootFileItem = fileitem;
++            kdl->d->addRefreshItem(directoryUrl, oldRootItem, fileitem);
++        } else {
++            directoryUrl.setPath(directoryUrl.directory());
++            kdl->d->addRefreshItem(directoryUrl, oldItem, fileitem);
+         }
+-        KUrl directoryUrl(oldItem.url());
+-        directoryUrl.setPath(directoryUrl.directory());
+-        kdl->d->addRefreshItem(directoryUrl, oldItem, fileitem);
+         listersToRefresh.insert(kdl);
+     }
+     return listersToRefresh;
+ }
+ 
++QStringList KDirListerCache::directoriesForCanonicalPath(const QString& dir) const
++{
++    QStringList dirs;
++    dirs << dir;
++    dirs << canonicalUrls.value(dir).toSet().toList(); /* make unique; there are faster ways, but this is really small anyway */
++
++    if (dirs.count() > 1)
++        kDebug() << dir << "known as" << dirs;
++
++    return dirs;
++}
++
+ // private slots
+ 
+ // Called by KDirWatch - usually when a dir we're watching has been modified,
+@@ -981,28 +1003,61 @@
+         return; // error
+     const bool isDir = S_ISDIR(buff.st_mode);
+     KUrl url(path);
+-
++    url.adjustPath(KUrl::RemoveTrailingSlash);
+     if (isDir) {
+-        // A dir: launch an update job if anyone cares about it
+-        updateDirectory(url);
++        Q_FOREACH(const QString& dir, directoriesForCanonicalPath(url.path())) {
++            handleDirDirty(dir);
++        }
+     } else {
+-        // A file: do we know about it already?
+-        KFileItem* existingItem = findByUrl(0, url);
+-        if (!existingItem) {
+-            // No - update the parent dir then
+-            url.setPath(url.directory());
+-            updateDirectory(url);
+-        } else {
+-            // A known file: delay updating it, FAM is flooding us with events
+-            const QString urlStr = url.url(KUrl::RemoveTrailingSlash);
+-            if (!pendingUpdates.contains(urlStr)) {
+-                KUrl dir(url);
+-                dir.setPath(dir.directory());
+-                if (checkUpdate(dir.url())) {
+-                    pendingUpdates.insert(urlStr);
+-                    if (!pendingUpdateTimer.isActive())
+-                        pendingUpdateTimer.start( 500 );
+-                }
++        Q_FOREACH(const QString& dir, directoriesForCanonicalPath(url.directory())) {
++            KUrl aliasUrl(dir);
++            aliasUrl.addPath(url.fileName());
++            handleFileDirty(aliasUrl);
++        }
++    }
++}
++
++// Called by slotFileDirty
++void KDirListerCache::handleDirDirty(const KUrl& url)
++{
++    // A dir: launch an update job if anyone cares about it
++
++    // This also means we can forget about pending updates to individual files in that dir
++    const QString dirPath = url.toLocalFile(KUrl::AddTrailingSlash);
++    QMutableSetIterator<QString> pendingIt(pendingUpdates);
++    while (pendingIt.hasNext()) {
++        const QString updPath = pendingIt.next();
++        //kDebug(7004) << "had pending update" << updPath;
++        if (updPath.startsWith(dirPath) &&
++            updPath.indexOf('/', dirPath.length()) == -1) { // direct child item
++            kDebug(7004) << "forgetting about individual update to" << updPath;
++            pendingIt.remove();
++        }
++    }
++
++    updateDirectory(url);
++}
++
++// Called by slotFileDirty
++void KDirListerCache::handleFileDirty(const KUrl& url)
++{
++    // A file: do we know about it already?
++    KFileItem* existingItem = findByUrl(0, url);
++    if (!existingItem) {
++        // No - update the parent dir then
++        KUrl dir(url);
++        dir.setPath(url.directory());
++        updateDirectory(dir);
++    } else {
++        // A known file: delay updating it, FAM is flooding us with events
++        const QString filePath = url.toLocalFile();
++        if (!pendingUpdates.contains(filePath)) {
++            KUrl dir(url);
++            dir.setPath(dir.directory());
++            if (checkUpdate(dir.url())) {
++                pendingUpdates.insert(filePath);
++                if (!pendingUpdateTimer.isActive())
++                    pendingUpdateTimer.start(500);
+             }
+         }
+     }
+@@ -1010,18 +1065,23 @@
+ 
+ void KDirListerCache::slotFileCreated( const QString& path ) // from KDirWatch
+ {
+-  kDebug(7004) << path;
+-  // XXX: how to avoid a complete rescan here?
+-  KUrl u( path );
+-  u.setPath( u.directory() );
+-  updateDirectory( u );
++    kDebug(7004) << path;
++    // XXX: how to avoid a complete rescan here?
++    // We'd need to stat that one file separately and refresh the item(s) for it.
++    KUrl fileUrl(path);
++    slotFilesAdded(fileUrl.directory());
+ }
+ 
+ void KDirListerCache::slotFileDeleted( const QString& path ) // from KDirWatch
+ {
+-  kDebug(7004) << path;
+-  KUrl u( path );
+-  slotFilesRemoved( QStringList() << u.url() );
++    kDebug(7004) << path;
++    KUrl u( path );
++    QStringList fileUrls;
++    Q_FOREACH(KUrl url, directoriesForCanonicalPath(u.directory())) {
++        url.addPath(u.fileName());
++        fileUrls << url.url();
++    }
++    slotFilesRemoved(fileUrls);
+ }
+ 
+ void KDirListerCache::slotEntries( KIO::Job *job, const KIO::UDSEntryList &entries )
+@@ -1072,6 +1132,7 @@
+             // twice, otherwise, so that both views manage to recognize the item.
+             // 2) with kio_ftp we can only know that something is a symlink when
+             // listing the parent, so prefer that item, which has more info.
++            // Note that it gives a funky name() to the root item, rather than "." ;)
+             dir->rootItem = itemForUrl(url);
+             if (dir->rootItem.isNull())
+                 dir->rootItem = KFileItem( *it, url, delayedMimeTypes, true  );
+@@ -1391,7 +1452,6 @@
+             for ( KFileItemList::iterator kit = dir->lstItems.begin(), kend = dir->lstItems.end();
+                   kit != kend ; ++kit )
+             {
+-                aboutToRefreshItem(*kit);
+                 const KFileItem oldItem = *kit;
+ 
+                 const KUrl oldItemUrl ((*kit).url());
+@@ -1596,8 +1656,6 @@
+                 if (inPendingRemoteUpdates) {
+                     pendingRemoteUpdates.erase(pru_it);
+                 }
+-                foreach ( KDirLister *kdl, listers )
+-                    kdl->d->aboutToRefreshItem( *tmp );
+ 
+                 //kDebug(7004) << "file changed:" << tmp->name();
+ 
+@@ -1682,7 +1740,7 @@
+     while (kit.hasNext()) {
+         const KFileItem& item = kit.next();
+         if (!item.isMarked()) {
+-            //kDebug() << "deleted:" << item.name() << &item;
++            //kDebug(7004) << "deleted:" << item.name() << &item;
+             deletedItems.append(item);
+             kit.remove();
+         }
+@@ -1779,13 +1837,12 @@
+ void KDirListerCache::processPendingUpdates()
+ {
+     QSet<KDirLister *> listers;
+-    foreach(const QString& file, pendingUpdates) {
++    foreach(const QString& file, pendingUpdates) { // always a local path
+         kDebug(7004) << file;
+         KUrl u(file);
+         KFileItem *item = findByUrl( 0, u ); // search all items
+         if ( item ) {
+             // we need to refresh the item, because e.g. the permissions can have changed.
+-            aboutToRefreshItem( *item );
+             KFileItem oldItem = *item;
+             item->refresh();
+             listers |= emitRefreshItem( oldItem, *item );
+@@ -2209,6 +2266,8 @@
+     if (!isItemVisible(item))
+         return; // No reason to continue... bailing out here prevents a mimetype scan.
+ 
++    //kDebug(7004) << "in" << directoryUrl << "item:" << item.url();
++
+   if ( m_parent->matchesMimeFilter( item ) )
+   {
+     if ( !lstNewItems )
+@@ -2241,13 +2300,10 @@
+     addNewItem(directoryUrl, *kit);
+ }
+ 
+-void KDirLister::Private::aboutToRefreshItem( const KFileItem &item )
+-{
+-    refreshItemWasFiltered = !isItemVisible(item) || !m_parent->matchesMimeFilter(item);
+-}
+-
+ void KDirLister::Private::addRefreshItem(const KUrl& directoryUrl, const KFileItem& oldItem, const KFileItem& item)
+ {
++    const bool refreshItemWasFiltered = !isItemVisible(oldItem) ||
++                                        !m_parent->matchesMimeFilter(oldItem);
+   if (isItemVisible(item) && m_parent->matchesMimeFilter(item)) {
+     if ( refreshItemWasFiltered )
+     {
+diff -Nur kdelibs-4.3.4/kio/kio/kdirlister_p.h kdelibs-4.3.5/kio/kio/kdirlister_p.h
+--- kdelibs-4.3.4/kio/kio/kdirlister_p.h	2009-03-27 15:47:32.000000000 +0100
++++ kdelibs-4.3.5/kio/kio/kdirlister_p.h	2010-01-21 21:49:09.000000000 +0100
+@@ -60,7 +60,6 @@
+     lstMimeFilteredItems = 0;
+     lstRemoveItems = 0;
+ 
+-    refreshItemWasFiltered = false;
+     hasPendingChanges = false;
+ 
+     window = 0;
+@@ -81,7 +80,6 @@
+   uint numJobs();
+     void addNewItem(const KUrl& directoryUrl, const KFileItem& item);
+     void addNewItems(const KUrl& directoryUrl, const KFileItemList& items);
+-    void aboutToRefreshItem(const KFileItem& item);
+     void addRefreshItem(const KUrl& directoryUrl, const KFileItem& oldItem, const KFileItem& item);
+   void emitItems();
+   void emitItemsDeleted(const KFileItemList &items);
+@@ -125,7 +123,6 @@
+ 
+   bool delayedMimeTypes:1;
+ 
+-  bool refreshItemWasFiltered:1;
+     bool hasPendingChanges:1; // i.e. settings != oldSettings
+ 
+   bool autoErrorHandling:2;
+@@ -273,6 +270,10 @@
+     // otherwise mark the cached item as not-up-to-date for later and return false
+     bool checkUpdate( const QString& url );
+ 
++    // Helper method for slotFileDirty
++    void handleFileDirty(const KUrl& url);
++    void handleDirDirty(const KUrl& url);
++
+   // when there were items deleted from the filesystem all the listers holding
+   // the parent directory need to be notified, the unmarked items have to be deleted
+   // and removed from the cache including all the children.
+@@ -289,8 +290,6 @@
+   // helper for renameDir
+   void emitRedirections( const KUrl &oldUrl, const KUrl &url );
+ 
+-  void aboutToRefreshItem( const KFileItem& fileitem );
+-
+     /**
+      * Emits refreshItem() in the directories that cared for oldItem.
+      * The caller has to remember to call emitItems in the set of dirlisters returned
+@@ -298,15 +297,21 @@
+      */
+     QSet<KDirLister *> emitRefreshItem(const KFileItem& oldItem, const KFileItem& fileitem);
+ 
++    /**
++     * When KDirWatch tells us that something changed in "dir", we need to
++     * also notify the dirlisters that are listing a symlink to "dir" (#213799)
++     */
++    QStringList directoriesForCanonicalPath(const QString& dir) const;
++
+ #ifndef NDEBUG
+   void printDebug();
+ #endif
+ 
+   class DirItem
+   {
+-	public:
+-    DirItem( const KUrl &dir )
+-      : url(dir)
++  public:
++    DirItem(const KUrl &dir, const QString& canonicalPath)
++      : url(dir), m_canonicalPath(canonicalPath)
+     {
+       autoUpdates = 0;
+       complete = false;
+@@ -317,7 +322,7 @@
+       if ( autoUpdates )
+       {
+         if ( KDirWatch::exists() && url.isLocalFile() )
+-            KDirWatch::self()->removeDir( url.path() );
++            KDirWatch::self()->removeDir(m_canonicalPath);
+         sendSignal( false, url );
+       }
+       lstItems.clear();
+@@ -338,11 +343,13 @@
+       if ( autoUpdates )
+       {
+         if ( url.isLocalFile() )
+-            KDirWatch::self()->removeDir( url.path() );
++            KDirWatch::self()->removeDir(m_canonicalPath);
+         sendSignal( false, url );
+ 
+-        if ( newUrl.isLocalFile() )
+-          KDirWatch::self()->addDir( newUrl.path() );
++        if (newUrl.isLocalFile()) {
++            m_canonicalPath = QFileInfo(newUrl.toLocalFile()).canonicalFilePath();
++            KDirWatch::self()->addDir(m_canonicalPath);
++        }
+         sendSignal( true, newUrl );
+       }
+ 
+@@ -357,7 +364,7 @@
+       if ( autoUpdates++ == 0 )
+       {
+         if ( url.isLocalFile() )
+-          KDirWatch::self()->addDir( url.path() );
++          KDirWatch::self()->addDir(m_canonicalPath);
+         sendSignal( true, url );
+       }
+     }
+@@ -367,7 +374,7 @@
+       if ( --autoUpdates == 0 )
+       {
+         if ( url.isLocalFile() )
+-          KDirWatch::self()->removeDir( url.path() );
++          KDirWatch::self()->removeDir(m_canonicalPath);
+         sendSignal( false, url );
+       }
+ 
+@@ -384,6 +391,9 @@
+     // the complete url of this directory
+     KUrl url;
+ 
++    // the local path, with symlinks resolved, so that KDirWatch works
++    QString m_canonicalPath;
++
+     // KFileItem representing the root of this directory.
+     // Remember that this is optional. FTP sites don't return '.' in
+     // the list, so they give no root item
+@@ -402,6 +412,11 @@
+     typedef QHash<QString /*url*/, KDirListerCacheDirectoryData> DirectoryDataHash;
+     DirectoryDataHash directoryData;
+ 
++    // Symlink-to-directories are registered here so that we can
++    // find the url that changed, when kdirwatch tells us about
++    // changes in the canonical url. (#213799)
++    QHash<QString /*canonical path*/, QStringList /*dirlister urls*/> canonicalUrls;
++
+     // Set of local files that we have changed recently (according to KDirWatch)
+     // We temporize the notifications by keeping them 500ms in this list.
+     QSet<QString /*url*/> pendingUpdates;
+diff -Nur kdelibs-4.3.4/kio/kio/kdirwatch.cpp kdelibs-4.3.5/kio/kio/kdirwatch.cpp
+--- kdelibs-4.3.4/kio/kio/kdirwatch.cpp	2009-10-02 10:18:07.000000000 +0200
++++ kdelibs-4.3.5/kio/kio/kdirwatch.cpp	2010-01-21 21:49:09.000000000 +0100
+@@ -290,7 +290,8 @@
+               addEntry(0, QFileInfo(e->path).absolutePath(), e, true);
+           }
+           if ( event->mask & IN_IGNORED ) {
+-            e->wd = 0;
++            // Causes bug #207361 with kernels 2.6.31 and 2.6.32!
++            //e->wd = -1;
+           }
+           if ( event->mask & (IN_CREATE|IN_MOVED_TO) ) {
+             Entry* sub_entry = e->findSubEntry(e->path + '/' + path);
+diff -Nur kdelibs-4.3.4/kio/kio/kfilewrite.desktop kdelibs-4.3.5/kio/kio/kfilewrite.desktop
+--- kdelibs-4.3.4/kio/kio/kfilewrite.desktop	2009-10-02 10:18:07.000000000 +0200
++++ kdelibs-4.3.5/kio/kio/kfilewrite.desktop	2010-01-21 21:49:09.000000000 +0100
+@@ -74,7 +74,7 @@
+ Comment[tg]=Васлкунаки навишти KFile
+ Comment[th]=โปรแกรมเสริมสำหรับเขียน KFileWrite
+ Comment[tr]=KFileWrite Eklentisi
+-Comment[uk]=Втулок KFileWrite
++Comment[uk]=Додаток KFileWrite
+ Comment[vi]=Bổ sung KFileWrite
+ Comment[wa]=Tchôke-divins sicrijhaedje di fitchîs
+ Comment[x-test]=xxKFileWrite pluginxx
+diff -Nur kdelibs-4.3.4/kio/kio/kprotocolmanager.cpp kdelibs-4.3.5/kio/kio/kprotocolmanager.cpp
+--- kdelibs-4.3.4/kio/kio/kprotocolmanager.cpp	2009-10-02 10:18:07.000000000 +0200
++++ kdelibs-4.3.5/kio/kio/kprotocolmanager.cpp	2010-01-21 21:49:09.000000000 +0100
+@@ -386,7 +386,7 @@
+         if ( (!useRevProxy && !isRevMatch) || (useRevProxy && isRevMatch) )
+         {
+            d->url = proxy;
+-           if ( d->url.isValid() )
++           if (d->url.isValid() && !d->url.protocol().isEmpty())
+            {
+               // The idea behind slave protocols is not applicable to http
+               // and webdav protocols.
+diff -Nur kdelibs-4.3.4/kio/kio/kzip.cpp kdelibs-4.3.5/kio/kio/kzip.cpp
+--- kdelibs-4.3.4/kio/kio/kzip.cpp	2009-06-09 18:09:10.000000000 +0200
++++ kdelibs-4.3.5/kio/kio/kzip.cpp	2010-01-21 21:49:09.000000000 +0100
+@@ -995,9 +995,15 @@
+     return true;
+ }
+ 
+-bool KZip::doWriteDir( const QString&, const QString&, const QString&,
+-                       mode_t, time_t, time_t, time_t ) {
+-        return true;
++bool KZip::doWriteDir( const QString &name, const QString &user, const QString &group,
++                       mode_t perm, time_t atime, time_t mtime, time_t ctime ) {
++    // Zip files have no explicit directories, they are implicitly created during extraction time
++    // when file entries have paths in them.
++    // However, to support empty directories, we must create a dummy file entry which ends with '/'.
++    QString dirName = name;
++    if (!name.endsWith("/"))
++        dirName = dirName.append('/');
++    return writeFile(dirName, user, group, 0, 0, perm, atime, mtime, ctime);
+ }
+ 
+ bool KZip::doPrepareWriting(const QString &name, const QString &user,
+diff -Nur kdelibs-4.3.4/kio/kio/kzip.h kdelibs-4.3.5/kio/kio/kzip.h
+--- kdelibs-4.3.4/kio/kio/kzip.h	2008-05-21 13:07:57.000000000 +0200
++++ kdelibs-4.3.5/kio/kio/kzip.h	2010-01-21 21:49:09.000000000 +0100
+@@ -149,9 +149,7 @@
+     /// Closes the archive
+     virtual bool closeArchive();
+ 
+-    /**
+-     * @internal Not needed for zip
+-     */
++    /// Reimplemented from KArchive
+     virtual bool doWriteDir( const QString& name, const QString& user,
+                              const QString& group, mode_t perm, time_t atime,
+                              time_t mtime, time_t ctime );
+diff -Nur kdelibs-4.3.4/kio/kio/slave.cpp kdelibs-4.3.5/kio/kio/slave.cpp
+--- kdelibs-4.3.4/kio/kio/slave.cpp	2009-03-10 13:26:05.000000000 +0100
++++ kdelibs-4.3.5/kio/kio/slave.cpp	2010-01-21 21:49:09.000000000 +0100
+@@ -125,9 +125,10 @@
+ void Slave::timeout()
+ {
+     Q_D(Slave);
++   if (d->dead)
++      return;
+    if (d->connection->isConnected())
+       return;
+-
+    kDebug(7002) << "slave failed to connect to application pid=" << d->m_pid << " protocol=" << d->m_protocol;
+    if (d->m_pid && (::kill(d->m_pid, 0) == 0))
+    {
+diff -Nur kdelibs-4.3.4/kio/kurifilterplugin.desktop kdelibs-4.3.5/kio/kurifilterplugin.desktop
+--- kdelibs-4.3.4/kio/kurifilterplugin.desktop	2009-10-02 10:18:08.000000000 +0200
++++ kdelibs-4.3.5/kio/kurifilterplugin.desktop	2010-01-21 21:49:10.000000000 +0100
+@@ -78,7 +78,7 @@
+ Name[tg]=Васлкунаки намоишгари пурзӯр
+ Name[th]=โปรแกรมเสริมการเบราว์แบบเสริมความสามารถ
+ Name[tr]=Gelişmiş Tarayıcı Eklentisi
+-Name[uk]=Втулок розширеної навігації
++Name[uk]=Додаток розширеної навігації
+ Name[uz]=Tezlashtirilgan veb-koʻrish plagini
+ Name[uz@cyrillic]=Тезлаштирилган веб-кўриш плагини
+ Name[vi]=Bổ sung duyệt tăng cường
+diff -Nur kdelibs-4.3.4/kio/misc/kpac/proxyscout.desktop kdelibs-4.3.5/kio/misc/kpac/proxyscout.desktop
+--- kdelibs-4.3.4/kio/misc/kpac/proxyscout.desktop	2009-10-02 10:18:08.000000000 +0200
++++ kdelibs-4.3.5/kio/misc/kpac/proxyscout.desktop	2010-01-21 21:49:10.000000000 +0100
+@@ -76,7 +76,7 @@
+ Name[tg]=Назорати Proxy
+ Name[th]=ตรวจหาพร็อกซี
+ Name[tr]=Vekil Sunucu Gözcüsü
+-Name[uk]=Розвідник проксі сервера
++Name[uk]=Розвідник проксі-сервера
+ Name[uz]=Proksi skaut
+ Name[uz@cyrillic]=Прокси скаут
+ Name[vi]=Proxy Scout
+@@ -161,7 +161,7 @@
+ Comment[tg]=Танзимоти худкории proxy
+ Comment[th]=การปรับแต่งพร็อกซีอัตโนมัติ
+ Comment[tr]=Otomatik vekil sunucu yapılandırması
+-Comment[uk]=Автоматичне визначення проксі сервера
++Comment[uk]=Автоматичне визначення проксі-сервера
+ Comment[uz]=Proksini avtomatik ravishda moslash
+ Comment[uz@cyrillic]=Проксини автоматик равишда мослаш
+ Comment[vi]=Cấu hình ủy nhiệm tự động.
+diff -Nur kdelibs-4.3.4/kio/misc/kpac/proxyscout.notifyrc kdelibs-4.3.5/kio/misc/kpac/proxyscout.notifyrc
+--- kdelibs-4.3.4/kio/misc/kpac/proxyscout.notifyrc	2009-10-02 10:18:08.000000000 +0200
++++ kdelibs-4.3.5/kio/misc/kpac/proxyscout.notifyrc	2010-01-21 21:49:10.000000000 +0100
+@@ -73,7 +73,7 @@
+ Comment[tg]=Танзимоти худкории Proxy
+ Comment[th]=การปรับแต่งพร็อกซีอัตโนมัติ
+ Comment[tr]=Otomatik Vekil Sunucu Yapılandırması
+-Comment[uk]=Автоматичне налаштування проксі сервера
++Comment[uk]=Автоматичне налаштування проксі-сервера
+ Comment[wa]=Apontiaedje otomatike do procsi
+ Comment[x-test]=xxAutomatic Proxy Configurationxx
+ Comment[zh_CN]=自动代理配置
+@@ -398,7 +398,7 @@
+ Comment[tg]=Дастнависи танзимшавандаи proxy бор карда намешавад
+ Comment[th]=ไม่สามารถดาวน์โหลดสคริปต์ปรับแต่งพร็อกซีได้
+ Comment[tr]=Vekil sunucu yapılandırma dosyası indirilemedi
+-Comment[uk]=Неможливо звантажити скрип налаштування проксі
++Comment[uk]=Неможливо звантажити скрипт налаштування проксі
+ Comment[uz]=Proksini moslash uchun skriptni yozib olib boʻlmadi
+ Comment[uz@cyrillic]=Проксини мослаш учун скриптни ёзиб олиб бўлмади
+ Comment[wa]=Dji n' a savou aberweter l' sicripe d' apontiaedje do procsi
+diff -Nur kdelibs-4.3.4/kio/renamedialogplugin.desktop kdelibs-4.3.5/kio/renamedialogplugin.desktop
+--- kdelibs-4.3.4/kio/renamedialogplugin.desktop	2009-08-27 10:19:04.000000000 +0200
++++ kdelibs-4.3.5/kio/renamedialogplugin.desktop	2010-01-21 21:49:10.000000000 +0100
+@@ -76,7 +76,7 @@
+ Comment[tg]=Васлкунак барои номивази диалог
+ Comment[th]=โปรแกรมเสริมสำหรับกล่องเปลี่ยนชื่อ
+ Comment[tr]=Yeniden İsimlendir Penceresi İçin Eklenti
+-Comment[uk]=Втулок для діалогу перейменування
++Comment[uk]=Додаток для створення діалогового вікна перейменування
+ Comment[uz]=Nomini oʻzgartirish dialogi uchun plagin
+ Comment[uz@cyrillic]=Номини ўзгартириш диалоги учун плагин
+ Comment[vi]=Bổ sung cho hộp thoại thay đổi tên.
+diff -Nur kdelibs-4.3.4/kio/tests/jobtest.cpp kdelibs-4.3.5/kio/tests/jobtest.cpp
+--- kdelibs-4.3.4/kio/tests/jobtest.cpp	2009-10-30 13:25:59.000000000 +0100
++++ kdelibs-4.3.5/kio/tests/jobtest.cpp	2010-01-21 21:49:10.000000000 +0100
+@@ -1130,7 +1130,7 @@
+ 
+ void JobTest::getInvalidUrl()
+ {
+-    KUrl url("file://\"\"");
++    KUrl url("http://[strange;hostname]/");
+     QVERIFY(!url.isValid());
+ 
+     KIO::SimpleJob* job = KIO::get(url, KIO::NoReload, KIO::HideProgressInfo);
+diff -Nur kdelibs-4.3.4/kio/tests/kdirlistertest.cpp kdelibs-4.3.5/kio/tests/kdirlistertest.cpp
+--- kdelibs-4.3.4/kio/tests/kdirlistertest.cpp	2009-04-28 15:47:32.000000000 +0200
++++ kdelibs-4.3.5/kio/tests/kdirlistertest.cpp	2010-01-21 21:49:10.000000000 +0100
+@@ -18,6 +18,7 @@
+ */
+ 
+ #include "kdirlistertest.h"
++#include <ktemporaryfile.h>
+ #include "kdirlistertest.moc"
+ #include <kdirlister.h>
+ #include <qtest_kde.h>
+@@ -29,8 +30,9 @@
+ #include <kio/deletejob.h>
+ #include <kdirwatch.h>
+ #include <kio/job.h>
++#include <kio/copyjob.h>
+ 
+-Q_DECLARE_METATYPE(KFileItemList)
++#define WORKAROUND_BROKEN_INOTIFY 0
+ 
+ void MyDirLister::handleError(KIO::Job* job)
+ {
+@@ -60,36 +62,30 @@
+     createTestFile(path+"toplevelfile_3");
+     createTestDirectory(path+"subdir");
+     createTestDirectory(path+"subdir/subsubdir");
++}
+ 
+-    // Hmmpf.
+-    qRegisterMetaType<KUrl>();
+-    qRegisterMetaType<KFileItemList>();
++void KDirListerTest::cleanup()
++{
++    m_dirLister.clearSpies();
++    disconnect(&m_dirLister, 0, this, 0);
+ }
+ 
+ void KDirListerTest::testOpenUrl()
+ {
+     m_items.clear();
+     const QString path = m_tempDir.name();
+-    QSignalSpy spyStarted(&m_dirLister, SIGNAL(started(KUrl)));
+-    QSignalSpy spyClear(&m_dirLister, SIGNAL(clear()));
+-    QSignalSpy spyClearKUrl(&m_dirLister, SIGNAL(clear(KUrl)));
+-    QSignalSpy spyCompleted(&m_dirLister, SIGNAL(completed()));
+-    QSignalSpy spyCompletedKUrl(&m_dirLister, SIGNAL(completed(KUrl)));
+-    QSignalSpy spyCanceled(&m_dirLister, SIGNAL(canceled()));
+-    QSignalSpy spyCanceledKUrl(&m_dirLister, SIGNAL(canceled(KUrl)));
+-    QSignalSpy spyRedirection(&m_dirLister, SIGNAL(redirection(KUrl)));
+     connect(&m_dirLister, SIGNAL(newItems(KFileItemList)), this, SLOT(slotNewItems(KFileItemList)));
+     // The call to openUrl itself, emits started
+     m_dirLister.openUrl(KUrl(path), KDirLister::NoFlags);
+ 
+-    QCOMPARE(spyStarted.count(), 1);
+-    QCOMPARE(spyCompleted.count(), 0);
+-    QCOMPARE(spyCompletedKUrl.count(), 0);
+-    QCOMPARE(spyCanceled.count(), 0);
+-    QCOMPARE(spyCanceledKUrl.count(), 0);
+-    QCOMPARE(spyClear.count(), 1);
+-    QCOMPARE(spyClearKUrl.count(), 0);
+-    QCOMPARE(spyRedirection.count(), 0);
++    QCOMPARE(m_dirLister.spyStarted.count(), 1);
++    QCOMPARE(m_dirLister.spyCompleted.count(), 0);
++    QCOMPARE(m_dirLister.spyCompletedKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceled.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceledKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyClear.count(), 1);
++    QCOMPARE(m_dirLister.spyClearKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyRedirection.count(), 0);
+     QCOMPARE(m_items.count(), 0);
+     QVERIFY(!m_dirLister.isFinished());
+ 
+@@ -97,19 +93,38 @@
+     qDebug("waiting for completed");
+     connect(&m_dirLister, SIGNAL(completed()), this, SLOT(exitLoop()));
+     enterLoop();
+-    QCOMPARE(spyStarted.count(), 1);
+-    QCOMPARE(spyCompleted.count(), 1);
+-    QCOMPARE(spyCompletedKUrl.count(), 1);
+-    QCOMPARE(spyCanceled.count(), 0);
+-    QCOMPARE(spyCanceledKUrl.count(), 0);
+-    QCOMPARE(spyClear.count(), 1);
+-    QCOMPARE(spyClearKUrl.count(), 0);
+-    QCOMPARE(spyRedirection.count(), 0);
+-    QCOMPARE(m_items.count(), 4);
++    QCOMPARE(m_dirLister.spyStarted.count(), 1);
++    QCOMPARE(m_dirLister.spyCompleted.count(), 1);
++    QCOMPARE(m_dirLister.spyCompletedKUrl.count(), 1);
++    QCOMPARE(m_dirLister.spyCanceled.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceledKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyClear.count(), 1);
++    QCOMPARE(m_dirLister.spyClearKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyRedirection.count(), 0);
++    QCOMPARE(m_items.count(), fileCount());
+     QVERIFY(m_dirLister.isFinished());
+     disconnect(&m_dirLister, 0, this, 0);
+ 
+-    QVERIFY(!m_dirLister.findByName("toplevelfile_3").isNull());
++    const QString fileName = "toplevelfile_3";
++    const KUrl itemUrl = path + fileName;
++    KFileItem byName = m_dirLister.findByName(fileName);
++    QVERIFY(!byName.isNull());
++    QCOMPARE(byName.url().url(), itemUrl.url());
++    QCOMPARE(byName.entry().stringValue(KIO::UDSEntry::UDS_NAME), fileName);
++    KFileItem byUrl = m_dirLister.findByUrl(itemUrl);
++    QVERIFY(!byUrl.isNull());
++    QCOMPARE(byUrl.url().url(), itemUrl.url());
++    QCOMPARE(byUrl.entry().stringValue(KIO::UDSEntry::UDS_NAME), fileName);
++    KFileItem itemForUrl = KDirLister::cachedItemForUrl(itemUrl);
++    QVERIFY(!itemForUrl.isNull());
++    QCOMPARE(itemForUrl.url().url(), itemUrl.url());
++    QCOMPARE(itemForUrl.entry().stringValue(KIO::UDSEntry::UDS_NAME), fileName);
++
++    KFileItem rootByUrl = m_dirLister.findByUrl(path);
++    QVERIFY(!rootByUrl.isNull());
++    QCOMPARE(rootByUrl.url().path() + '/', path);
++
++    m_dirLister.clearSpies(); // for the tests that call testOpenUrl for setup
+ }
+ 
+ // This test assumes testOpenUrl was run before. So m_dirLister is holding the items already.
+@@ -122,23 +137,16 @@
+     {
+         m_items.clear();
+         const QString path = m_tempDir.name();
+-        KDirLister secondDirLister;
+-        QSignalSpy spyStarted(&secondDirLister, SIGNAL(started(KUrl)));
+-        QSignalSpy spyClear(&secondDirLister, SIGNAL(clear()));
+-        QSignalSpy spyClearKUrl(&secondDirLister, SIGNAL(clear(KUrl)));
+-        QSignalSpy spyCompleted(&secondDirLister, SIGNAL(completed()));
+-        QSignalSpy spyCompletedKUrl(&secondDirLister, SIGNAL(completed(KUrl)));
+-        QSignalSpy spyCanceled(&secondDirLister, SIGNAL(canceled()));
+-        QSignalSpy spyCanceledKUrl(&secondDirLister, SIGNAL(canceled(KUrl)));
++        MyDirLister secondDirLister;
+         connect(&secondDirLister, SIGNAL(newItems(KFileItemList)), this, SLOT(slotNewItems(KFileItemList)));
+         secondDirLister.openUrl(KUrl(path), KDirLister::NoFlags);
+-        QCOMPARE(spyStarted.count(), 1);
+-        QCOMPARE(spyCompleted.count(), 0);
+-        QCOMPARE(spyCompletedKUrl.count(), 0);
+-        QCOMPARE(spyCanceled.count(), 0);
+-        QCOMPARE(spyCanceledKUrl.count(), 0);
+-        QCOMPARE(spyClear.count(), 1);
+-        QCOMPARE(spyClearKUrl.count(), 0);
++        QCOMPARE(secondDirLister.spyStarted.count(), 1);
++        QCOMPARE(secondDirLister.spyCompleted.count(), 0);
++        QCOMPARE(secondDirLister.spyCompletedKUrl.count(), 0);
++        QCOMPARE(secondDirLister.spyCanceled.count(), 0);
++        QCOMPARE(secondDirLister.spyCanceledKUrl.count(), 0);
++        QCOMPARE(secondDirLister.spyClear.count(), 1);
++        QCOMPARE(secondDirLister.spyClearKUrl.count(), 0);
+         QCOMPARE(m_items.count(), 0);
+         QVERIFY(!secondDirLister.isFinished());
+ 
+@@ -146,13 +154,13 @@
+         qDebug("waiting for completed");
+         connect(&secondDirLister, SIGNAL(completed()), this, SLOT(exitLoop()));
+         enterLoop();
+-        QCOMPARE(spyStarted.count(), 1);
+-        QCOMPARE(spyCompleted.count(), 1);
+-        QCOMPARE(spyCompletedKUrl.count(), 1);
+-        QCOMPARE(spyCanceled.count(), 0);
+-        QCOMPARE(spyCanceledKUrl.count(), 0);
+-        QCOMPARE(spyClear.count(), 1);
+-        QCOMPARE(spyClearKUrl.count(), 0);
++        QCOMPARE(secondDirLister.spyStarted.count(), 1);
++        QCOMPARE(secondDirLister.spyCompleted.count(), 1);
++        QCOMPARE(secondDirLister.spyCompletedKUrl.count(), 1);
++        QCOMPARE(secondDirLister.spyCanceled.count(), 0);
++        QCOMPARE(secondDirLister.spyCanceledKUrl.count(), 0);
++        QCOMPARE(secondDirLister.spyClear.count(), 1);
++        QCOMPARE(secondDirLister.spyClearKUrl.count(), 0);
+         QCOMPARE(m_items.count(), 4);
+         QVERIFY(secondDirLister.isFinished());
+     }
+@@ -165,22 +173,13 @@
+ {
+     QCOMPARE(m_items.count(), 4);
+     const QString path = m_tempDir.name();
+-    QSignalSpy spyStarted(&m_dirLister, SIGNAL(started(KUrl)));
+-    QSignalSpy spyClear(&m_dirLister, SIGNAL(clear()));
+-    QSignalSpy spyClearKUrl(&m_dirLister, SIGNAL(clear(KUrl)));
+-    QSignalSpy spyCompleted(&m_dirLister, SIGNAL(completed()));
+-    QSignalSpy spyCompletedKUrl(&m_dirLister, SIGNAL(completed(KUrl)));
+-    QSignalSpy spyCanceled(&m_dirLister, SIGNAL(canceled()));
+-    QSignalSpy spyCanceledKUrl(&m_dirLister, SIGNAL(canceled(KUrl)));
+     connect(&m_dirLister, SIGNAL(newItems(KFileItemList)), this, SLOT(slotNewItems(KFileItemList)));
+ 
+     QTest::qWait(1000); // We need a 1s timestamp difference on the dir, otherwise FAM won't notice anything.
+ 
+     kDebug() << "Creating new file";
+-    QFile file(path+"toplevelfile_new");
+-    QVERIFY(file.open(QIODevice::WriteOnly));
+-    file.write(QByteArray("foo"));
+-    file.close();
++    const QString fileName = "toplevelfile_new";
++    createSimpleFile(path + fileName);
+ 
+     int numTries = 0;
+     // Give time for KDirWatch to notify us
+@@ -191,13 +190,136 @@
+     //kDebug() << "numTries=" << numTries;
+     QCOMPARE(m_items.count(), 5);
+ 
+-    QCOMPARE(spyStarted.count(), 1); // Updates call started
+-    QCOMPARE(spyCompleted.count(), 1); // and completed
+-    QCOMPARE(spyCompletedKUrl.count(), 1);
+-    QCOMPARE(spyCanceled.count(), 0);
+-    QCOMPARE(spyCanceledKUrl.count(), 0);
+-    QCOMPARE(spyClear.count(), 0);
+-    QCOMPARE(spyClearKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyStarted.count(), 1); // Updates call started
++    QCOMPARE(m_dirLister.spyCompleted.count(), 1); // and completed
++    QCOMPARE(m_dirLister.spyCompletedKUrl.count(), 1);
++    QCOMPARE(m_dirLister.spyCanceled.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceledKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyClear.count(), 0);
++    QCOMPARE(m_dirLister.spyClearKUrl.count(), 0);
++
++    const KUrl itemUrl = path + fileName;
++    KFileItem itemForUrl = KDirLister::cachedItemForUrl(itemUrl);
++    QVERIFY(!itemForUrl.isNull());
++    QCOMPARE(itemForUrl.url().url(), itemUrl.url());
++    QCOMPARE(itemForUrl.entry().stringValue(KIO::UDSEntry::UDS_NAME), fileName);
++}
++
++void KDirListerTest::testNewItemByCopy()
++{
++    // This test creates a file using KIO::copyAs, like knewmenu.cpp does.
++    // Useful for testing #192185, i.e. whether we catch the kdirwatch event and avoid
++    // a KFileItem::refresh().
++    const int origItemCount = m_items.count();
++    const QString path = m_tempDir.name();
++    connect(&m_dirLister, SIGNAL(newItems(KFileItemList)), this, SLOT(slotNewItems(KFileItemList)));
++
++    QTest::qWait(1000); // We need a 1s timestamp difference on the dir, otherwise FAM won't notice anything.
++
++    const QString fileName = "toplevelfile_copy";
++    const KUrl itemUrl(path + fileName);
++    KIO::CopyJob* job = KIO::copyAs(path+"toplevelfile_3", itemUrl, KIO::HideProgressInfo);
++    job->exec();
++
++    int numTries = 0;
++    // Give time for KDirWatch/KDirNotify to notify us
++    while (m_items.count() == origItemCount) {
++        QVERIFY(++numTries < 10);
++        QTest::qWait(200);
++    }
++    //kDebug() << "numTries=" << numTries;
++    QCOMPARE(m_items.count(), origItemCount+1);
++
++    QCOMPARE(m_dirLister.spyStarted.count(), 1); // Updates call started
++    QCOMPARE(m_dirLister.spyCompleted.count(), 1); // and completed
++    QCOMPARE(m_dirLister.spyCompletedKUrl.count(), 1);
++    QCOMPARE(m_dirLister.spyCanceled.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceledKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyClear.count(), 0);
++    QCOMPARE(m_dirLister.spyClearKUrl.count(), 0);
++
++    // Give some time to KDirWatch
++    QTest::qWait(1000);
++
++    KFileItem itemForUrl = KDirLister::cachedItemForUrl(itemUrl);
++    QVERIFY(!itemForUrl.isNull());
++    QCOMPARE(itemForUrl.url().url(), itemUrl.url());
++    QCOMPARE(itemForUrl.entry().stringValue(KIO::UDSEntry::UDS_NAME), fileName);
++}
++
++void KDirListerTest::testNewItemsInSymlink() // #213799
++{
++    const int origItemCount = m_items.count();
++    QCOMPARE(fileCount(), origItemCount);
++    const QString path = m_tempDir.name();
++    KTemporaryFile tempFile;
++    QVERIFY(tempFile.open());
++    const QString symPath = tempFile.fileName() + "_link";
++    tempFile.close();
++    bool symlinkOk = ::symlink(QFile::encodeName(path), QFile::encodeName(symPath)) == 0;
++    QVERIFY(symlinkOk);
++    MyDirLister dirLister2;
++    m_items2.clear();
++    connect(&dirLister2, SIGNAL(newItems(KFileItemList)), this, SLOT(slotNewItems2(KFileItemList)));
++    connect(&m_dirLister, SIGNAL(newItems(KFileItemList)), this, SLOT(slotNewItems(KFileItemList)));
++
++    // The initial listing
++    dirLister2.openUrl(KUrl(symPath), KDirLister::NoFlags);
++    connect(&dirLister2, SIGNAL(completed()), this, SLOT(exitLoop()));
++    enterLoop();
++    QCOMPARE(m_items2.count(), origItemCount);
++    QVERIFY(dirLister2.isFinished());
++
++    QTest::qWait(1000); // We need a 1s timestamp difference on the dir, otherwise FAM won't notice anything.
++
++    kDebug() << "Creating new file";
++    const QString fileName = "toplevelfile_newinlink";
++    createSimpleFile(path + fileName);
++
++#if WORKAROUND_BROKEN_INOTIFY
++    org::kde::KDirNotify::emitFilesAdded(path);
++#endif
++    int numTries = 0;
++    // Give time for KDirWatch to notify us
++    while (m_items2.count() == origItemCount) {
++        QVERIFY(++numTries < 10);
++        QTest::qWait(200);
++    }
++    //kDebug() << "numTries=" << numTries;
++    QCOMPARE(m_items2.count(), origItemCount+1);
++    QCOMPARE(m_items.count(), origItemCount+1);
++
++    // Now create an item using the symlink-path
++    const QString fileName2 = "toplevelfile_newinlink2";
++    {
++        createSimpleFile(path + fileName2);
++
++        int numTries = 0;
++        // Give time for KDirWatch to notify us
++        while (m_items2.count() == origItemCount + 1) {
++            QVERIFY(++numTries < 10);
++            QTest::qWait(200);
++        }
++        QCOMPARE(m_items2.count(), origItemCount+2);
++        QCOMPARE(m_items.count(), origItemCount+2);
++    }
++    QCOMPARE(fileCount(), m_items.count());
++
++    // Test file deletion
++    {
++        qDebug() << "Deleting" << (path+fileName);
++        QTest::qWait(1000); // for timestamp difference
++        QFile::remove(path + fileName);
++        while (dirLister2.spyDeleteItem.count() == 0) {
++            QVERIFY(++numTries < 10);
++            QTest::qWait(200);
++        }
++        QCOMPARE(dirLister2.spyDeleteItem.count(), 1);
++        const KFileItem item = dirLister2.spyDeleteItem[0][0].value<KFileItem>();
++        QCOMPARE(item.url().path(), symPath + '/' + fileName);
++    }
++
++    // TODO: test file update.
+     disconnect(&m_dirLister, 0, this, 0);
+ }
+ 
+@@ -207,18 +329,11 @@
+     m_refreshedItems.clear();
+ 
+     const QString path = m_tempDir.name();
+-    const QString fileName = path+"toplevelfile_2";
++    const QString fileName = path+"toplevelfile_1";
+     KFileItem cachedItem = m_dirLister.findByUrl(KUrl(fileName));
+     QVERIFY(!cachedItem.isNull());
+     QCOMPARE(cachedItem.mimetype(), QString("application/octet-stream"));
+ 
+-    QSignalSpy spyStarted(&m_dirLister, SIGNAL(started(KUrl)));
+-    QSignalSpy spyClear(&m_dirLister, SIGNAL(clear()));
+-    QSignalSpy spyClearKUrl(&m_dirLister, SIGNAL(clear(KUrl)));
+-    QSignalSpy spyCompleted(&m_dirLister, SIGNAL(completed()));
+-    QSignalSpy spyCompletedKUrl(&m_dirLister, SIGNAL(completed(KUrl)));
+-    QSignalSpy spyCanceled(&m_dirLister, SIGNAL(canceled()));
+-    QSignalSpy spyCanceledKUrl(&m_dirLister, SIGNAL(canceled(KUrl)));
+     connect(&m_dirLister, SIGNAL(refreshItems(const QList<QPair<KFileItem, KFileItem> > &)),
+             this, SLOT(slotRefreshItems(const QList<QPair<KFileItem, KFileItem> > &)));
+ 
+@@ -228,24 +343,15 @@
+     file.close();
+     QCOMPARE(QFileInfo(fileName).size(), 11LL /*Hello world*/ + 6 /*<html>*/);
+ 
+-    // KDirWatch doesn't make this work when using FAM :(
+-    //KDirWatch::self()->setDirty(path+"toplevelfile_2"); // hack
+-    KDirWatch::self()->setDirty(path); // with only the file, we get into the new fast path that doesn't even emit started...
++    waitForRefreshedItems();
+ 
+-    int numTries = 0;
+-    // Give time for KDirWatch to notify us
+-    while (m_refreshedItems.isEmpty()) {
+-        QVERIFY(++numTries < 10);
+-        QTest::qWait(200);
+-    }
+-
+-    QCOMPARE(spyStarted.count(), 1); // Updates (to a directory) call started...
+-    QCOMPARE(spyCompleted.count(), 1); // and completed
+-    QCOMPARE(spyCompletedKUrl.count(), 1);
+-    QCOMPARE(spyCanceled.count(), 0);
+-    QCOMPARE(spyCanceledKUrl.count(), 0);
+-    QCOMPARE(spyClear.count(), 0);
+-    QCOMPARE(spyClearKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyStarted.count(), 0); // fast path: no directory listing needed
++    QCOMPARE(m_dirLister.spyCompleted.count(), 0);
++    QCOMPARE(m_dirLister.spyCompletedKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceled.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceledKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyClear.count(), 0);
++    QCOMPARE(m_dirLister.spyClearKUrl.count(), 0);
+     QCOMPARE(m_refreshedItems.count(), 1);
+     QPair<KFileItem, KFileItem> entry = m_refreshedItems.first();
+     QCOMPARE(entry.first.url().path(), fileName);
+@@ -254,7 +360,6 @@
+     QCOMPARE(entry.second.url().path(), fileName);
+     QCOMPARE(entry.second.size(), KIO::filesize_t(11 /*Hello world*/ + 6 /*<html>*/));
+     QCOMPARE(entry.second.mimetype(), QString("text/html"));
+-    disconnect(&m_dirLister, 0, this, 0);
+ 
+     // Let's see what KDirLister has in cache now
+     cachedItem = m_dirLister.findByUrl(KUrl(fileName));
+@@ -262,26 +367,92 @@
+     m_refreshedItems.clear();
+ }
+ 
+-// This test assumes testOpenUrl was run before. So m_dirLister is holding the items already.
++// Refresh the root item, plus a hidden file, e.g. changing its icon. #190535
++void KDirListerTest::testRefreshRootItem()
++{
++    // This test assumes testOpenUrl was run before. So m_dirLister is holding the items already.
++    m_refreshedItems.clear();
++    m_refreshedItems2.clear();
++
++    // The item will be the root item of dirLister2, but also a child item
++    // of m_dirLister.
++    // In #190535 it would show "." instead of the subdir name, after a refresh...
++    const QString path = m_tempDir.name() + "subdir";
++    MyDirLister dirLister2;
++    fillDirLister2(dirLister2, path);
++
++    connect(&m_dirLister, SIGNAL(refreshItems(const QList<QPair<KFileItem, KFileItem> > &)),
++            this, SLOT(slotRefreshItems(const QList<QPair<KFileItem, KFileItem> > &)));
++
++    org::kde::KDirNotify::emitFilesChanged(QStringList() << KUrl(path).url());
++    waitForRefreshedItems();
++
++    QCOMPARE(m_dirLister.spyStarted.count(), 0);
++    QCOMPARE(m_dirLister.spyCompleted.count(), 0);
++    QCOMPARE(m_dirLister.spyCompletedKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceled.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceledKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyClear.count(), 0);
++    QCOMPARE(m_dirLister.spyClearKUrl.count(), 0);
++    QCOMPARE(m_refreshedItems.count(), 1);
++    QPair<KFileItem, KFileItem> entry = m_refreshedItems.first();
++    QCOMPARE(entry.first.url().path(), path);
++    QCOMPARE(entry.first.name(), QString("subdir"));
++    QCOMPARE(entry.second.url().path(), path);
++    QCOMPARE(entry.second.name(), QString("subdir"));
++
++    QCOMPARE(m_refreshedItems2.count(), 1);
++    entry = m_refreshedItems2.first();
++    QCOMPARE(entry.first.url().path(), path);
++    QCOMPARE(entry.second.url().path(), path);
++    // item name() doesn't matter here, it's the root item.
++
++    m_refreshedItems.clear();
++    m_refreshedItems2.clear();
++
++    const QString directoryFile = path + "/.directory";
++    createSimpleFile(directoryFile);
++
++    org::kde::KDirNotify::emitFilesAdded(KUrl(path).url());
++    QTest::qWait(200);
++    org::kde::KDirNotify::emitFilesChanged(QStringList() << KUrl(directoryFile).url());
++    QCOMPARE(m_refreshedItems.count(), 0);
++
++    org::kde::KDirNotify::emitFilesChanged(QStringList() << KUrl(path).url());
++    waitForRefreshedItems();
++    QCOMPARE(m_refreshedItems.count(), 1);
++    entry = m_refreshedItems.first();
++    QCOMPARE(entry.first.url().path(), path);
++    QCOMPARE(entry.second.url().path(), path);
++
++    m_refreshedItems.clear();
++    m_refreshedItems2.clear();
++
++    // Note: this test leaves the .directory file as a side effect.
++    // Hidden though, shouldn't matter.
++}
++
+ void KDirListerTest::testDeleteItem()
+ {
++    testOpenUrl(); // ensure m_items is uptodate
++
++    const int origItemCount = m_items.count();
++    QCOMPARE(fileCount(), origItemCount);
+     const QString path = m_tempDir.name();
+-    qRegisterMetaType<KFileItem>("KFileItem");
+-    QSignalSpy spyDeleteItem(&m_dirLister, SIGNAL(deleteItem(const KFileItem&)));
+-    QSignalSpy spyItemsDeleted(&m_dirLister, SIGNAL(itemsDeleted(const KFileItemList&)));
+     connect(&m_dirLister, SIGNAL(deleteItem(const KFileItem&)), this, SLOT(exitLoop()));
+ 
+     //kDebug() << "Removing " << path+"toplevelfile_1";
+     QFile::remove(path+"toplevelfile_1");
+     // the remove() doesn't always trigger kdirwatch in stat mode, if this all happens in the same second
+     KDirWatch::self()->setDirty(path);
+-    if (spyDeleteItem.count() == 0) {
++    if (m_dirLister.spyDeleteItem.count() == 0) {
+         qDebug("waiting for deleteItem");
+         enterLoop();
+     }
+ 
+-    QCOMPARE(spyDeleteItem.count(), 1);
+-    QCOMPARE(spyItemsDeleted.count(), 1);
++    QCOMPARE(m_dirLister.spyDeleteItem.count(), 1);
++    QCOMPARE(m_dirLister.spyItemsDeleted.count(), 1);
++
+     // OK now kdirlister told us the file was deleted, let's try a re-listing
+     m_items.clear();
+     connect(&m_dirLister, SIGNAL(newItems(KFileItemList)), this, SLOT(slotNewItems(KFileItemList)));
+@@ -290,16 +461,16 @@
+     connect(&m_dirLister, SIGNAL(completed()), this, SLOT(exitLoop()));
+     enterLoop();
+     QVERIFY(m_dirLister.isFinished());
+-    QCOMPARE(m_items.count(), 4);
++    QCOMPARE(m_items.count(), origItemCount-1);
+ 
+     disconnect(&m_dirLister, 0, this, 0);
++    QCOMPARE(fileCount(), m_items.count());
+ }
+ 
+ void KDirListerTest::testRenameItem()
+ {
+     m_refreshedItems.clear();
+     const QString dirPath = m_tempDir.name();
+-    qRegisterMetaType<KFileItem>("KFileItem");
+     connect(&m_dirLister, SIGNAL(refreshItems(const QList<QPair<KFileItem, KFileItem> > &)),
+             this, SLOT(slotRefreshItems(const QList<QPair<KFileItem, KFileItem> > &)));
+     const QString path = dirPath+"toplevelfile_2";
+@@ -310,10 +481,7 @@
+     QVERIFY(ok);
+ 
+     if (m_refreshedItems.isEmpty()) {
+-        // Wait for refreshItems. Could come from KDirWatch or KDirNotify.
+-        //qDebug("waiting for refreshItems");
+-        connect(this, SIGNAL(refreshItemsReceived()), this, SLOT(exitLoop()));
+-        enterLoop();
++        waitForRefreshedItems(); // refreshItems could come from KDirWatch or KDirNotify.
+     }
+ 
+     QCOMPARE(m_refreshedItems.count(), 1);
+@@ -339,6 +507,9 @@
+     const QString dirPath = m_tempDir.name();
+     const QString path = dirPath+"toplevelfile_2";
+     createTestFile(path);
++#if WORKAROUND_BROKEN_INOTIFY
++    org::kde::KDirNotify::emitFilesAdded(dirPath);
++#endif
+     KFileItem existingItem;
+     while (existingItem.isNull()) {
+         QTest::qWait(100);
+@@ -347,10 +518,8 @@
+     QCOMPARE(existingItem.url().path(), path);
+ 
+     m_refreshedItems.clear();
+-    qRegisterMetaType<KFileItem>("KFileItem");
+     connect(&m_dirLister, SIGNAL(refreshItems(const QList<QPair<KFileItem, KFileItem> > &)),
+             this, SLOT(slotRefreshItems(const QList<QPair<KFileItem, KFileItem> > &)));
+-    QSignalSpy spyItemsDeleted(&m_dirLister, SIGNAL(itemsDeleted(KFileItemList)));
+     const QString newPath = dirPath+"toplevelfile_2.renamed.html";
+ 
+     KIO::SimpleJob* job = KIO::rename(newPath, path, KIO::Overwrite | KIO::HideProgressInfo);
+@@ -358,15 +527,12 @@
+     QVERIFY(ok);
+ 
+     if (m_refreshedItems.isEmpty()) {
+-        // Wait for refreshItems. Could come from KDirWatch or KDirNotify.
+-        //qDebug("waiting for refreshItems");
+-        connect(this, SIGNAL(refreshItemsReceived()), this, SLOT(exitLoop()));
+-        enterLoop();
++        waitForRefreshedItems(); // refreshItems could come from KDirWatch or KDirNotify.
+     }
+ 
+     // Check that itemsDeleted was emitted -- preferrably BEFORE refreshItems,
+     // but we can't easily check that with QSignalSpy...
+-    QCOMPARE(spyItemsDeleted.count(), 1);
++    QCOMPARE(m_dirLister.spyItemsDeleted.count(), 1);
+ 
+     QCOMPARE(m_refreshedItems.count(), 1);
+     QPair<KFileItem, KFileItem> entry = m_refreshedItems.first();
+@@ -384,31 +550,16 @@
+ 
+ void KDirListerTest::testConcurrentListing()
+ {
++    const int origItemCount = m_items.count();
++    QCOMPARE(fileCount(), origItemCount);
+     m_items.clear();
+     m_items2.clear();
+ 
+-    KDirLister dirLister2;
++    MyDirLister dirLister2;
+ 
+     const QString path = m_tempDir.name();
+ 
+-    // spy for m_dirLister signals
+-    QSignalSpy spyStarted1(&m_dirLister, SIGNAL(started(KUrl)));
+-    QSignalSpy spyClear1(&m_dirLister, SIGNAL(clear()));
+-    QSignalSpy spyClearKUrl1(&m_dirLister, SIGNAL(clear(KUrl)));
+-    QSignalSpy spyCompleted1(&m_dirLister, SIGNAL(completed()));
+-    QSignalSpy spyCompletedKUrl1(&m_dirLister, SIGNAL(completed(KUrl)));
+-    QSignalSpy spyCanceled1(&m_dirLister, SIGNAL(canceled()));
+-    QSignalSpy spyCanceledKUrl1(&m_dirLister, SIGNAL(canceled(KUrl)));
+     connect(&m_dirLister, SIGNAL(newItems(KFileItemList)), this, SLOT(slotNewItems(KFileItemList)));
+-
+-    // spy for dirLister2 signals
+-    QSignalSpy spyStarted2(&dirLister2, SIGNAL(started(KUrl)));
+-    QSignalSpy spyClear2(&dirLister2, SIGNAL(clear()));
+-    QSignalSpy spyClearKUrl2(&dirLister2, SIGNAL(clear(KUrl)));
+-    QSignalSpy spyCompleted2(&dirLister2, SIGNAL(completed()));
+-    QSignalSpy spyCompletedKUrl2(&dirLister2, SIGNAL(completed(KUrl)));
+-    QSignalSpy spyCanceled2(&dirLister2, SIGNAL(canceled()));
+-    QSignalSpy spyCanceledKUrl2(&dirLister2, SIGNAL(canceled(KUrl)));
+     connect(&dirLister2, SIGNAL(newItems(KFileItemList)), this, SLOT(slotNewItems2(KFileItemList)));
+ 
+     // Before dirLister2 has time to emit the items, let's make m_dirLister move to another dir.
+@@ -419,22 +570,22 @@
+     dirLister2.openUrl(KUrl(path), KDirLister::NoFlags);
+     m_dirLister.openUrl(KUrl(path+"subdir"), KDirLister::NoFlags);
+ 
+-    QCOMPARE(spyStarted1.count(), 1);
+-    QCOMPARE(spyCompleted1.count(), 0);
+-    QCOMPARE(spyCompletedKUrl1.count(), 0);
+-    QCOMPARE(spyCanceled1.count(), 0);
+-    QCOMPARE(spyCanceledKUrl1.count(), 0);
+-    QCOMPARE(spyClear1.count(), 1);
+-    QCOMPARE(spyClearKUrl1.count(), 0);
++    QCOMPARE(m_dirLister.spyStarted.count(), 1);
++    QCOMPARE(m_dirLister.spyCompleted.count(), 0);
++    QCOMPARE(m_dirLister.spyCompletedKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceled.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceledKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyClear.count(), 1);
++    QCOMPARE(m_dirLister.spyClearKUrl.count(), 0);
+     QCOMPARE(m_items.count(), 0);
+ 
+-    QCOMPARE(spyStarted2.count(), 1);
+-    QCOMPARE(spyCompleted2.count(), 0);
+-    QCOMPARE(spyCompletedKUrl2.count(), 0);
+-    QCOMPARE(spyCanceled2.count(), 0);
+-    QCOMPARE(spyCanceledKUrl2.count(), 0);
+-    QCOMPARE(spyClear2.count(), 1);
+-    QCOMPARE(spyClearKUrl2.count(), 0);
++    QCOMPARE(dirLister2.spyStarted.count(), 1);
++    QCOMPARE(dirLister2.spyCompleted.count(), 0);
++    QCOMPARE(dirLister2.spyCompletedKUrl.count(), 0);
++    QCOMPARE(dirLister2.spyCanceled.count(), 0);
++    QCOMPARE(dirLister2.spyCanceledKUrl.count(), 0);
++    QCOMPARE(dirLister2.spyClear.count(), 1);
++    QCOMPARE(dirLister2.spyClearKUrl.count(), 0);
+     QCOMPARE(m_items2.count(), 0);
+     QVERIFY(!m_dirLister.isFinished());
+     QVERIFY(!dirLister2.isFinished());
+@@ -445,24 +596,24 @@
+     connect(&dirLister2, SIGNAL(completed()), this, SLOT(exitLoop()));
+     enterLoop(2);
+ 
+-    QCOMPARE(spyStarted1.count(), 1);
+-    QCOMPARE(spyCompleted1.count(), 1);
+-    QCOMPARE(spyCompletedKUrl1.count(), 1);
+-    QCOMPARE(spyCanceled1.count(), 0);
+-    QCOMPARE(spyCanceledKUrl1.count(), 0);
+-    QCOMPARE(spyClear1.count(), 1);
+-    QCOMPARE(spyClearKUrl1.count(), 0);
++    //QCOMPARE(m_dirLister.spyStarted.count(), 1); // 2 when subdir is already in cache.
++    QCOMPARE(m_dirLister.spyCompleted.count(), 1);
++    QCOMPARE(m_dirLister.spyCompletedKUrl.count(), 1);
++    QCOMPARE(m_dirLister.spyCanceled.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceledKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyClear.count(), 1);
++    QCOMPARE(m_dirLister.spyClearKUrl.count(), 0);
+     QCOMPARE(m_items.count(), 3);
+ 
+-    QCOMPARE(spyStarted2.count(), 1);
+-    QCOMPARE(spyCompleted2.count(), 1);
+-    QCOMPARE(spyCompletedKUrl2.count(), 1);
+-    QCOMPARE(spyCanceled2.count(), 0);
+-    QCOMPARE(spyCanceledKUrl2.count(), 0);
+-    QCOMPARE(spyClear2.count(), 1);
+-    QCOMPARE(spyClearKUrl2.count(), 0);
+-    QCOMPARE(m_items2.count(), 4);
+-    QVERIFY(m_dirLister.isFinished());
++    QCOMPARE(dirLister2.spyStarted.count(), 1);
++    QCOMPARE(dirLister2.spyCompleted.count(), 1);
++    QCOMPARE(dirLister2.spyCompletedKUrl.count(), 1);
++    QCOMPARE(dirLister2.spyCanceled.count(), 0);
++    QCOMPARE(dirLister2.spyCanceledKUrl.count(), 0);
++    QCOMPARE(dirLister2.spyClear.count(), 1);
++    QCOMPARE(dirLister2.spyClearKUrl.count(), 0);
++    QCOMPARE(m_items2.count(), origItemCount);
++    //QVERIFY(m_dirLister.isFinished()); // false when an update is running because subdir is already in cache
+ 
+     disconnect(&m_dirLister, 0, this, 0);
+     disconnect(&dirLister2, 0, this, 0);
+@@ -476,37 +627,24 @@
+     // and the first lister immediately does openUrl() (which emits cached items).
+ 
+     testOpenUrl(); // ensure m_dirLister holds the items.
+-    QSignalSpy spyStarted(&m_dirLister, SIGNAL(started(KUrl)));
+-    QSignalSpy spyClear(&m_dirLister, SIGNAL(clear()));
+-    QSignalSpy spyClearKUrl(&m_dirLister, SIGNAL(clear(KUrl)));
+-    QSignalSpy spyCompleted(&m_dirLister, SIGNAL(completed()));
+-    QSignalSpy spyCompletedKUrl(&m_dirLister, SIGNAL(completed(KUrl)));
+-    QSignalSpy spyCanceled(&m_dirLister, SIGNAL(canceled()));
+-    QSignalSpy spyCanceledKUrl(&m_dirLister, SIGNAL(canceled(KUrl)));
++    const int origItemCount = m_items.count();
+     connect(&m_dirLister, SIGNAL(newItems(KFileItemList)), this, SLOT(slotNewItems(KFileItemList)));
+     m_items.clear();
+     m_items2.clear();
+     const QString path = m_tempDir.name();
+-    KDirLister dirLister2;
+-    QSignalSpy spyStarted2(&dirLister2, SIGNAL(started(KUrl)));
+-    QSignalSpy spyClear2(&dirLister2, SIGNAL(clear()));
+-    QSignalSpy spyClearKUrl2(&dirLister2, SIGNAL(clear(KUrl)));
+-    QSignalSpy spyCompleted2(&dirLister2, SIGNAL(completed()));
+-    QSignalSpy spyCompletedKUrl2(&dirLister2, SIGNAL(completed(KUrl)));
+-    QSignalSpy spyCanceled2(&dirLister2, SIGNAL(canceled()));
+-    QSignalSpy spyCanceledKUrl2(&dirLister2, SIGNAL(canceled(KUrl)));
++    MyDirLister dirLister2;
+     connect(&dirLister2, SIGNAL(newItems(KFileItemList)), this, SLOT(slotNewItems2(KFileItemList)));
+ 
+     dirLister2.openUrl(KUrl(path), KDirLister::Reload); // will start a list job
+-    QCOMPARE(spyStarted2.count(), 1);
+-    QCOMPARE(spyCompleted2.count(), 0);
++    QCOMPARE(dirLister2.spyStarted.count(), 1);
++    QCOMPARE(dirLister2.spyCompleted.count(), 0);
+     QCOMPARE(m_items.count(), 0);
+     QCOMPARE(m_items2.count(), 0);
+ 
+     qDebug("calling m_dirLister.openUrl");
+     m_dirLister.openUrl(KUrl(path), KDirLister::NoFlags); // should emit cached items, and then "join" the running listjob
+-    QCOMPARE(spyStarted.count(), 1);
+-    QCOMPARE(spyCompleted.count(), 0);
++    QCOMPARE(m_dirLister.spyStarted.count(), 1);
++    QCOMPARE(m_dirLister.spyCompleted.count(), 0);
+     QCOMPARE(m_items.count(), 0);
+     QCOMPARE(m_items2.count(), 0);
+ 
+@@ -514,52 +652,46 @@
+     connect(&dirLister2, SIGNAL(completed()), this, SLOT(exitLoop()));
+     enterLoop();
+ 
+-    QCOMPARE(spyStarted2.count(), 1);
+-    QCOMPARE(spyCompleted2.count(), 1);
+-    QCOMPARE(spyCompletedKUrl2.count(), 1);
+-    QCOMPARE(spyCanceled2.count(), 0);
+-    QCOMPARE(spyCanceledKUrl2.count(), 0);
+-    QCOMPARE(spyClear2.count(), 1);
+-    QCOMPARE(spyClearKUrl2.count(), 0);
+-    QCOMPARE(m_items2.count(), 4);
++    QCOMPARE(dirLister2.spyStarted.count(), 1);
++    QCOMPARE(dirLister2.spyCompleted.count(), 1);
++    QCOMPARE(dirLister2.spyCompletedKUrl.count(), 1);
++    QCOMPARE(dirLister2.spyCanceled.count(), 0);
++    QCOMPARE(dirLister2.spyCanceledKUrl.count(), 0);
++    QCOMPARE(dirLister2.spyClear.count(), 1);
++    QCOMPARE(dirLister2.spyClearKUrl.count(), 0);
++    QCOMPARE(m_items2.count(), origItemCount);
+ 
+-    if (spyCompleted.isEmpty()) {
++    if (m_dirLister.spyCompleted.isEmpty()) {
+         connect(&m_dirLister, SIGNAL(completed()), this, SLOT(exitLoop()));
+         enterLoop();
+     }
+ 
+-    QCOMPARE(spyStarted.count(), 1);
+-    QCOMPARE(spyCompleted.count(), 1);
+-    QCOMPARE(spyCompletedKUrl.count(), 1);
+-    QCOMPARE(spyCanceled.count(), 0);
+-    QCOMPARE(spyCanceledKUrl.count(), 0);
+-    QCOMPARE(spyClear.count(), 1);
+-    QCOMPARE(spyClearKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyStarted.count(), 1);
++    QCOMPARE(m_dirLister.spyCompleted.count(), 1);
++    QCOMPARE(m_dirLister.spyCompletedKUrl.count(), 1);
++    QCOMPARE(m_dirLister.spyCanceled.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceledKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyClear.count(), 1);
++    QCOMPARE(m_dirLister.spyClearKUrl.count(), 0);
+     QVERIFY(dirLister2.isFinished());
+     disconnect(&dirLister2, 0, this, 0);
+     QVERIFY(m_dirLister.isFinished());
+     disconnect(&m_dirLister, 0, this, 0);
+-    QCOMPARE(m_items.count(), 4);
++    QCOMPARE(m_items.count(), origItemCount);
+ }
+ 
+ void KDirListerTest::testOpenUrlTwice()
+ {
+     // Calling openUrl(reload)+openUrl(normal) before listing even starts.
++    const int origItemCount = m_items.count();
+     m_items.clear();
+     const QString path = m_tempDir.name();
+-    KDirLister secondDirLister;
+-    QSignalSpy spyStarted(&secondDirLister, SIGNAL(started(KUrl)));
+-    QSignalSpy spyClear(&secondDirLister, SIGNAL(clear()));
+-    QSignalSpy spyClearKUrl(&secondDirLister, SIGNAL(clear(KUrl)));
+-    QSignalSpy spyCompleted(&secondDirLister, SIGNAL(completed()));
+-    QSignalSpy spyCompletedKUrl(&secondDirLister, SIGNAL(completed(KUrl)));
+-    QSignalSpy spyCanceled(&secondDirLister, SIGNAL(canceled()));
+-    QSignalSpy spyCanceledKUrl(&secondDirLister, SIGNAL(canceled(KUrl)));
++    MyDirLister secondDirLister;
+     connect(&secondDirLister, SIGNAL(newItems(KFileItemList)), this, SLOT(slotNewItems(KFileItemList)));
+ 
+     secondDirLister.openUrl(KUrl(path), KDirLister::Reload); // will start
+-    QCOMPARE(spyStarted.count(), 1);
+-    QCOMPARE(spyCompleted.count(), 0);
++    QCOMPARE(secondDirLister.spyStarted.count(), 1);
++    QCOMPARE(secondDirLister.spyCompleted.count(), 0);
+ 
+     qDebug("calling openUrl again");
+     secondDirLister.openUrl(KUrl(path), KDirLister::NoFlags); // will stop + start
+@@ -568,14 +700,14 @@
+     connect(&secondDirLister, SIGNAL(completed()), this, SLOT(exitLoop()));
+     enterLoop();
+ 
+-    QCOMPARE(spyStarted.count(), 2);
+-    QCOMPARE(spyCompleted.count(), 1);
+-    QCOMPARE(spyCompletedKUrl.count(), 1);
+-    QCOMPARE(spyCanceled.count(), 0); // should not be emitted, see next test
+-    QCOMPARE(spyCanceledKUrl.count(), 0);
+-    QCOMPARE(spyClear.count(), 2);
+-    QCOMPARE(spyClearKUrl.count(), 0);
+-    QCOMPARE(m_items.count(), 4);
++    QCOMPARE(secondDirLister.spyStarted.count(), 2);
++    QCOMPARE(secondDirLister.spyCompleted.count(), 1);
++    QCOMPARE(secondDirLister.spyCompletedKUrl.count(), 1);
++    QCOMPARE(secondDirLister.spyCanceled.count(), 0); // should not be emitted, see next test
++    QCOMPARE(secondDirLister.spyCanceledKUrl.count(), 0);
++    QCOMPARE(secondDirLister.spyClear.count(), 2);
++    QCOMPARE(secondDirLister.spyClearKUrl.count(), 0);
++    QCOMPARE(m_items.count(), origItemCount);
+     QVERIFY(secondDirLister.isFinished());
+     disconnect(&secondDirLister, 0, this, 0);
+ }
+@@ -591,19 +723,12 @@
+     m_items.clear();
+     const QString path = m_tempDir.name() + "/newsubdir";
+     QDir().mkdir(path);
+-    KDirLister secondDirLister;
+-    QSignalSpy spyStarted(&secondDirLister, SIGNAL(started(KUrl)));
+-    QSignalSpy spyClear(&secondDirLister, SIGNAL(clear()));
+-    QSignalSpy spyClearKUrl(&secondDirLister, SIGNAL(clear(KUrl)));
+-    QSignalSpy spyCompleted(&secondDirLister, SIGNAL(completed()));
+-    QSignalSpy spyCompletedKUrl(&secondDirLister, SIGNAL(completed(KUrl)));
+-    QSignalSpy spyCanceled(&secondDirLister, SIGNAL(canceled()));
+-    QSignalSpy spyCanceledKUrl(&secondDirLister, SIGNAL(canceled(KUrl)));
++    MyDirLister secondDirLister;
+     connect(&secondDirLister, SIGNAL(newItems(KFileItemList)), this, SLOT(slotNewItems(KFileItemList)));
+ 
+     secondDirLister.openUrl(KUrl(path)); // will start a list job
+-    QCOMPARE(spyStarted.count(), 1);
+-    QCOMPARE(spyCompleted.count(), 0);
++    QCOMPARE(secondDirLister.spyStarted.count(), 1);
++    QCOMPARE(secondDirLister.spyCompleted.count(), 0);
+ 
+     qDebug("calling openUrl again");
+     secondDirLister.openUrl(KUrl(path), KDirLister::Keep); // stops and restarts the job
+@@ -612,13 +737,13 @@
+     connect(&secondDirLister, SIGNAL(completed()), this, SLOT(exitLoop()));
+     enterLoop();
+ 
+-    QCOMPARE(spyStarted.count(), 2);
+-    QCOMPARE(spyCompleted.count(), 1);
+-    QCOMPARE(spyCompletedKUrl.count(), 1);
+-    QCOMPARE(spyCanceled.count(), 0); // should not be emitted, it led to recursion
+-    QCOMPARE(spyCanceledKUrl.count(), 0);
+-    QCOMPARE(spyClear.count(), 1);
+-    QCOMPARE(spyClearKUrl.count(), 1);
++    QCOMPARE(secondDirLister.spyStarted.count(), 2);
++    QCOMPARE(secondDirLister.spyCompleted.count(), 1);
++    QCOMPARE(secondDirLister.spyCompletedKUrl.count(), 1);
++    QCOMPARE(secondDirLister.spyCanceled.count(), 0); // should not be emitted, it led to recursion
++    QCOMPARE(secondDirLister.spyCanceledKUrl.count(), 0);
++    QCOMPARE(secondDirLister.spyClear.count(), 1);
++    QCOMPARE(secondDirLister.spyClearKUrl.count(), 1);
+     QCOMPARE(m_items.count(), 0);
+     QVERIFY(secondDirLister.isFinished());
+     disconnect(&secondDirLister, 0, this, 0);
+@@ -630,25 +755,18 @@
+ {
+     m_items.clear();
+     const QString path = "/"; // better not use a directory that we already listed!
+-    QSignalSpy spyStarted(&m_dirLister, SIGNAL(started(KUrl)));
+-    QSignalSpy spyClear(&m_dirLister, SIGNAL(clear()));
+-    QSignalSpy spyClearKUrl(&m_dirLister, SIGNAL(clear(KUrl)));
+-    QSignalSpy spyCompleted(&m_dirLister, SIGNAL(completed()));
+-    QSignalSpy spyCompletedKUrl(&m_dirLister, SIGNAL(completed(KUrl)));
+-    QSignalSpy spyCanceled(&m_dirLister, SIGNAL(canceled()));
+-    QSignalSpy spyCanceledKUrl(&m_dirLister, SIGNAL(canceled(KUrl)));
+     connect(&m_dirLister, SIGNAL(newItems(KFileItemList)), this, SLOT(slotNewItems(KFileItemList)));
+     m_dirLister.openUrl(KUrl(path), KDirLister::NoFlags);
+     kDebug() << "Calling stop!";
+     m_dirLister.stop(); // we should also test stop(KUrl(path))...
+ 
+-    QCOMPARE(spyStarted.count(), 1); // The call to openUrl itself, emits started
+-    QCOMPARE(spyCompleted.count(), 0); // we had time to stop before the job even started
+-    QCOMPARE(spyCompletedKUrl.count(), 0);
+-    QCOMPARE(spyCanceled.count(), 1);
+-    QCOMPARE(spyCanceledKUrl.count(), 1);
+-    QCOMPARE(spyClear.count(), 1);
+-    QCOMPARE(spyClearKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyStarted.count(), 1); // The call to openUrl itself, emits started
++    QCOMPARE(m_dirLister.spyCompleted.count(), 0); // we had time to stop before the job even started
++    QCOMPARE(m_dirLister.spyCompletedKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceled.count(), 1);
++    QCOMPARE(m_dirLister.spyCanceledKUrl.count(), 1);
++    QCOMPARE(m_dirLister.spyClear.count(), 1);
++    QCOMPARE(m_dirLister.spyClearKUrl.count(), 0);
+     QCOMPARE(m_items.count(), 0); // we had time to stop before the job even started
+     QVERIFY(m_dirLister.isFinished());
+     disconnect(&m_dirLister, 0, this, 0);
+@@ -658,26 +776,18 @@
+ {
+     m_items.clear();
+     const KUrl url("file://somemachine/");
+-    QSignalSpy spyStarted(&m_dirLister, SIGNAL(started(KUrl)));
+-    QSignalSpy spyClear(&m_dirLister, SIGNAL(clear()));
+-    QSignalSpy spyClearKUrl(&m_dirLister, SIGNAL(clear(KUrl)));
+-    QSignalSpy spyCompleted(&m_dirLister, SIGNAL(completed()));
+-    QSignalSpy spyCompletedKUrl(&m_dirLister, SIGNAL(completed(KUrl)));
+-    QSignalSpy spyCanceled(&m_dirLister, SIGNAL(canceled()));
+-    QSignalSpy spyCanceledKUrl(&m_dirLister, SIGNAL(canceled(KUrl)));
+-    QSignalSpy spyRedirection(&m_dirLister, SIGNAL(redirection(KUrl)));
+     connect(&m_dirLister, SIGNAL(newItems(KFileItemList)), this, SLOT(slotNewItems(KFileItemList)));
+     // The call to openUrl itself, emits started
+     m_dirLister.openUrl(url, KDirLister::NoFlags);
+ 
+-    QCOMPARE(spyStarted.count(), 1);
+-    QCOMPARE(spyCompleted.count(), 0);
+-    QCOMPARE(spyCompletedKUrl.count(), 0);
+-    QCOMPARE(spyCanceled.count(), 0);
+-    QCOMPARE(spyCanceledKUrl.count(), 0);
+-    QCOMPARE(spyClear.count(), 1);
+-    QCOMPARE(spyClearKUrl.count(), 0);
+-    QCOMPARE(spyRedirection.count(), 0);
++    QCOMPARE(m_dirLister.spyStarted.count(), 1);
++    QCOMPARE(m_dirLister.spyCompleted.count(), 0);
++    QCOMPARE(m_dirLister.spyCompletedKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceled.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceledKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyClear.count(), 1);
++    QCOMPARE(m_dirLister.spyClearKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyRedirection.count(), 0);
+     QCOMPARE(m_items.count(), 0);
+     QVERIFY(!m_dirLister.isFinished());
+ 
+@@ -685,14 +795,14 @@
+     qDebug("waiting for redirection");
+     connect(&m_dirLister, SIGNAL(redirection(KUrl, KUrl)), this, SLOT(exitLoop()));
+     enterLoop();
+-    QCOMPARE(spyStarted.count(), 1);
+-    QCOMPARE(spyCompleted.count(), 0); // we stopped before the listing.
+-    QCOMPARE(spyCompletedKUrl.count(), 0);
+-    QCOMPARE(spyCanceled.count(), 0);
+-    QCOMPARE(spyCanceledKUrl.count(), 0);
+-    QCOMPARE(spyClear.count(), 2); // redirection cleared a second time (just in case...)
+-    QCOMPARE(spyClearKUrl.count(), 0);
+-    QCOMPARE(spyRedirection.count(), 1);
++    QCOMPARE(m_dirLister.spyStarted.count(), 1);
++    QCOMPARE(m_dirLister.spyCompleted.count(), 0); // we stopped before the listing.
++    QCOMPARE(m_dirLister.spyCompletedKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceled.count(), 0);
++    QCOMPARE(m_dirLister.spyCanceledKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyClear.count(), 2); // redirection cleared a second time (just in case...)
++    QCOMPARE(m_dirLister.spyClearKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyRedirection.count(), 1);
+     QVERIFY(m_items.isEmpty());
+     QVERIFY(!m_dirLister.isFinished());
+ 
+@@ -734,6 +844,11 @@
+     emit refreshItemsReceived();
+ }
+ 
++void KDirListerTest::slotRefreshItems2(const QList<QPair<KFileItem, KFileItem> > & lst)
++{
++    m_refreshedItems2 += lst;
++}
++
+ void KDirListerTest::testDeleteCurrentDir()
+ {
+     // ensure m_dirLister holds the items.
+@@ -742,16 +857,49 @@
+     enterLoop();
+     disconnect(&m_dirLister, SIGNAL(completed()), this, SLOT(exitLoop()));
+ 
+-    QSignalSpy spyClear(&m_dirLister, SIGNAL(clear()));
+-    QSignalSpy spyClearKUrl(&m_dirLister, SIGNAL(clear(KUrl)));
+-    QSignalSpy spyItemsDeleted(&m_dirLister, SIGNAL(itemsDeleted(KFileItemList)));
++    m_dirLister.clearSpies();
+     connect(&m_dirLister, SIGNAL(clear()), &m_eventLoop, SLOT(quit()));
+     KIO::DeleteJob* job = KIO::del(path(), KIO::HideProgressInfo);
+     bool ok = job->exec();
+     QVERIFY(ok);
+     enterLoop();
+-    QCOMPARE(spyClear.count(), 1);
+-    QCOMPARE(spyClearKUrl.count(), 0);
+-    QCOMPARE(spyItemsDeleted.count(), 1);
+-    QCOMPARE(spyItemsDeleted[0][0].value<KFileItemList>().count(), 1);
++    QCOMPARE(m_dirLister.spyClear.count(), 1);
++    QCOMPARE(m_dirLister.spyClearKUrl.count(), 0);
++    QCOMPARE(m_dirLister.spyItemsDeleted.count(), 1);
++    QCOMPARE(m_dirLister.spyItemsDeleted[0][0].value<KFileItemList>().count(), 1);
++}
++
++int KDirListerTest::fileCount() const
++{
++    return QDir(path()).entryList( QDir::AllEntries | QDir::NoDotAndDotDot).count();
++}
++
++void KDirListerTest::waitForRefreshedItems()
++{
++    int numTries = 0;
++    // Give time for KDirWatch to notify us
++    while (m_refreshedItems.isEmpty()) {
++        QVERIFY(++numTries < 10);
++        QTest::qWait(200);
++    }
++}
++
++void KDirListerTest::createSimpleFile(const QString& fileName)
++{
++    QFile file(fileName);
++    QVERIFY(file.open(QIODevice::WriteOnly));
++    file.write(QByteArray("foo"));
++    file.close();
++}
++
++void KDirListerTest::fillDirLister2(MyDirLister& lister, const QString& path)
++{
++    m_items2.clear();
++    connect(&lister, SIGNAL(newItems(KFileItemList)), this, SLOT(slotNewItems2(KFileItemList)));
++    connect(&lister, SIGNAL(refreshItems(QList<QPair<KFileItem, KFileItem> >)),
++            this, SLOT(slotRefreshItems2(QList<QPair<KFileItem, KFileItem> >)));
++    lister.openUrl(KUrl(path), KDirLister::NoFlags);
++    connect(&lister, SIGNAL(completed()), this, SLOT(exitLoop()));
++    enterLoop();
++    QVERIFY(lister.isFinished());
+ }
+diff -Nur kdelibs-4.3.4/kio/tests/kdirlistertest.h kdelibs-4.3.5/kio/tests/kdirlistertest.h
+--- kdelibs-4.3.4/kio/tests/kdirlistertest.h	2009-04-15 12:26:42.000000000 +0200
++++ kdelibs-4.3.5/kio/tests/kdirlistertest.h	2010-01-21 21:49:10.000000000 +0100
+@@ -19,15 +19,66 @@
+ #ifndef KDIRLISTERTEST_H
+ #define KDIRLISTERTEST_H
+ 
++#include <QSignalSpy>
+ #include <QtCore/QObject>
+ #include <ktempdir.h>
+ #include <QtCore/QDate>
+ #include <kdirlister.h>
+ #include <QtCore/QEventLoop>
+ 
+-class MyDirLister : public KDirLister
++Q_DECLARE_METATYPE(KFileItemList)
++
++class GlobalInits
+ {
+ public:
++    GlobalInits() {
++        // Must be done before the QSignalSpys connect
++        qRegisterMetaType<KUrl>();
++        qRegisterMetaType<KFileItem>();
++        qRegisterMetaType<KFileItemList>();
++    }
++};
++
++class MyDirLister : public KDirLister, GlobalInits
++{
++public:
++    MyDirLister()
++        : spyStarted(this, SIGNAL(started(KUrl))),
++          spyClear(this, SIGNAL(clear())),
++          spyClearKUrl(this, SIGNAL(clear(KUrl))),
++          spyCompleted(this, SIGNAL(completed())),
++          spyCompletedKUrl(this, SIGNAL(completed(KUrl))),
++          spyCanceled(this, SIGNAL(canceled())),
++          spyCanceledKUrl(this, SIGNAL(canceled(KUrl))),
++          spyRedirection(this, SIGNAL(redirection(KUrl))),
++          spyDeleteItem(this, SIGNAL(deleteItem(KFileItem))), 
++          spyItemsDeleted(this, SIGNAL(itemsDeleted(KFileItemList)))
++    {}
++
++    void clearSpies()
++    {
++        spyStarted.clear();
++        spyClear.clear();
++        spyClearKUrl.clear();
++        spyCompleted.clear();
++        spyCompletedKUrl.clear();
++        spyCanceled.clear();
++        spyCanceledKUrl.clear();
++        spyRedirection.clear();
++        spyDeleteItem.clear();
++        spyItemsDeleted.clear();
++    }
++
++    QSignalSpy spyStarted;
++    QSignalSpy spyClear;
++    QSignalSpy spyClearKUrl;
++    QSignalSpy spyCompleted;
++    QSignalSpy spyCompletedKUrl;
++    QSignalSpy spyCanceled;
++    QSignalSpy spyCanceledKUrl;
++    QSignalSpy spyRedirection;
++    QSignalSpy spyDeleteItem;
++    QSignalSpy spyItemsDeleted;
+ protected:
+     virtual void handleError(KIO::Job* job);
+ };
+@@ -37,10 +88,14 @@
+     Q_OBJECT
+ private Q_SLOTS:
+     void initTestCase();
++    void cleanup();
+     void testOpenUrl();
+     void testOpenUrlFromCache();
+     void testNewItems();
++    void testNewItemByCopy();
++    void testNewItemsInSymlink();
+     void testRefreshItems();
++    void testRefreshRootItem();
+     void testDeleteItem();
+     void testRenameItem();
+     void testRenameAndOverwrite();
+@@ -57,22 +112,27 @@
+     void slotNewItems(const KFileItemList&);
+     void slotNewItems2(const KFileItemList&);
+     void slotRefreshItems(const QList<QPair<KFileItem, KFileItem> >&);
++    void slotRefreshItems2(const QList<QPair<KFileItem, KFileItem> >&);
+ 
+ Q_SIGNALS:
+     void refreshItemsReceived();
+ 
+ private:
+     void enterLoop(int exitCount = 1);
++    int fileCount() const;
++    QString path() const { return m_tempDir.name(); }
++    void waitForRefreshedItems();
++    void createSimpleFile(const QString& fileName);
++    void fillDirLister2(MyDirLister& lister, const QString& path);
+ 
+ private:
+-    QString path() const { return m_tempDir.name(); }
+     int m_exitCount;
+     QEventLoop m_eventLoop;
+     KTempDir m_tempDir;
+     MyDirLister m_dirLister;
+     KFileItemList m_items;
+     KFileItemList m_items2;
+-    QList<QPair<KFileItem, KFileItem> > m_refreshedItems;
++    QList<QPair<KFileItem, KFileItem> > m_refreshedItems, m_refreshedItems2;
+ };
+ 
+ 
+diff -Nur kdelibs-4.3.4/kio/tests/kdirmodeltest.cpp kdelibs-4.3.5/kio/tests/kdirmodeltest.cpp
+--- kdelibs-4.3.4/kio/tests/kdirmodeltest.cpp	2009-08-27 10:19:04.000000000 +0200
++++ kdelibs-4.3.5/kio/tests/kdirmodeltest.cpp	2010-01-21 21:49:10.000000000 +0100
+@@ -657,6 +657,14 @@
+     QTest::newRow("subdir/subsubdir/testfile sync")
+         << false << subsubdirfile << (QStringList()<<"subdir"<<subsubdir<<subsubdirfile);
+ 
++#ifndef Q_WS_WIN
++    // Expand a symlink to a directory (#219547)
++    const QString dirlink = m_tempDir->name() + "dirlink";
++    createTestSymlink(dirlink, "/");
++    QTest::newRow("dirlink")
++        << false << "dirlink/tmp" << (QStringList()<<"dirlink"<<"dirlink/tmp");
++#endif
++
+     // Do a cold-cache test too, but nowadays it doesn't change anything anymore,
+     // apart from testing different code paths inside KDirLister.
+     QTest::newRow("subdir/subsubdir/testfile with reload")
+diff -Nur kdelibs-4.3.4/kioslave/http/http.cpp kdelibs-4.3.5/kioslave/http/http.cpp
+--- kdelibs-4.3.4/kioslave/http/http.cpp	2009-10-02 10:18:07.000000000 +0200
++++ kdelibs-4.3.5/kioslave/http/http.cpp	2010-01-21 21:49:09.000000000 +0100
+@@ -515,8 +515,6 @@
+      return false;
+   }
+ 
+-  Q_ASSERT(m_protocol == u.protocol().toLatin1());
+-
+   return true;
+ }
+ 
+@@ -2991,7 +2989,7 @@
+     // In fact we should do redirection only if we have a redirection response code (300 range)
+     tIt = tokenizer.iterator("location");
+     if (tIt.hasNext() && m_request.responseCode > 299 && m_request.responseCode < 400) {
+-        locationStr = tIt.next().trimmed();
++        locationStr = QString::fromUtf8(tIt.next().trimmed());
+     }
+ 
+     // Harvest cookies (mmm, cookie fields!)
+@@ -3285,105 +3283,116 @@
+             resource = m_request.proxyUrl;
+         }
+ 
+-        kDebug(7113) << "parsing authentication request; response code =" << m_request.responseCode;
++        // Workaround brain dead frameworks/sites that violate the spec and
++        // incorrectly return a 401 without the required WWW-Authenticate
++        // header field when they should actually be returning a 200.
++        // See BR #215736.
++        QList<QByteArray> authTokens = tIt.all();
++        if (authTokens.isEmpty()) {
++            m_request.responseCode = 200; // Change back the response code...
++            m_request.cacheTag.writeToCache = true;
++            mayCache = true;
++        } else {
++            kDebug(7113) << "parsing authentication request; response code =" << m_request.responseCode;
+ 
+-        QByteArray bestOffer = KAbstractHttpAuthentication::bestOffer(tIt.all());
+-        if (*auth) {
+-            if (!bestOffer.toLower().startsWith((*auth)->scheme().toLower())) {
+-                // huh, the strongest authentication scheme offered has changed.
+-                kDebug(7113) << "deleting old auth class, scheme mismatch.";
+-                delete *auth;
+-                *auth = 0;
++            QByteArray bestOffer = KAbstractHttpAuthentication::bestOffer(authTokens);
++            if (*auth) {
++                if (!bestOffer.toLower().startsWith((*auth)->scheme().toLower())) {
++                    // huh, the strongest authentication scheme offered has changed.
++                    kDebug(7113) << "deleting old auth class, scheme mismatch.";
++                    delete *auth;
++                    *auth = 0;
++                }
+             }
+-        }
+-        kDebug(7113) << "strongest authentication scheme offered is" << bestOffer;
+-        if (!(*auth)) {
+-            *auth = KAbstractHttpAuthentication::newAuth(bestOffer);
+-        }
+-        kDebug(7113) << "pointer to auth class is now" << *auth;
+-        if (!(*auth)) {
+-            if (m_request.preferErrorPage) {
+-                setLoadingErrorPage();
+-            } else {
+-                error(ERR_UNSUPPORTED_ACTION, "Unknown Authorization method!");
+-                return false;
++            kDebug(7113) << "strongest authentication scheme offered is" << bestOffer;
++            if (!(*auth)) {
++                *auth = KAbstractHttpAuthentication::newAuth(bestOffer);
++            }
++            kDebug(7113) << "pointer to auth class is now" << *auth;
++            if (!(*auth)) {
++                if (m_request.preferErrorPage) {
++                    setLoadingErrorPage();
++                } else {
++                    error(ERR_UNSUPPORTED_ACTION, "Unknown Authorization method!");
++                    return false;
++                }
+             }
+-        }
+ 
+-        // *auth may still be null due to setLoadingErrorPage().
++            // *auth may still be null due to setLoadingErrorPage().
+ 
+-        if (*auth) {
+-            // remove trailing space from the method string, or digest auth will fail
+-            QByteArray requestMethod = methodString(m_request.method).toLatin1().trimmed();
+-            (*auth)->setChallenge(bestOffer, resource, requestMethod);
+-
+-            QString username;
+-            QString password;
+-            if ((*auth)->needCredentials()) {
+-                // use credentials supplied by the application if available
+-                if (!m_request.url.user().isEmpty() && !m_request.url.pass().isEmpty()) {
+-                    username = m_request.url.user();
+-                    password = m_request.url.pass();
+-                    // don't try this password any more
+-                    m_request.url.setPass(QString());
+-                } else {
+-                    // try to get credentials from kpasswdserver's cache, then try asking the user.
+-                    KIO::AuthInfo authi;
+-                    fillPromptInfo(&authi);
+-                    bool obtained = checkCachedAuthentication(authi);
+-                    const bool probablyWrong = m_request.responseCode == m_request.prevResponseCode;
+-                    if (!obtained || probablyWrong) {
+-                        QString msg = (m_request.responseCode == 401) ?
+-                                        i18n("Authentication Failed.") :
+-                                        i18n("Proxy Authentication Failed.");
+-                        obtained = openPasswordDialog(authi, msg);
++            if (*auth) {
++                // remove trailing space from the method string, or digest auth will fail
++                QByteArray requestMethod = methodString(m_request.method).toLatin1().trimmed();
++                (*auth)->setChallenge(bestOffer, resource, requestMethod);
++
++                QString username;
++                QString password;
++                if ((*auth)->needCredentials()) {
++                    // use credentials supplied by the application if available
++                    if (!m_request.url.user().isEmpty() && !m_request.url.pass().isEmpty()) {
++                        username = m_request.url.user();
++                        password = m_request.url.pass();
++                        // don't try this password any more
++                        m_request.url.setPass(QString());
++                    } else {
++                        // try to get credentials from kpasswdserver's cache, then try asking the user.
++                        KIO::AuthInfo authi;
++                        fillPromptInfo(&authi);
++                        bool obtained = checkCachedAuthentication(authi);
++                        const bool probablyWrong = m_request.responseCode == m_request.prevResponseCode;
++                        if (!obtained || probablyWrong) {
++                            QString msg = (m_request.responseCode == 401) ?
++                                            i18n("Authentication Failed.") :
++                                            i18n("Proxy Authentication Failed.");
++                            obtained = openPasswordDialog(authi, msg);
++                            if (!obtained) {
++                                kDebug(7103) << "looks like the user canceled"
++                                             << (m_request.responseCode == 401 ? "WWW" : "proxy")
++                                             << "authentication.";
++                                kDebug(7113) << "obtained =" << obtained << "probablyWrong =" << probablyWrong
++                                             << "authInfo username =" << authi.username
++                                             << "authInfo realm =" << authi.realmValue;
++                                error(ERR_USER_CANCELED, resource.host());
++                                return false;
++                            }
++                        }
+                         if (!obtained) {
+-                            kDebug(7103) << "looks like the user canceled"
+-                                         << (m_request.responseCode == 401 ? "WWW" : "proxy")
+-                                         << "authentication.";
+-                            kDebug(7113) << "obtained =" << obtained << "probablyWrong =" << probablyWrong
+-                                         << "authInfo username =" << authi.username
+-                                         << "authInfo realm =" << authi.realmValue;
+-                            error(ERR_USER_CANCELED, resource.host());
+-                            return false;
++                            kDebug(7103) << "could not obtain authentication credentials from cache or user!";
+                         }
++                        username = authi.username;
++                        password = authi.password;
+                     }
+-                    if (!obtained) {
+-                        kDebug(7103) << "could not obtain authentication credentials from cache or user!";
+-                    }
+-                    username = authi.username;
+-                    password = authi.password;
+                 }
+-            }
+-            (*auth)->generateResponse(username, password);
++                (*auth)->generateResponse(username, password);
+ 
+-            kDebug(7113) << "auth state: isError" << (*auth)->isError()
+-                         << "needCredentials" << (*auth)->needCredentials()
+-                         << "forceKeepAlive" << (*auth)->forceKeepAlive()
+-                         << "forceDisconnect" << (*auth)->forceDisconnect()
+-                         << "headerFragment" << (*auth)->headerFragment();
+-
+-            if ((*auth)->isError()) {
+-                if (m_request.preferErrorPage) {
+-                    setLoadingErrorPage();
+-                } else {
+-                    error(ERR_UNSUPPORTED_ACTION, "Authorization failed!");
+-                    return false;
++                kDebug(7113) << "auth state: isError" << (*auth)->isError()
++                             << "needCredentials" << (*auth)->needCredentials()
++                             << "forceKeepAlive" << (*auth)->forceKeepAlive()
++                             << "forceDisconnect" << (*auth)->forceDisconnect()
++                             << "headerFragment" << (*auth)->headerFragment();
++
++                if ((*auth)->isError()) {
++                    if (m_request.preferErrorPage) {
++                        setLoadingErrorPage();
++                    } else {
++                        error(ERR_UNSUPPORTED_ACTION, "Authorization failed!");
++                        return false;
++                    }
++                    //### return false; ?
++                } else if ((*auth)->forceKeepAlive()) {
++                    //### think this through for proxied / not proxied
++                    m_request.isKeepAlive = true;
++                } else if ((*auth)->forceDisconnect()) {
++                    //### think this through for proxied / not proxied
++                    m_request.isKeepAlive = false;
++                    httpCloseConnection();
+                 }
+-                //### return false; ?
+-            } else if ((*auth)->forceKeepAlive()) {
+-                //### think this through for proxied / not proxied
+-                m_request.isKeepAlive = true;
+-            } else if ((*auth)->forceDisconnect()) {
+-                //### think this through for proxied / not proxied
+-                m_request.isKeepAlive = false;
+-                httpCloseConnection();
+             }
+-        }
+ 
+-        if (m_request.isKeepAlive) {
+-            // Important: trash data until the next response header starts.
+-            readBody(true);
++            if (m_request.isKeepAlive) {
++                // Important: trash data until the next response header starts.
++                readBody(true);
++            }
+         }
+     }
+ 
+@@ -3527,8 +3536,9 @@
+ 
+   // Let the app know about the mime-type iff this is not
+   // a redirection and the mime-type string is not empty.
+-  if (locationStr.isEmpty() && (!m_mimeType.isEmpty() ||
+-      m_request.method == HTTP_HEAD))
++  if (locationStr.isEmpty() &&
++      (!m_mimeType.isEmpty() || m_request.method == HTTP_HEAD) &&
++      (m_isLoadingErrorPage || (m_request.responseCode != 401 && m_request.responseCode != 407)))
+   {
+     kDebug(7113) << "Emitting mimetype " << m_mimeType;
+     mimeType( m_mimeType );
+diff -Nur kdelibs-4.3.4/kioslave/http/kcookiejar/kcookiejar.cpp kdelibs-4.3.5/kioslave/http/kcookiejar/kcookiejar.cpp
+--- kdelibs-4.3.4/kioslave/http/kcookiejar/kcookiejar.cpp	2009-10-02 10:18:06.000000000 +0200
++++ kdelibs-4.3.5/kioslave/http/kcookiejar/kcookiejar.cpp	2010-01-21 21:49:08.000000000 +0100
+@@ -88,16 +88,16 @@
+ // latin1 regardless of their actual encoding.
+ 
+ // L1 is used to indicate latin1 constants
+-#define L1(x) QLatin1String(x)
++#define QL1S(x) QLatin1String(x)
+ 
+ QString KCookieJar::adviceToStr(KCookieAdvice _advice)
+ {
+     switch( _advice )
+     {
+-    case KCookieAccept: return L1("Accept");
+-    case KCookieReject: return L1("Reject");
+-    case KCookieAsk: return L1("Ask");
+-    default: return L1("Dunno");
++    case KCookieAccept: return QL1S("Accept");
++    case KCookieReject: return QL1S("Reject");
++    case KCookieAsk: return QL1S("Ask");
++    default: return QL1S("Dunno");
+     }
+ }
+ 
+@@ -108,11 +108,11 @@
+ 
+     QString advice = _str.toLower();
+ 
+-    if (advice == QLatin1String("accept"))
++    if (advice == QL1S("accept"))
+         return KCookieAccept;
+-    else if (advice == QLatin1String("reject"))
++    else if (advice == QL1S("reject"))
+         return KCookieReject;
+-    else if (advice == QLatin1String("ask"))
++    else if (advice == QL1S("ask"))
+         return KCookieAsk;
+ 
+     return KCookieDunno;
+@@ -129,7 +129,7 @@
+                  const QString &_path,
+                  const QString &_name,
+                  const QString &_value,
+-                 time_t _expireDate,
++                 qint64 _expireDate,
+                  int _protocolVersion,
+                  bool _secure,
+                  bool _httpOnly,
+@@ -150,8 +150,14 @@
+ //
+ // Checks if a cookie has been expired
+ //
+-bool    KHttpCookie::isExpired(time_t currentDate) const
++bool    KHttpCookie::isExpired(qint64 currentDate) const
+ {
++    if (currentDate == -1) {
++        KDateTime epoch;
++        epoch.setTime_t(0);
++        currentDate = epoch.secsTo_long(KDateTime::currentUtcDateTime());
++    }
++
+     return (mExpireDate != 0) && (mExpireDate < currentDate);
+ }
+ 
+@@ -172,9 +178,9 @@
+     {
+         result = mName + '=' + mValue;
+         if (mExplicitPath)
+-            result += L1("; $Path=\"") + mPath + L1("\"");
++            result += QL1S("; $Path=\"") + mPath + QL1S("\"");
+         if (!mDomain.isEmpty())
+-            result += L1("; $Domain=\"") + mDomain + L1("\"");
++            result += QL1S("; $Domain=\"") + mDomain + QL1S("\"");
+     }
+     return result;
+ }
+@@ -306,8 +312,8 @@
+     if (!parseUrl(_url, fqdn, path))
+         return cookieStr;
+ 
+-    bool secureRequest = _url.startsWith( L1("https://"), Qt::CaseInsensitive ) ||
+-                         _url.startsWith( L1("webdavs://"), Qt::CaseInsensitive );
++    bool secureRequest = _url.startsWith( QL1S("https://"), Qt::CaseInsensitive ) ||
++                         _url.startsWith( QL1S("webdavs://"), Qt::CaseInsensitive );
+ 
+     extractDomains(fqdn, domains);
+ 
+@@ -327,7 +333,7 @@
+        }
+        else
+        {
+-          QString key = (*it).isNull() ? L1("") : (*it);
++          QString key = (*it).isNull() ? QL1S("") : (*it);
+           cookieList = m_cookieDomains.value(key);
+           if (!cookieList)
+              continue; // No cookies for this domain
+@@ -361,7 +367,7 @@
+           }
+ 
+           // Do not send expired cookies.
+-          if ( cookie.isExpired (time(0)) )
++          if ( cookie.isExpired())
+           {
+              // Note there is no need to actually delete the cookie here
+              // since the cookieserver will invoke ::saveCookieJar because
+@@ -396,18 +402,18 @@
+     Q_FOREACH(const KHttpCookie& cookie, allCookies) {
+         if (useDOMFormat) {
+             if (cookieCount > 0)
+-                cookieStr += L1("; ");
++                cookieStr += QL1S("; ");
+             cookieStr += cookie.cookieStr(true);
+         } else {
+             if (cookieCount == 0) {
+-                cookieStr += L1("Cookie: ");
++                cookieStr += QL1S("Cookie: ");
+                 if (protVersion > 0) {
+                     QString version;
+                     version.sprintf("$Version=%d; ", protVersion); // Without quotes
+                     cookieStr += version;
+                 }
+             } else {
+-                cookieStr += L1("; ");
++                cookieStr += QL1S("; ");
+             }
+             cookieStr += cookie.cookieStr(false);
+         }
+@@ -522,7 +528,7 @@
+    else if ( domains.count() > 0 )
+       _domain = domains[0];
+    else
+-      _domain = L1("");
++      _domain = QL1S("");
+ }
+ 
+ QString KCookieJar::stripDomain(const KHttpCookie& cookie)
+@@ -546,8 +552,8 @@
+     _fqdn = kurl.host().toLower();
+     if (kurl.port() > 0)
+     {
+-       if (((kurl.protocol() == L1("http")) && (kurl.port() != 80)) ||
+-           ((kurl.protocol() == L1("https")) && (kurl.port() != 443)))
++       if (((kurl.protocol() == QL1S("http")) && (kurl.port() != 80)) ||
++           ((kurl.protocol() == QL1S("https")) && (kurl.port() != 443)))
+        {
+           // It's <port>:<host> so that the sorting works as expected
+           _fqdn = QString::fromLatin1("%1:%2").arg(kurl.port()).arg(_fqdn);
+@@ -564,9 +570,9 @@
+ 
+     _path = kurl.path();
+     if (_path.isEmpty())
+-       _path = L1("/");
++       _path = QL1S("/");
+ 
+-    QRegExp exp(L1("[\\\\/]\\.\\.[\\\\/]"));
++    QRegExp exp(QL1S("[\\\\/]\\.\\.[\\\\/]"));
+     // Weird path, cookie stealing attempt?
+     if (exp.indexIn(_path) != -1)
+        return false; // Deny everything!!
+@@ -579,7 +585,7 @@
+                                 QStringList &_domains) const
+ {
+     if (_fqdn.isEmpty()) {
+-        _domains.append( L1("localhost") );
++        _domains.append( QL1S("localhost") );
+         return;
+     }
+ 
+@@ -630,7 +636,7 @@
+               break;
+        }
+ 
+-       QString domain = partList.join(L1("."));
++       QString domain = partList.join(QL1S("."));
+        _domains.append(domain);
+        _domains.append('.' + domain);
+        partList.erase(partList.begin()); // Remove part
+@@ -642,30 +648,6 @@
+     _domains.prepend( _fqdn );
+ }
+ 
+-/*
+-   Changes dates in from the following format
+-
+-      Wed Sep 12 07:00:00 2007 GMT
+-   to
+-      Wed Sep 12 2007 07:00:00 GMT
+-
+-   to allow KDateTime::fromString to properly parse expiration date formats
+-   used in cookies by some servers such as amazon.com. See BR# 145244.
+-*/
+-static QString fixupDateTime(const QString& date)
+-{
+-  QStringList list = date.split(' ');
+-  const int index = list.indexOf(QRegExp("[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}"));
+-
+-  if (index > -1 && (index+1) < list.count())
+-  {
+-    list.insert(index+1, list.takeAt(index));
+-    return list.join(" ");
+-  }
+-
+-  return date;
+-}
+-
+ //
+ // This function parses cookie_headers and returns a linked list of
+ // KHttpCookie objects for all cookies found in cookie_headers.
+@@ -698,6 +680,9 @@
+     if (i > 0)
+        defaultPath = path.left(i);
+ 
++    KDateTime epoch;
++    epoch.setTime_t(0);
++
+     //  The hard stuff :)
+     for(;;)
+     {
+@@ -715,14 +700,14 @@
+             // Default domain = ""
+             // Default path according to rfc2109
+ 
+-            KHttpCookie cookie(fqdn, L1(""), defaultPath, Name, Value);
++            KHttpCookie cookie(fqdn, QL1S(""), defaultPath, Name, Value);
+             if (windowId)
+                cookie.mWindowIds.append(windowId);
+             cookie.mCrossDomain = crossDomain;
+ 
+             // Insert cookie in chain
+             cookieList.append(cookie);
+-            lastCookie = cookieList.end(); --lastCookie;
++            lastCookie = cookieList.end(); --lastCookie;            
+         }
+         else if (strncasecmp(cookieStr, "Set-Cookie2:", 12) == 0)
+         {
+@@ -733,7 +718,7 @@
+             // Default domain = ""
+             // Default path according to rfc2965
+ 
+-            KHttpCookie cookie(fqdn, L1(""), defaultPath, Name, Value);
++            KHttpCookie cookie(fqdn, QL1S(""), defaultPath, Name, Value);
+             if (windowId)
+                cookie.mWindowIds.append(windowId);
+             cookie.mCrossDomain = crossDomain;
+@@ -785,21 +770,34 @@
+                 if (max_age == 0)
+                     lastCookie->mExpireDate = 1;
+                 else
+-                    lastCookie->mExpireDate = time(0)+max_age;
++                    lastCookie->mExpireDate = epoch.secsTo_long(KDateTime::currentUtcDateTime().addSecs(max_age));
+             }
+             else if (cName == "expires")
+             {
+-                // Parse brain-dead netscape cookie-format
+-                lastCookie->mExpireDate = KDateTime::fromString(Value, KDateTime::RFCDate).toTime_t();
++                // Check for the most common cookie expire date format: Thu, 01-Jan-1970 00:00:00 GMT
++                KDateTime dt = KDateTime::fromString(Value, QL1S("%:A,%t%d-%:B-%Y%t%H:%M:%S%t%Z"));
++                if (!dt.isValid()) {
++                    // Check for a variation of the above format: Thu, 01 Jan 1970 00:00:00 GMT
++                    dt = KDateTime::fromString(Value, QL1S("%:A,%t%d%t%:B%t%Y%t%H:%M:%S%t%Z"));
++                    if (!dt.isValid()) {
++                        // Check for incorrect formats (amazon.com): Thu Jan 01 1970 00:00:00 GMT
++                        dt = KDateTime::fromString(Value, QL1S("%:A%t%:B%t%d%t%Y%t%H:%M:%S%t%Z"));
++                        if (!dt.isValid()) {
++                            // Check for a variation of the above format: Thu Jan 01 00:00:00 1970 GMT (BR# 145244)
++                            dt = KDateTime::fromString(Value, QL1S("%:A%t%:B%t%d%t%H:%M:%S%t%Y%t%Z"));
++                            if (!dt.isValid()) {
++                                // Finally we try the RFC date formats as last resort
++                                dt = KDateTime::fromString(Value, KDateTime::RFCDate);
++                            }
++                        }
++                    }
++                }
+ 
+-                // Workaround for servers that send the expiration date in
+-                // 'Wed Sep 12 07:00:00 2007 GMT' format. See BR# 145244.
+-                if (lastCookie->mExpireDate == -1)
+-                  lastCookie->mExpireDate = KDateTime::fromString(fixupDateTime(Value), KDateTime::RFCDate).toTime_t();
+-
+-                // We encode parse error/invalid as 0, but KDateTime likes -1, so convert
+-                if (lastCookie->mExpireDate == -1)
+-                  lastCookie->mExpireDate = 0;
++                if (dt.isValid()) {
++                    lastCookie->mExpireDate = epoch.secsTo_long(dt);
++                    if (lastCookie->mExpireDate == 0)
++                        lastCookie->mExpireDate = 1;
++                }
+             }
+             else if (cName == "path")
+             {
+@@ -814,12 +812,12 @@
+                 lastCookie->mProtocolVersion = Value.toInt();
+             }
+             else if ((cName == "secure") ||
+-                     (cName.isEmpty() && Value.toLower() == L1("secure")))
++                     (cName.isEmpty() && Value.toLower() == QL1S("secure")))
+             {
+                 lastCookie->mSecure = true;
+             }
+             else if ((cName == "httponly") ||
+-                     (cName.isEmpty() && Value.toLower() == L1("httponly")))
++                     (cName.isEmpty() && Value.toLower() == QL1S("httponly")))
+             {
+                 lastCookie->mHttpOnly = true;
+             }
+@@ -961,7 +959,7 @@
+ 
+     // Add the cookie to the cookie list
+     // The cookie list is sorted 'longest path first'
+-    if (!cookie.isExpired(time(0)))
++    if (!cookie.isExpired())
+     {
+ #ifdef MAX_COOKIE_LIMIT
+         if (cookieList->count() >= MAX_COOKIES_PER_HOST)
+@@ -1246,8 +1244,6 @@
+ 
+     QTextStream ts(&saveFile);
+ 
+-    time_t curTime = time(0);
+-
+     ts << "# KDE Cookie File v2\n#\n";
+ 
+     QString s;
+@@ -1266,7 +1262,7 @@
+         QMutableListIterator<KHttpCookie> cookieIterator(*cookieList);
+         while (cookieIterator.hasNext()) {
+             const KHttpCookie& cookie = cookieIterator.next();
+-            if (cookie.isExpired(curTime)) {
++            if (cookie.isExpired()) {
+                 // Delete expired cookies
+                 cookieIterator.remove();
+             } else if (cookie.expireDate() != 0 && !m_ignoreCookieExpirationDate) {
+@@ -1276,16 +1272,16 @@
+                     ts << '[' << domain.toLocal8Bit().data() << "]\n";
+                 }
+                 // Store persistent cookies
+-                QString path = L1("\"");
++                QString path = QL1S("\"");
+                 path += cookie.path();
+                 path += '"';
+-                QString domain = L1("\"");
++                QString domain = QL1S("\"");
+                 domain += cookie.domain();
+                 domain += '"';
+                 // TODO: replace with direct QTextStream output ?
+-                s.sprintf("%-20s %-20s %-12s %10lu  %3d %-20s %-4i %s\n",
++                s.sprintf("%-20s %-20s %-12s %10lld  %3d %-20s %-4i %s\n",
+                         cookie.host().toLatin1().constData(), domain.toLatin1().constData(),
+-                        path.toLatin1().constData(), (unsigned long) cookie.expireDate(),
++                        path.toLatin1().constData(), cookie.expireDate(),
+                         cookie.protocolVersion(),
+                         cookie.name().isEmpty() ? cookie.value().toLatin1().constData() : cookie.name().toLatin1().constData(),
+                         (cookie.isSecure() ? 1 : 0) + (cookie.isHttpOnly() ? 2 : 0) +
+@@ -1342,7 +1338,7 @@
+         return false;
+     }
+ 
+-    time_t curTime = time(0);
++    qint64 curTime = time(0);
+ 
+     char *buffer = new char[READ_BUFFER_SIZE];
+ 
+@@ -1378,7 +1374,7 @@
+             const QString path = QString::fromLatin1( parseField(line) );
+             const QString expStr = QString::fromLatin1( parseField(line) );
+             if (expStr.isEmpty()) continue;
+-            const int expDate = expStr.toInt();
++            const qint64 expDate = expStr.toLongLong();
+             const QString verStr = QString::fromLatin1( parseField(line) );
+             if (verStr.isEmpty()) continue;
+             int protVer  = verStr.toInt();
+diff -Nur kdelibs-4.3.4/kioslave/http/kcookiejar/kcookiejar.h kdelibs-4.3.5/kioslave/http/kcookiejar/kcookiejar.h
+--- kdelibs-4.3.4/kioslave/http/kcookiejar/kcookiejar.h	2009-03-27 15:47:30.000000000 +0100
++++ kdelibs-4.3.5/kioslave/http/kcookiejar/kcookiejar.h	2010-01-21 21:49:08.000000000 +0100
+@@ -58,7 +58,7 @@
+     QString mPath;
+     QString mName;
+     QString mValue;
+-    time_t  mExpireDate;
++    qint64  mExpireDate;
+     int     mProtocolVersion;
+     bool    mSecure;
+     bool    mCrossDomain;
+@@ -74,7 +74,7 @@
+                          const QString &_path=QString(),
+                          const QString &_name=QString(),
+                          const QString &_value=QString(),
+-                         time_t _expireDate=0,
++                         qint64 _expireDate=0,
+                          int _protocolVersion=0,
+                          bool _secure = false,
+                          bool _httpOnly = false,
+@@ -88,10 +88,14 @@
+     QList<long> &windowIds() { return mWindowIds; }
+     const QList<long> &windowIds() const { return mWindowIds; }
+     void    fixDomain(const QString &domain) { mDomain = domain; }
+-    time_t  expireDate() const { return mExpireDate; }
++    qint64  expireDate() const { return mExpireDate; }
+     int     protocolVersion() const { return mProtocolVersion; }
+     bool    isSecure() const { return mSecure; }
+-    bool    isExpired(time_t currentDate) const;
++    /**
++     *  If currentDate is -1, the default, then the current timestamp in UTC
++     *  is used for comparision against this cookie's expiration date.
++     */
++    bool    isExpired(qint64 currentDate = -1) const;
+     bool    isCrossDomain() const { return mCrossDomain; }
+     bool    isHttpOnly() const { return mHttpOnly; }
+     bool    hasExplicitPath() const { return mExplicitPath; }
+diff -Nur kdelibs-4.3.4/kioslave/http/kcookiejar/kcookiewin.cpp kdelibs-4.3.5/kioslave/http/kcookiejar/kcookiewin.cpp
+--- kdelibs-4.3.4/kioslave/http/kcookiejar/kcookiewin.cpp	2009-04-15 12:26:40.000000000 +0200
++++ kdelibs-4.3.5/kioslave/http/kcookiejar/kcookiewin.cpp	2010-01-21 21:49:08.000000000 +0100
+@@ -40,7 +40,6 @@
+ #include <QtGui/QLabel>
+ #include <QtGui/QLayout>
+ #include <QtGui/QGroupBox>
+-#include <QtCore/QDate>
+ #include <QtGui/QPushButton>
+ #include <QtGui/QRadioButton>
+ #include <QtGui/QShortcut>
+@@ -53,6 +52,7 @@
+ #include <kapplication.h>
+ #include <kwindowsystem.h>
+ #include <kvbox.h>
++#include <kdatetime.h>
+ 
+ KCookieWin::KCookieWin( QWidget *parent, KHttpCookieList cookieList,
+                         int defaultButton, bool showDetails )
+@@ -284,7 +284,7 @@
+     else
+         m_domain->setText(cookie.domain());
+     m_path->setText(cookie.path());
+-    QDateTime cookiedate;
++    KDateTime cookiedate;
+     cookiedate.setTime_t(cookie.expireDate());
+     if (cookie.expireDate())
+         m_expires->setText(KGlobal::locale()->formatDateTime(cookiedate));
+diff -Nur kdelibs-4.3.4/kioslave/http/kcookiejar/tests/cookie.test kdelibs-4.3.5/kioslave/http/kcookiejar/tests/cookie.test
+--- kdelibs-4.3.4/kioslave/http/kcookiejar/tests/cookie.test	2008-07-03 07:06:26.000000000 +0200
++++ kdelibs-4.3.5/kioslave/http/kcookiejar/tests/cookie.test	2010-01-21 21:49:08.000000000 +0100
+@@ -160,3 +160,13 @@
+ CHECK https://192.168.0.1 Cookie: name1=value1; name11=value11; name3=value3
+ CHECK http://192.168.0.10
+ CHECK http://192.168.0
++## Check expiration dates for the Y2K38 problem
++COOKIE ASK http://foo.bar Set-Cookie: name=value;expires=Tue, 06-Dec-2039 00:30:42 GMT;path="/"
++CHECK http://foo.bar Cookie: name=value
++CLEAR COOKIES
++## Check non-standard expiration dates (BR# 145244/amazon.com)
++COOKIE ASK http://foo.bar Set-Cookie: name=value; expires=Sat Sep 12 07:00:00 2020 GMT; path="/"
++COOKIE ASK http://foo.bar Set-Cookie: name1=value1; expires=Thu, 01 Jan 1970 00:00:00 GMT; path="/"
++COOKIE ASK http://foo.bar Set-Cookie: name2=value2; expires=Sat Sep 12 2020 07:00:00 GMT; path="/"
++CHECK http://foo.bar Cookie: name=value; name2=value2
++CLEAR COOKIES
+diff -Nur kdelibs-4.3.4/kparts/browserview.desktop kdelibs-4.3.5/kparts/browserview.desktop
+--- kdelibs-4.3.4/kparts/browserview.desktop	2009-10-02 10:18:14.000000000 +0200
++++ kdelibs-4.3.5/kparts/browserview.desktop	2010-01-21 21:49:12.000000000 +0100
+@@ -35,7 +35,7 @@
+ Name[he]=תצוגת דפדפן
+ Name[hi]=ब्राउज़र दृश्य
+ Name[hne]=ब्राउजर दृस्य
+-Name[hr]=Pogled pretraživača
++Name[hr]=Prikaz pretraživača
+ Name[hsb]=Browserowy napohlad
+ Name[hu]=Böngészőnézet
+ Name[is]=Vafrasýn
+@@ -79,7 +79,7 @@
+ Name[tg]=Намуди намоишгар
+ Name[th]=มุมมองแบบเบราว์เซอร์
+ Name[tr]=Tarayıcı Görünümü
+-Name[uk]=Перегляд "Навігація"
++Name[uk]=Перегляд «Навігація»
+ Name[uz]=Brauzerning koʻrinishi
+ Name[uz@cyrillic]=Браузернинг кўриниши
+ Name[vi]=Xem duyệt
+diff -Nur kdelibs-4.3.4/nepomuk/core/nepomukmainmodel.cpp kdelibs-4.3.5/nepomuk/core/nepomukmainmodel.cpp
+--- kdelibs-4.3.4/nepomuk/core/nepomukmainmodel.cpp	2009-10-02 10:18:07.000000000 +0200
++++ kdelibs-4.3.5/nepomuk/core/nepomukmainmodel.cpp	2010-01-21 21:49:09.000000000 +0100
+@@ -86,7 +86,8 @@
+     void init() {
+         QMutexLocker lock( &m_initMutex );
+ 
+-        if ( QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.NepomukStorage") ) {
++        // Comment out the check for the storage service via DBus - fixes bug 209821
++        //if ( QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.NepomukStorage") ) {
+             if ( !dbusModel ) {
+                 dbusModel = dbusClient.createModel( "main" );
+             }
+@@ -111,7 +112,7 @@
+                     kDebug() << "Failed to connect to Nepomuk server via local socket" << socketName;
+                 }
+             }
+-        }
++        //}
+     }
+ 
+     Soprano::Model* model() {
+diff -Nur kdelibs-4.3.4/plasma/servicetypes/plasma-applet-extenderapplet.desktop kdelibs-4.3.5/plasma/servicetypes/plasma-applet-extenderapplet.desktop
+--- kdelibs-4.3.4/plasma/servicetypes/plasma-applet-extenderapplet.desktop	2009-10-02 10:18:10.000000000 +0200
++++ kdelibs-4.3.5/plasma/servicetypes/plasma-applet-extenderapplet.desktop	2010-01-21 21:49:07.000000000 +0100
+@@ -4,6 +4,7 @@
+ Name[be@latin]=Zbor
+ Name[bg]=Колекция
+ Name[ca]=Col·lecció
++Name[ca@valencia]=Col·lecció
+ Name[cs]=Kolekce
+ Name[da]=Samling
+ Name[de]=Sammlung
+diff -Nur kdelibs-4.3.4/plasma/servicetypes/plasma-applet-popupapplet.desktop kdelibs-4.3.5/plasma/servicetypes/plasma-applet-popupapplet.desktop
+--- kdelibs-4.3.4/plasma/servicetypes/plasma-applet-popupapplet.desktop	2009-10-02 10:18:10.000000000 +0200
++++ kdelibs-4.3.5/plasma/servicetypes/plasma-applet-popupapplet.desktop	2010-01-21 21:49:07.000000000 +0100
+@@ -7,6 +7,7 @@
+ Comment[be@latin]=Skryptavy vypłyŭny aplet „Plasma”
+ Comment[bg]=Аплет за Plasma за скриптове за изскачащи прозорци
+ Comment[ca]=Miniaplicació emergent d'scripting del Plasma
++Comment[ca@valencia]=Miniaplicació emergent d'scripting del Plasma
+ Comment[cs]=Skriptovací vyskakující Plasma applet
+ Comment[da]=Popop-applet til Plasma-scripting
+ Comment[de]=Plasma-Skript-Miniprogramm
+diff -Nur kdelibs-4.3.4/plasma/servicetypes/plasma-runner.desktop kdelibs-4.3.5/plasma/servicetypes/plasma-runner.desktop
+--- kdelibs-4.3.4/plasma/servicetypes/plasma-runner.desktop	2009-10-02 10:18:10.000000000 +0200
++++ kdelibs-4.3.5/plasma/servicetypes/plasma-runner.desktop	2010-01-21 21:49:07.000000000 +0100
+@@ -64,7 +64,7 @@
+ Comment[tg]=Васлкунаки KRunner
+ Comment[th]=โปรแกรมเสริมของ KRunner
+ Comment[tr]=KRunner eklentisi
+-Comment[uk]=Втулок KRunner
++Comment[uk]=Додаток до KRunner
+ Comment[wa]=Tchôke-divins KRunner
+ Comment[x-test]=xxKRunner pluginxx
+ Comment[zh_CN]=KRunner 插件
+diff -Nur kdelibs-4.3.4/plasma/servicetypes/plasma-scriptengine.desktop kdelibs-4.3.5/plasma/servicetypes/plasma-scriptengine.desktop
+--- kdelibs-4.3.4/plasma/servicetypes/plasma-scriptengine.desktop	2009-10-02 10:18:10.000000000 +0200
++++ kdelibs-4.3.5/plasma/servicetypes/plasma-scriptengine.desktop	2010-01-21 21:49:07.000000000 +0100
+@@ -60,7 +60,7 @@
+ Comment[tg]=Скрипти забонҳои иловагӣ барои Plasma
+ Comment[th]=ส่วนเสริมภาษาสคริปต์สำหรับพลาสมา
+ Comment[tr]=Plasma için betik dili eklentisi
+-Comment[uk]=Розширення скриптових мов для Plasma
++Comment[uk]=Розширення скриптових мов для Плазми
+ Comment[wa]=Sitindaedje lingaedje di scripe po Plasma
+ Comment[x-test]=xxScripting language extension for Plasmaxx
+ Comment[zh_CN]=Plasma 的扩展脚本语言
+diff -Nur kdelibs-4.3.4/security/kcert/kcertpart.desktop kdelibs-4.3.5/security/kcert/kcertpart.desktop
+--- kdelibs-4.3.4/security/kcert/kcertpart.desktop	2009-10-02 10:18:08.000000000 +0200
++++ kdelibs-4.3.5/security/kcert/kcertpart.desktop	2010-01-21 21:49:10.000000000 +0100
+@@ -67,8 +67,8 @@
+ Comment[si]=ඇතෘලත් කළ හැකි පෞද්ගලික සහතික කළමණාකරු
+ Comment[sk]=Vložiteľný osobný správca certifikátorv
+ Comment[sl]=Vgradljivi osebni upravljalnik certifikatov
+-Comment[sr]=Угњездиви менаџер личних сертификата
+-Comment[sr@latin]=Ugnjezdivi menadžer ličnih sertifikata
++Comment[sr]=Угнездиви менаџер личних сертификата
++Comment[sr@latin]=Ugnezdivi menadžer ličnih sertifikata
+ Comment[sv]=Inbäddningsbar personlig certifikatshanterare
+ Comment[ta]=உட்பொதிந்த சொந்தச் சான்றிதழ் மேலாளர்
+ Comment[te]=పొదగబడె వక్తిగత ప్రమాణ పత్రాల అభికర్త

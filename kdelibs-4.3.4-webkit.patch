@@ -1,0 +1,28 @@
+diff -up kdelibs-4.3.4/plasma/CMakeLists.txt.nowebkit kdelibs-4.3.4/plasma/CMakeLists.txt
+--- kdelibs-4.3.4/plasma/CMakeLists.txt.nowebkit	2009-05-06 12:14:41.000000000 +0200
++++ kdelibs-4.3.4/plasma/CMakeLists.txt	2010-05-28 23:23:47.562431112 +0200
+@@ -126,7 +126,6 @@ set(plasma_LIB_SRCS
+     widgets/textbrowser.cpp
+     widgets/treeview.cpp
+     widgets/textedit.cpp
+-    widgets/webview.cpp
+ )
+ 
+ #NEPOMUK_GENERATE_FROM_ONTOLOGY(
+@@ -154,7 +153,7 @@ endif(PHONON_FOUND)
+ kde4_add_library(plasma SHARED ${plasma_LIB_SRCS})
+ 
+ target_link_libraries(plasma ${KDE4_KIO_LIBS} ${KDE4_KFILE_LIBS} knewstuff2
+-                             ${QT_QTUITOOLS_LIBRARY} ${QT_QTWEBKIT_LIBRARY}
++                             ${QT_QTUITOOLS_LIBRARY}
+                              threadweaver ${KDE4_SOLID_LIBS} )
+ if(X11_FOUND)
+    target_link_libraries(plasma ${X11_LIBRARIES})
+@@ -264,7 +263,6 @@ install(FILES
+     widgets/textbrowser.h
+     widgets/treeview.h
+     widgets/textedit.h
+-    widgets/webview.h
+     DESTINATION ${INCLUDE_INSTALL_DIR}/plasma/widgets COMPONENT Devel)
+ 
+ install(FILES

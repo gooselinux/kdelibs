@@ -1,0 +1,15 @@
+--- kdelibs/khtml/khtmlview.cpp	2010/01/19 21:33:35	1077282
++++ kdelibs/khtml/khtmlview.cpp	2010/02/12 15:41:35	1089160
+@@ -604,6 +604,12 @@
+         setWidget( new QWidget(this) );
+     widget()->setAttribute( Qt::WA_NoSystemBackground );
+ 
++    // Do *not* remove this attribute frivolously.
++    // You might not notice a change of behaviour in Debug builds
++    // but removing opaque events will make QWidget::scroll fail horribly
++    // in Release builds.
++    widget()->setAttribute( Qt::WA_OpaquePaintEvent );
++
+     verticalScrollBar()->setCursor( Qt::ArrowCursor );
+     horizontalScrollBar()->setCursor( Qt::ArrowCursor );
+ 

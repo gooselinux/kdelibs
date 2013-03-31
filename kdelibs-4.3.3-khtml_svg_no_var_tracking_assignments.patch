@@ -1,0 +1,11 @@
+diff -up kdelibs-4.3.3/khtml/CMakeLists.txt.SVGNames kdelibs-4.3.3/khtml/CMakeLists.txt
+--- kdelibs-4.3.3/khtml/CMakeLists.txt.SVGNames	2009-08-27 03:19:09.000000000 -0500
++++ kdelibs-4.3.3/khtml/CMakeLists.txt	2009-11-13 17:43:07.618002091 -0600
+@@ -194,6 +194,7 @@ set(khtmldom_STAT_SRCS
+ )
+ 
+ #set_source_files_properties(${khtmldom_STAT_SRCS} PROPERTIES COMPILE_FLAGS ${KDE4_ENABLE_EXCEPTIONS})
++set_source_files_properties(${khtmlsvg_STAT_SRCS} PROPERTIES COMPILE_FLAGS -fno-var-tracking-assignments )
+ 
+ # khtml/misc/Makefile.am: khtmlmisc
+ 
